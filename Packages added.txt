@@ -1,0 +1,2 @@
+npm install --save styled-components
+npm install --save-dev babel-plugin-styled-components
