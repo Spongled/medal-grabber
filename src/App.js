@@ -26,6 +26,7 @@ const Container = styled.div`
 `
 
 const Content = styled.div`
+  color: #fff;
   display: grid;
   box-sizing: border-box;
   align-content: flex-start;
@@ -44,7 +45,10 @@ function App() {
       <Wrapper>
         <Container>
           <Content>
-            Test
+            <div>Flex 1</div>
+            <div>Flex 2</div>
+            <div>Flex 3</div>
+            <div>Flex 4</div>
           </Content>
         </Container>
       </Wrapper>
