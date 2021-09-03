@@ -1,5 +1,7 @@
+
 import styled from 'styled-components';
 import ErrorBoundary from './components/ErrorBoundary.js';
+import medalLogo from "./assets/img/medal.svg"
 
 const Wrapper = styled.div`
   position: fixed;
@@ -18,11 +20,10 @@ const Container = styled.div`
   position: relative;
   border-top: 2px solid #ffb84b;
   display: flex;
-  box-sizing: border-box;
+  flex-direction: column;
   max-width: 100%;
   min-width: 0px;
   min-height: 0px;
-  flex-direction: column;
 `
 
 const Content = styled.div`
@@ -30,12 +31,40 @@ const Content = styled.div`
   display: grid;
   box-sizing: border-box;
   align-content: flex-start;
-  grid-template-areas:
-      ". header header ."
-      ". main aside ."
-      ". footer footer .";
-  grid-template-columns: auto 736px 400px auto;
-  grid-template-rows: auto auto auto;
+  justify-content: center;
+`
+
+const FlexBox = styled.div`
+  display: flex;
+  box-sizing: border-box;
+  max-width: 100%;
+  grid-area: main;
+  margin: 0px;
+  min-width: 0px;
+  min-height: 0px;
+  flex-direction: column;
+  height: 100%;
+`
+
+const TitleContainer = styled.div`
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2.5rem;
+`
+
+const MedalLogo = styled.img`
+  vertical-align: middle;
+  width: 75px;
+  margin-right: 15px;
+`
+
+const MedalHeader = styled.header`
+  display: inline;
+  vertical-align: middle;
+  font-size: 2.5rem;
+  letter-spacing: 10px;
+  color: #fff;
 `
 
 
@@ -44,12 +73,10 @@ function App() {
     <ErrorBoundary>
       <Wrapper>
         <Container>
-          <Content>
-            <div>Flex 1</div>
-            <div>Flex 2</div>
-            <div>Flex 3</div>
-            <div>Flex 4</div>
-          </Content>
+          <TitleContainer>
+            <MedalLogo src={medalLogo} alt="Medal.tv Logo"/>
+            <MedalHeader>GRABBER</MedalHeader>
+          </TitleContainer>
         </Container>
       </Wrapper>
     </ErrorBoundary>
