@@ -1,10 +1,20 @@
-const ClipPlayer = ({ Clip, ClipTitle }) => {
+import styled from 'styled-components'
+
+const VideoWrapper = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 56.25%; /* 16:9 */
+  margin-bottom: 2rem;
+`
+
+const ClipPlayer = ({Clip, ClipTitle}) => {
     return (
       <>
         <div>{ClipTitle}</div>
-        <div className="text-center video-wrapper">
+        <VideoWrapper>
           <div dangerouslySetInnerHTML={{ __html: Clip}}></div>
-        </div>
+        </VideoWrapper>
         
       </>
     )

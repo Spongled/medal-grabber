@@ -12,7 +12,7 @@ const Wrapper = styled.div`
 `
 const MainPanel = styled.div`
   border-top: 2px solid #FFB84B;
-  max-height: 19vh !important;
+  max-height: 100% !important;
   width: 100%;
   background-image: url(https://cdn.medal.tv/games/background/background-default.png);
   background-repeat: no-repeat;
@@ -24,38 +24,49 @@ const MainPanel = styled.div`
   box-shadow: inset 0 0 0 1000px rgb(0 0 0 / 50%);
   // This colour is applied over the background image. The image is transparent, meaning there's also a colour behind it in on the body tag. This is located in index.css. Use background-color: rgb(0 0 0 / 100%) to mimic official styling.
 `
-const Content = styled.div`
-  display: flex;
+const GridContainer = styled.div`
+  display: grid;
   flex-direction: column;
   align-items: center;
-  // justify-content: center;
-  // align-content: center;
+  grid-template-columns: 1.5fr 2.5fr 1.5fr;
+  grid-template-rows: auto auto auto;
+  justify-items: center;
+  justify-content: center;
+  align-content: center;
+
+  @media screen and (max-width: 1024px){
+    grid-template-columns: 0.5fr 4fr 0.5fr;
+  }
 `
-const HeaderContent = styled.div`
-  display: block;
+const Content = styled.div`
+  grid-column-start: 2;
+  grid-column-end: 3;
+`
+const HeaderContainer = styled.div`
+  display: flex;
   margin-left: auto;
   margin-right: auto;
   margin-top: 2.5rem;
+  justify-content: center;
 `
 const MedalLogo = styled.img`
   vertical-align: middle;
-  width: 75px;
+  width: 70px;
   margin-right: 15px;
 `
-const MedalHeader = styled.header`
+const GrabberTitle = styled.header`
   display: inline;
   vertical-align: middle;
   font-size: 2.5rem;
   letter-spacing: 10px;
   color: #fff;
 `
+
 function App() {
   var ps;
   const mainPanelRef = useRef(null);
   useEffect(() => {
     if (navigator.platform.indexOf("Win") > -1) {
-      document.documentElement.className += " perfect-scrollbar-on";
-      document.documentElement.classList.remove("perfect-scrollbar-off");
       ps = new PerfectScrollbar(mainPanelRef.current, {
         suppressScrollX: true,
       });
@@ -64,8 +75,6 @@ function App() {
     return function cleanup() {
       if (navigator.platform.indexOf("Win") > -1) {
         ps.destroy();
-        document.documentElement.classList.add("perfect-scrollbar-off");
-        document.documentElement.classList.remove("perfect-scrollbar-on");
       }
     };
   });
@@ -74,13 +83,15 @@ function App() {
     <ErrorBoundary>
       <Wrapper>
         <MainPanel ref={mainPanelRef}>
-          <Content>
-            <HeaderContent>
-              <MedalLogo src={medalLogo} alt="Medal.tv Logo"/>
-              <MedalHeader>GRABBER</MedalHeader>
-            </HeaderContent>
-            <Grabber/>
-          </Content>
+          <HeaderContainer>
+            <MedalLogo src={medalLogo} alt="Medal.tv logo"/>
+            <GrabberTitle>GRABBER</GrabberTitle>
+          </HeaderContainer>
+          <GridContainer>
+            <Content>
+              <Grabber/>
+            </Content>
+          </GridContainer>
         </MainPanel>
       </Wrapper>
     </ErrorBoundary>

@@ -23,9 +23,7 @@ const BtnRefresh = ({btnText, refreshClicked}) => {
     return (
         <>
           <div>
-            <p className="lead text-center">
-              <BtnMedal onClick={refreshClicked}><FontAwesomeIcon icon={faSyncAlt}/> {btnText}</BtnMedal>
-            </p>
+            <BtnMedal onClick={refreshClicked}><FontAwesomeIcon icon={faSyncAlt}/> {btnText}</BtnMedal>
           </div>
         </>
     )
