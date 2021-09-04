@@ -41,7 +41,6 @@
     ]
   },
   "devDependencies": {
-    "babel-plugin-styled-components": "^1.13.2",
-    "sass": "^1.39.0"
+    "babel-plugin-styled-components": "^1.13.2"
   }
 }

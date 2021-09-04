@@ -1,7 +1,6 @@
-npm install --save styled-components
+npm install styled-components
 npm install --save-dev babel-plugin-styled-components
-npm i --save @fortawesome/fontawesome-svg-core
-npm install --save @fortawesome/free-solid-svg-icons
-npm install --save @fortawesome/react-fontawesome
-npm i perfect-scrollbar@1.4.0 // use 1.4, 1.5 is bugged and lets you scroll past boundaries.
-npm i sass --save-dev
+npm install @fortawesome/fontawesome-svg-core
+npm install @fortawesome/free-solid-svg-icons
+npm install @fortawesome/react-fontawesome
+npm install perfect-scrollbar@1.4.0 // use 1.4, 1.5 is bugged and lets you scroll past boundaries.
