@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-import ClipPlayer from "./ClipPlayer.js";
-import BtnRefresh from "./BtnRefresh.js";
-import Loader from "./Loader.js";
+import { useState, useEffect } from 'react'
+import ClipPlayer from './ClipPlayer.js'
+import BtnRefresh from './BtnRefresh.js'
+import Loader from './Loader.js'
 
 function Grabber () {
   const API_KEY = `pub_MsoICw6lrMKaofb7YjV8Qs9ggYFhWWp5`;
@@ -61,8 +61,7 @@ function Grabber () {
   }, [clipAmount, userID])
 
   return (
-    <>
-      <div className="alert alert-medal-grey font-weight-bold" role="alert">Let's watch some Medal clips 😎<span color="medal" className="badge-roll-number">Clips displayed: {clipAmount}</span></div>
+      <>
         <fieldset>
           <p>Choose clip amount:</p>
           <select onChange={e => setClipAmount(e.target.value)} type="select" name="select" id="inputID">
@@ -83,7 +82,7 @@ function Grabber () {
           <p>Enter user ID (or leave it blank for recent clips from random users!):</p>
           <input id="userID" type="text" name="text"/>
         </fieldset>
-        {/* <BtnRefresh btnText={loading ? 'Search ID' : 'Grabbing...'} refreshClicked={() => getInputFromDOM()}/> */}
+        <BtnRefresh btnText={loading ? 'Grab from ID' : 'Grabbing 😎 '} refreshClicked={() => getInputFromDOM()}/>
       { loading 
         ? null
         : <Loader/>

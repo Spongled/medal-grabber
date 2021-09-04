@@ -1,13 +1,13 @@
-import styled from 'styled-components';
-import medalLogo from './assets/img/medal.svg';
-import ErrorBoundary from './components/ErrorBoundary.js';
-import Grabber from './components/Grabber.js';
+import styled from 'styled-components'
+import medalLogo from './assets/img/medal.svg'
+import ErrorBoundary from './components/ErrorBoundary.js'
+import Grabber from './components/Grabber.js'
 
 const Wrapper = styled.div`
-  position: fixed;
+  position: absolute;
   border-top: 2px solid #ffb84b;
-  min-width: 100vw;
-  min-height: 100vh;
+  min-width: 100%;
+  min-height: 100%;
   background-image: url(https://cdn.medal.tv/games/background/background-default.png);
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -15,6 +15,11 @@ const Wrapper = styled.div`
   top: 0px;
   left: 0px;
   box-shadow: inset 0 0 0 1000px rgb(0 0 0 / 50%); // This colour is applied over the background image. The image is transparent, meaning there's also a colour behind it in on the body tag. This is located in index.css. Use background-color: rgb(0 0 0 / 100%) to mimic official styling.
+`
+const Main = styled.div`
+  position: absolute;
+  min-width: 100%;
+  min-height: 100%;
 `
 const Container = styled.div`
   position: relative;
@@ -49,6 +54,7 @@ function App() {
   return (
     <ErrorBoundary>
       <Wrapper>
+        <Main>
         <Container>
           <HeaderContainer>
             <MedalLogo src={medalLogo} alt="Medal.tv Logo"/>
@@ -56,6 +62,7 @@ function App() {
           </HeaderContainer>
           <Grabber/>
         </Container>
+        </Main>
       </Wrapper>
     </ErrorBoundary>
   );
