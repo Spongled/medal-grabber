@@ -4,32 +4,21 @@ import medalLogo from './assets/img/medal.svg'
 import ErrorBoundary from './components/ErrorBoundary.js'
 import Grabber from './components/Grabber.js'
 import PerfectScrollbar from 'perfect-scrollbar';
-var ps;
 
 const Wrapper = styled.div`
   position: relative;
   top: 0;
   height: 100vh;
 `
-
 const MainPanel = styled.div`
   border-top: 2px solid #FFB84B;
-  
-  // height: 100%;
   max-height: 19vh !important;
-   
-  // overflow: hidden !important;
-  // overflow-anchor: none;
-  // touch-action: auto;
-
   width: 100%;
   background-image: url(https://cdn.medal.tv/games/background/background-default.png);
   background-repeat: no-repeat;
   background-size: cover;
   position: fixed;
-  // background-attachment: fixed;
   top: 0px;
-  // left: 0px;
   min-width: 100vw;
   min-height: 100vh;
   box-shadow: inset 0 0 0 1000px rgb(0 0 0 / 50%);
@@ -61,6 +50,7 @@ const MedalHeader = styled.header`
   color: #fff;
 `
 function App() {
+  var ps;
   const mainPanelRef = useRef(null);
   useEffect(() => {
     if (navigator.platform.indexOf("Win") > -1) {
@@ -83,7 +73,7 @@ function App() {
   return (
     <ErrorBoundary>
       <Wrapper>
-        <MainPanel ref={mainPanelRef} className="main-panel">
+        <MainPanel ref={mainPanelRef}>
           <Content>
             <HeaderContent>
               <MedalLogo src={medalLogo} alt="Medal.tv Logo"/>
