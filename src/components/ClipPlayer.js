@@ -23,7 +23,7 @@ const ClipInfoContainer = styled.div`
   margin-bottom: 1rem;
   z-index: 1;
 `
-const ClipInfoHeader = styled.div`
+const ClipInfo = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -96,7 +96,7 @@ const ClipPlayer = ({Clip, ClipTitle, ClipViews, ClipLikes, ClipLink, ClipLength
           <div dangerouslySetInnerHTML={{ __html: Clip}}></div>
         </VideoWrapper>
         <ClipInfoContainer>
-          <ClipInfoHeader>
+          <ClipInfo>
             <TitleAndEngagementContainer>
               <ClipInfoEngagement>
                 <InfoBadge>
@@ -110,11 +110,7 @@ const ClipPlayer = ({Clip, ClipTitle, ClipViews, ClipLikes, ClipLink, ClipLength
               <InfoBadge title="Clip length"><FontAwesomeIcon icon={faStopwatch}/> {ClipLength}s</InfoBadge>
               <ExternalLink href={ClipLink} target="blank_" title="View clip in new tab"><FontAwesomeIcon icon={faExternalLinkSquareAlt}/></ExternalLink>
             </LengthAndExternalContainer>
-            
-          </ClipInfoHeader>
-          <ClipInfoFooter>
-            
-          </ClipInfoFooter>
+          </ClipInfo>
         </ClipInfoContainer>
       </>
     )
