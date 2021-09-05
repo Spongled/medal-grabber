@@ -1,3 +1,4 @@
+import {useState, useEffect} from 'react'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExternalLinkSquareAlt, faStopwatch } from '@fortawesome/free-solid-svg-icons'
@@ -88,8 +89,41 @@ const LengthAndExternalContainer = styled.div`
   align-items: center;
 `
 
-
 const ClipPlayer = ({Clip, ClipTitle, ClipViews, ClipLikes, ClipLink, ClipLength}) => {
+  
+  const [hasLength, setHasLength] = useState(false)
+
+  useEffect(() => {
+    setHasLength(false)
+    const clipLengthString = JSON.stringify({ClipLength})
+    const timeValue = clipLengthString.match(/\d+/g)
+    console.log("timeValue: " +  timeValue)
+    if (timeValue !== 0){
+      setHasLength(true)
+      console.log("inside if: " +  hasLength)
+    }
+  })
+
+  // useEffect(() => {
+  //   timeGetter()
+  // })
+
+  // var timeBool  = false
+
+  // const timeGetter = function(){
+    
+  //   const clipLengthString = JSON.stringify({ClipLength})
+  //   const time = clipLengthString.match(/\d+/g)
+  //   console.log("Time: " + time)
+  //   if (time == 0){
+  //     timeBool = true
+  //   }
+  //   console.log(timeBool)
+  //   return timeBool
+  // }
+
+  // console.log("logging timeBool outside: " + timeBool)
+
     return (
       <>
         <VideoWrapper>
@@ -107,7 +141,10 @@ const ClipPlayer = ({Clip, ClipTitle, ClipViews, ClipLikes, ClipLink, ClipLength
               <ExternalLinkTitle href={ClipLink} target="blank_" title="View clip in new tab"><ClipTitleContainer>{ClipTitle}</ClipTitleContainer></ExternalLinkTitle>
             </TitleAndEngagementContainer>
             <LengthAndExternalContainer>
-              <InfoBadge title="Clip length"><FontAwesomeIcon icon={faStopwatch}/> {ClipLength}s</InfoBadge>
+            { hasLength
+              ? <InfoBadge title="Clip length"><FontAwesomeIcon icon={faStopwatch}/> {ClipLength}s</InfoBadge>
+              : null
+            }
               <ExternalLink href={ClipLink} target="blank_" title="View clip in new tab"><FontAwesomeIcon icon={faExternalLinkSquareAlt}/></ExternalLink>
             </LengthAndExternalContainer>
           </ClipInfo>

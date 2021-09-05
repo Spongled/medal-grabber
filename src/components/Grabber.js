@@ -170,6 +170,7 @@ function Grabber () {
     setUserID(userID)
   }
 
+  // Pressisng enter in user ID input should trigger getInputFromDOM()
   return (
       <>
         <Instruction>Choose clip amount:</Instruction>
