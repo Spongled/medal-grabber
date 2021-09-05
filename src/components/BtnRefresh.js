@@ -13,18 +13,23 @@ const BtnMedal = styled.button`
   position: relative;
   background: rgb(255, 184, 75);
   border: none;
-  height: 40px;
-  width: 100%;
-  padding: 8px 24px;
+  padding: 15px 48px;
   color: rgb(19, 19, 29);
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease-in-out;
+
+  :hover {
+    background: #FFE85C;
+    transform: translateY(-2px);
+  }
 `
+
 
 const BtnRefresh = ({btnText, refreshClicked}) => {
     return (
         <>
-          <div>
-            <BtnMedal onClick={refreshClicked}><FontAwesomeIcon icon={faSyncAlt}/> {btnText}</BtnMedal>
-          </div>
+          <BtnMedal onClick={refreshClicked}><FontAwesomeIcon icon={faSyncAlt}/> {btnText}</BtnMedal>
         </>
     )
 }

@@ -13,6 +13,7 @@ const Wrapper = styled.div`
 const MainPanel = styled.div`
   border-top: 2px solid #FFB84B;
   max-height: 100% !important;
+
   width: 100%;
   background-image: url(https://cdn.medal.tv/games/background/background-default.png);
   background-repeat: no-repeat;
@@ -28,13 +29,13 @@ const GridContainer = styled.div`
   display: grid;
   flex-direction: column;
   align-items: center;
-  grid-template-columns: 1.5fr 2.5fr 1.5fr;
+  grid-template-columns: 1.5fr 1.5fr 1.5fr;
   grid-template-rows: auto auto auto;
-  justify-items: center;
-  justify-content: center;
-  align-content: center;
+  // justify-items: center;
+  // justify-content: center;
+  // align-content: center;
 
-  @media screen and (max-width: 1024px){
+  @media screen and (max-width: 1500px){
     grid-template-columns: 0.5fr 4fr 0.5fr;
   }
 `
