@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import ClipPlayer from './ClipPlayer.js'
 import BtnRefresh from './BtnRefresh.js'
-import Loader from './Loader.js'
 
 const InputClipSelect = styled.select`
   font-family: "DM Sans", sans-serif;
   font-size: 0.75rem;
+  height: 48px;
   border-radius: 0.4285rem;
   border: 1px solid #2b3553;
   width: 100%;
@@ -34,10 +34,10 @@ const InputClipOption = styled.option`
 const InputUserID = styled.input`
   font-family: "DM Sans", sans-serif;
   font-size: 0.75rem;
+  width: 65%;
   border-radius: 0.4285rem;
   border: 1px solid #2b3553;
   padding: 0.5rem 0.7rem;
-  margin-bottom: 1rem;
   color: rgba(255, 255, 255, 0.8);
   background-color: transparent;
   background-clip: padding-box;
@@ -47,11 +47,52 @@ const InputUserID = styled.input`
     border-color: rgb(255,184,75) !important;
     outline: 0;
   }
+
+  @media screen and (max-width: 880px){
+    width: 60%;
+  }
+
+  @media screen and (max-width: 768px){
+    width: 40%;
+  }
 `
 const FlexContainer = styled.div`
-display: flex;
-justify-content: flex-end;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
 `
+const Loader = styled.div`
+  position: absolute;
+  margin-top: 5rem;
+  font-size: 5px;
+  border-radius: 50%;
+  width: 9em;
+  height: 9em;
+  left: 49%;
+  border-top: 1.1em solid rgba(255, 255, 255, 0.2);
+  border-right: 1.1em solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1.1em solid rgba(255, 255, 255, 0.2);
+  border-left: 1.1em solid #ffffff;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation: load8 1.1s infinite linear;
+  animation: load8 1.1s infinite linear;
+
+  :after {
+    border-radius: 50%;
+    width: 10em;
+    height: 10em;
+  }
+
+  @media only screen and (max-width: 414px) {
+    .loader {
+      top: 28%;
+      left: 45%;
+  }
+}
+`
+// Add a dismissable box with brief description. Maybe dull the background and focus the box until "Got it!" is clicked by the user?
 
 function Grabber () {
   const API_KEY = `pub_MsoICw6lrMKaofb7YjV8Qs9ggYFhWWp5`;
@@ -128,7 +169,7 @@ function Grabber () {
         </InputClipSelect>
         <p>Enter user ID (or leave it blank for recent clips from random users!):</p>
         <FlexContainer>
-          <InputUserID type="number" id="userID"/>
+          <InputUserID type="number" id="userID" placeholder="e.g. 261997"/>
           <BtnRefresh btnText={loading ? 'Grab from ID' : 'Grabbing 😎 '} refreshClicked={() => getInputFromDOM()}/>
         </FlexContainer>
       { loading 

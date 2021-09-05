@@ -15,13 +15,19 @@ const BtnMedal = styled.button`
   border: none;
   padding: 15px 48px;
   color: rgb(19, 19, 29);
-  margin-top: 1rem;
-  margin-bottom: 1rem;
   transition: all 0.3s ease-in-out;
 
   :hover {
     background: #FFE85C;
     transform: translateY(-2px);
+  }
+
+  @media screen and (max-width: 880px){
+    padding: 15px 40px;
+  }
+
+  @media screen and (max-width: 768px){
+    padding: 15px 35px;
   }
 `
 
