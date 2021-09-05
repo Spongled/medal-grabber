@@ -22,7 +22,8 @@ const MainPanel = styled.div`
   top: 0px;
   min-width: 100vw;
   min-height: 100vh;
-  box-shadow: inset 0 0 0 1000px rgb(0 0 0 / 50%);
+  // box-shadow: inset 0 0 0 1000px rgb(0 0 0 / 50%);
+  background-color: rgb(0 0 0 / 100%);
   // This colour is applied over the background image. The image is transparent, meaning there's also a colour behind it in on the body tag. This is located in index.css. Use background-color: rgb(0 0 0 / 100%) to mimic official styling.
 `
 const GridContainer = styled.div`
@@ -48,6 +49,7 @@ const HeaderContainer = styled.div`
   margin-left: auto;
   margin-right: auto;
   margin-top: 2.5rem;
+  margin-bottom: 1rem;
   justify-content: center;
 `
 const MedalLogo = styled.img`

@@ -8,7 +8,7 @@ const InputClipSelect = styled.select`
   font-size: 0.75rem;
   height: 48px;
   border-radius: 0.4285rem;
-  border: 1px solid #2b3553;
+  border: 2px solid #5F5F66;
   width: 100%;
   padding: 0.5rem 0.7rem;
   margin-bottom: 1rem;
@@ -36,7 +36,7 @@ const InputUserID = styled.input`
   font-size: 0.75rem;
   width: 65%;
   border-radius: 0.4285rem;
-  border: 1px solid #2b3553;
+  border: 2px solid #5F5F66;
   padding: 0.5rem 0.7rem;
   color: rgba(255, 255, 255, 0.8);
   background-color: transparent;
@@ -92,6 +92,12 @@ const Loader = styled.div`
   }
 }
 `
+const Instruction = styled.p`
+  font-size: 0.875rem;
+  color: rgb(179, 177, 182);
+`
+
+
 // Add a dismissable box with brief description. Maybe dull the background and focus the box until "Got it!" is clicked by the user?
 
 function Grabber () {
@@ -112,10 +118,23 @@ function Grabber () {
   const [clipAmount, setClipAmount] = useState(0)
   const [userID, setUserID] = useState()
 
+  // Runs on load
+  useEffect(() => {
+    console.log("useEffect")
+    setLoading(false)
+    const getClip = async () => {
+      const data = await fetchClips()
+      setClipArray(data)
+      setLoading(true)
+    }
+    getClip()
+  }, [clipAmount, userID])
+
   // Fetch clip
   const fetchClips = async () => {
     const res = await fetch('https://developers.medal.tv/v1/latest?userId=' + userID + '&limit=' + clipAmount + '&autoplay=0&muted=0&cta=0&width=768&height=432', options)
     const data = await res.json()
+    console.log(data)
     const clipArray = []
     for (var i = 0; i < clipAmount; i++) {
       console.log("Pushing JSON data of clip to clipArray array - #" + i)
@@ -126,34 +145,34 @@ function Grabber () {
     return clipArray
   }
 
+  // Create array of ClipPlayer components + props using incremental loop.
   const clipPlayers = []
   clipArray.forEach((clipArray, i)=>{
     console.log("Obtaining iFrame for clip and pushing to clipPlayers array - #" + i)
     console.log(clipPlayers[i])
-    clipPlayers.push(<ClipPlayer Clip={ clipArray.contentObjects[i].embedIframeCode } ClipTitle={ clipArray.contentObjects[i].contentTitle } key={i}/>)
+    clipPlayers.push(
+    <ClipPlayer
+      Clip={clipArray.contentObjects[i].embedIframeCode}
+      ClipTitle={clipArray.contentObjects[i].contentTitle}
+      ClipViews={clipArray.contentObjects[i].contentViews}
+      ClipLikes={clipArray.contentObjects[i].contentLikes}
+      ClipLink={clipArray.contentObjects[i].directClipUrl}
+      ClipLength={clipArray.contentObjects[i].videoLengthSeconds}
+      key={i}/>
+    )
     console.log("Success")
   })
 
+  // Pull ID from InputUserID component and use setter to re-render
   function getInputFromDOM() {
-    const input = document.querySelector('#userID')
+    const input = document.querySelector('#InputUserID')
     const userID = input.value
     setUserID(userID)
   }
-  
-  useEffect(() => {
-    console.log("Rolling the dice!")
-    setLoading(false)
-    const getClip = async () => {
-      const data = await fetchClips()
-      setClipArray(data)
-      setLoading(true)
-    }
-    getClip()
-  }, [clipAmount, userID])
 
   return (
       <>
-        <p>Choose clip amount:</p>
+        <Instruction>Choose clip amount:</Instruction>
         <InputClipSelect onChange={e => setClipAmount(e.target.value)} type="select" id="inputID">
           <option value="" defaultValue hidden>How many clips?</option>
           <InputClipOption>1</InputClipOption>
@@ -167,9 +186,9 @@ function Grabber () {
           <InputClipOption>9</InputClipOption>
           <InputClipOption>10</InputClipOption>
         </InputClipSelect>
-        <p>Enter user ID (or leave it blank for recent clips from random users!):</p>
+        <Instruction>Enter your user ID and click grab:</Instruction>
         <FlexContainer>
-          <InputUserID type="number" id="userID" placeholder="e.g. 261997"/>
+          <InputUserID type="number" id="InputUserID" placeholder="e.g. 261997, leave blank for random"/>
           <BtnRefresh btnText={loading ? 'Grab from ID' : 'Grabbing 😎 '} refreshClicked={() => getInputFromDOM()}/>
         </FlexContainer>
       { loading 
