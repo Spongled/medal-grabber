@@ -7,12 +7,19 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Used to space FontAwesome icon away from button text */
 button svg {
   margin-right: 12px;
+} 
+
+/* Used to space FontAwesome icon away from badge text */
+span svg {
+  margin-right: 5px;
 }
 
 iframe {
-  border-radius: 0.2857rem;
+  border-top-left-radius: 0.2857rem;
+  border-top-right-radius: 0.2857rem;
   position: absolute;
   top: 0;
   left: 0;

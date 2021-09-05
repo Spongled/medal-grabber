@@ -13,7 +13,6 @@ const Wrapper = styled.div`
 const MainPanel = styled.div`
   border-top: 2px solid #FFB84B;
   max-height: 100% !important;
-
   width: 100%;
   background-image: url(https://cdn.medal.tv/games/background/background-default.png);
   background-repeat: no-repeat;
@@ -48,7 +47,7 @@ const HeaderContainer = styled.div`
   display: flex;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 2.5rem;
+  margin-top: 3.5rem;
   margin-bottom: 1rem;
   justify-content: center;
 `

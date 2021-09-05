@@ -186,9 +186,9 @@ function Grabber () {
           <InputClipOption>9</InputClipOption>
           <InputClipOption>10</InputClipOption>
         </InputClipSelect>
-        <Instruction>Enter your user ID and click grab:</Instruction>
+        <Instruction>Enter your user ID and click grab,  or leave blank for random clips:</Instruction>
         <FlexContainer>
-          <InputUserID type="number" id="InputUserID" placeholder="e.g. 261997, leave blank for random"/>
+          <InputUserID type="number" id="InputUserID" placeholder="e.g. 261997"/>
           <BtnRefresh btnText={loading ? 'Grab from ID' : 'Grabbing 😎 '} refreshClicked={() => getInputFromDOM()}/>
         </FlexContainer>
       { loading 
