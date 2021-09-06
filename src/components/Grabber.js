@@ -48,12 +48,20 @@ const InputUserID = styled.input`
     outline: 0;
   }
 
-  @media screen and (max-width: 880px){
+  @media screen and (max-width: 2050px){
     width: 60%;
   }
 
+  @media screen and (max-width: 1795px){
+    width: 52%;
+  }
+
+  @media screen and (max-width: 1500px){
+    width: 63%;
+  }
+
   @media screen and (max-width: 768px){
-    width: 40%;
+    width: 45%;
   }
 `
 const FlexContainer = styled.div`
@@ -97,8 +105,16 @@ const Instruction = styled.p`
   color: rgb(179, 177, 182);
 `
 
-// Maybe add a JSON file containing the whole categoryID array? Read from it and display game icon + custom game input by user
+// Maybe add a JSON file containing the whole categoryID array? Read from it and display game icon + custom game input by user. Test using JSON server? Would be useful to learn basic frontend/backend interactions
 // Add a dismissable box with brief description. Maybe dull the background and focus the box until "Got it!" is clicked by the user?
+// Style ErrorBoundary
+// Animate border-top during grab? Could either 0-100% or gradient
+// Get Private API key?
+// Add download functionality
+// Tick multiple clips to download at once
+// Optimise renders
+// Look into useCallback
+
 
 function Grabber () {
   const API_KEY = `pub_MsoICw6lrMKaofb7YjV8Qs9ggYFhWWp5`;
