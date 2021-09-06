@@ -34,11 +34,6 @@ const ClipInfoEngagement = styled.div`
   display: flex;
   flex-direction: row;
 `
-const ClipInfoFooter = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-`
 const ExternalLink = styled.a`
   color: rgba(255, 255, 255, 0.1);
   text-decoration: none;
@@ -90,39 +85,8 @@ const LengthAndExternalContainer = styled.div`
 `
 
 const ClipPlayer = ({Clip, ClipTitle, ClipViews, ClipLikes, ClipLink, ClipLength}) => {
-  
-  const [hasLength, setHasLength] = useState(false)
-
-  useEffect(() => {
-    setHasLength(false)
-    const clipLengthString = JSON.stringify({ClipLength})
-    const timeValue = clipLengthString.match(/\d+/g)
-    console.log("timeValue: " +  timeValue)
-    if (timeValue !== 0){
-      setHasLength(true)
-      console.log("inside if: " +  hasLength)
-    }
-  })
-
-  // useEffect(() => {
-  //   timeGetter()
-  // })
-
-  // var timeBool  = false
-
-  // const timeGetter = function(){
-    
-  //   const clipLengthString = JSON.stringify({ClipLength})
-  //   const time = clipLengthString.match(/\d+/g)
-  //   console.log("Time: " + time)
-  //   if (time == 0){
-  //     timeBool = true
-  //   }
-  //   console.log(timeBool)
-  //   return timeBool
-  // }
-
-  // console.log("logging timeBool outside: " + timeBool)
+  const clipLength = ClipLength;
+  console.log(clipLength);
 
     return (
       <>
@@ -141,7 +105,7 @@ const ClipPlayer = ({Clip, ClipTitle, ClipViews, ClipLikes, ClipLink, ClipLength
               <ExternalLinkTitle href={ClipLink} target="blank_" title="View clip in new tab"><ClipTitleContainer>{ClipTitle}</ClipTitleContainer></ExternalLinkTitle>
             </TitleAndEngagementContainer>
             <LengthAndExternalContainer>
-            { hasLength
+            { clipLength > 0
               ? <InfoBadge title="Clip length"><FontAwesomeIcon icon={faStopwatch}/> {ClipLength}s</InfoBadge>
               : null
             }
