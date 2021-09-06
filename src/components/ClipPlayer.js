@@ -1,4 +1,3 @@
-import {useState, useEffect} from 'react'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExternalLinkSquareAlt, faStopwatch } from '@fortawesome/free-solid-svg-icons'
@@ -84,32 +83,31 @@ const LengthAndExternalContainer = styled.div`
   align-items: center;
 `
 
-const ClipPlayer = ({Clip, ClipTitle, ClipViews, ClipLikes, ClipLink, ClipLength}) => {
-  const clipLength = ClipLength;
-  console.log(clipLength);
+const ClipPlayer = ({clip, clipTitle, clipViews, clipLikes, clipLink, clipLength}) => {
+  const clipLengthSeconds = clipLength;
 
     return (
       <>
         <VideoWrapper>
-          <div dangerouslySetInnerHTML={{ __html: Clip}}></div>
+          <div dangerouslySetInnerHTML={{ __html: clip}}></div>
         </VideoWrapper>
         <ClipInfoContainer>
           <ClipInfo>
             <TitleAndEngagementContainer>
               <ClipInfoEngagement>
                 <InfoBadge>
-                  <EngagementViews src={medalViews}></EngagementViews>{ClipViews}
-                  <EngagementLikes src={medalLikes}></EngagementLikes>{ClipLikes}
+                  <EngagementViews src={medalViews}></EngagementViews>{clipViews}
+                  <EngagementLikes src={medalLikes}></EngagementLikes>{clipLikes}
                 </InfoBadge>
               </ClipInfoEngagement>
-              <ExternalLinkTitle href={ClipLink} target="blank_" title="View clip in new tab"><ClipTitleContainer>{ClipTitle}</ClipTitleContainer></ExternalLinkTitle>
+              <ExternalLinkTitle href={clipLink} target="blank_" title="View clip in new tab"><ClipTitleContainer>{clipTitle}</ClipTitleContainer></ExternalLinkTitle>
             </TitleAndEngagementContainer>
             <LengthAndExternalContainer>
-            { clipLength > 0
-              ? <InfoBadge title="Clip length"><FontAwesomeIcon icon={faStopwatch}/> {ClipLength}s</InfoBadge>
+            { clipLengthSeconds > 0
+              ? <InfoBadge title="Clip length"><FontAwesomeIcon icon={faStopwatch}/> {clipLength}s</InfoBadge>
               : null
             }
-              <ExternalLink href={ClipLink} target="blank_" title="View clip in new tab"><FontAwesomeIcon icon={faExternalLinkSquareAlt}/></ExternalLink>
+              <ExternalLink href={clipLink} target="blank_" title="View clip in new tab"><FontAwesomeIcon icon={faExternalLinkSquareAlt}/></ExternalLink>
             </LengthAndExternalContainer>
           </ClipInfo>
         </ClipInfoContainer>

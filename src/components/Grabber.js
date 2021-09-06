@@ -97,7 +97,7 @@ const Instruction = styled.p`
   color: rgb(179, 177, 182);
 `
 
-
+// Maybe add a JSON file containing the whole categoryID array? Read from it and display game icon + custom game input by user
 // Add a dismissable box with brief description. Maybe dull the background and focus the box until "Got it!" is clicked by the user?
 
 function Grabber () {
@@ -152,12 +152,12 @@ function Grabber () {
     console.log(clipPlayers[i])
     clipPlayers.push(
     <ClipPlayer
-      Clip={clipArray.contentObjects[i].embedIframeCode}
-      ClipTitle={clipArray.contentObjects[i].contentTitle}
-      ClipViews={clipArray.contentObjects[i].contentViews}
-      ClipLikes={clipArray.contentObjects[i].contentLikes}
-      ClipLink={clipArray.contentObjects[i].directClipUrl}
-      ClipLength={clipArray.contentObjects[i].videoLengthSeconds}
+      clip={clipArray.contentObjects[i].embedIframeCode}
+      clipTitle={clipArray.contentObjects[i].contentTitle}
+      clipViews={clipArray.contentObjects[i].contentViews}
+      clipLikes={clipArray.contentObjects[i].contentLikes}
+      clipLink={clipArray.contentObjects[i].directClipUrl}
+      clipLength={clipArray.contentObjects[i].videoLengthSeconds}
       key={i}/>
     )
     console.log("Success")
@@ -170,7 +170,7 @@ function Grabber () {
     setUserID(userID)
   }
 
-  // Pressisng enter in user ID input should trigger getInputFromDOM()
+  // Pressing enter in user ID input should trigger getInputFromDOM()
   return (
       <>
         <Instruction>Choose clip amount:</Instruction>
