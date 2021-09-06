@@ -83,13 +83,13 @@ const LengthAndExternalContainer = styled.div`
   align-items: center;
 `
 
-const ClipPlayer = ({clip, clipTitle, clipViews, clipLikes, clipLink, clipLength}) => {
+const ClipPlayer = ({clipFrame, clipTitle, clipViews, clipLikes, clipLink, clipLength}) => {
   const clipLengthSeconds = clipLength;
 
     return (
       <>
         <VideoWrapper>
-          <div dangerouslySetInnerHTML={{ __html: clip}}></div>
+          <div dangerouslySetInnerHTML={{ __html: clipFrame}}></div>
         </VideoWrapper>
         <ClipInfoContainer>
           <ClipInfo>

@@ -109,11 +109,15 @@ const Instruction = styled.p`
 // Add a dismissable box with brief description. Maybe dull the background and focus the box until "Got it!" is clicked by the user?
 // Style ErrorBoundary
 // Animate border-top during grab? Could either 0-100% or gradient
-// Get Private API key?
+// Ask Josh if he can enable rawFileUrls on my API key
 // Add download functionality
 // Tick multiple clips to download at once
 // Optimise renders
 // Look into useCallback
+// Pressing enter in user ID input should trigger getInputFromDOM()
+// Add toggle for trending vs latest content - hide userID input if trending is selected
+// Format view and like numbers?
+// Add scrolltop button
 
 
 function Grabber () {
@@ -161,14 +165,14 @@ function Grabber () {
     return clipArray
   }
 
-  // Create array of ClipPlayer components + props using incremental loop.
+  // Create array of ClipPlayer components + props using incremental loop
   const clipPlayers = []
   clipArray.forEach((clipArray, i)=>{
     console.log("Obtaining iFrame for clip and pushing to clipPlayers array - #" + i)
     console.log(clipPlayers[i])
     clipPlayers.push(
     <ClipPlayer
-      clip={clipArray.contentObjects[i].embedIframeCode}
+      clipFrame={clipArray.contentObjects[i].embedIframeCode}
       clipTitle={clipArray.contentObjects[i].contentTitle}
       clipViews={clipArray.contentObjects[i].contentViews}
       clipLikes={clipArray.contentObjects[i].contentLikes}
@@ -186,7 +190,6 @@ function Grabber () {
     setUserID(userID)
   }
 
-  // Pressing enter in user ID input should trigger getInputFromDOM()
   return (
       <>
         <Instruction>Choose clip amount:</Instruction>
@@ -202,6 +205,8 @@ function Grabber () {
           <InputClipOption>8</InputClipOption>
           <InputClipOption>9</InputClipOption>
           <InputClipOption>10</InputClipOption>
+          <InputClipOption>15</InputClipOption>
+          <InputClipOption>20</InputClipOption>
         </InputClipSelect>
         <Instruction>Enter your user ID and click grab,  or leave blank for random clips:</Instruction>
         <FlexContainer>
