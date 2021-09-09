@@ -76,7 +76,7 @@ const TitleAndEngagementContainer = styled.div`
   justify-content: space-between;
   align-items: center;
 `
-const LengthAndExternalContainer = styled.div`
+const TimeAndExternalContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -102,13 +102,13 @@ const ClipPlayer = ({clipFrame, clipTitle, clipViews, clipLikes, clipLink, clipL
               </ClipInfoEngagement>
               <ExternalLinkTitle href={clipLink} target="blank_" title="View clip in new tab"><ClipTitleContainer>{clipTitle}</ClipTitleContainer></ExternalLinkTitle>
             </TitleAndEngagementContainer>
-            <LengthAndExternalContainer>
+            <TimeAndExternalContainer>
             { clipLengthSeconds > 0
               ? <InfoBadge title="Clip length"><FontAwesomeIcon icon={faStopwatch}/> {clipLength}s</InfoBadge>
               : null
             }
               <ExternalLink href={clipLink} target="blank_" title="View clip in new tab"><FontAwesomeIcon icon={faExternalLinkSquareAlt}/></ExternalLink>
-            </LengthAndExternalContainer>
+            </TimeAndExternalContainer>
           </ClipInfo>
         </ClipInfoContainer>
       </>
