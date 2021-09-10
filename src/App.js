@@ -1,9 +1,11 @@
 import { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import medalLogo from './assets/img/medal.svg'
-import ErrorBoundary from './components/ErrorBoundary.js'
+// import ErrorBoundary from './components/ErrorBoundary.js'
 import Grabber from './components/Grabber.js'
 import PerfectScrollbar from 'perfect-scrollbar';
+import {ErrorBoundary} from 'react-error-boundary'
+
 
 const Wrapper = styled.div`
   position: relative;
@@ -39,9 +41,17 @@ const GridContainer = styled.div`
     grid-template-columns: 0.5fr 4fr 0.5fr;
   }
 `
+const ErrorGridContainer = styled(GridContainer)`
+  grid-template-rows: auto 20rem auto;
+`
 const Content = styled.div`
   grid-column-start: 2;
   grid-column-end: 3;
+`
+const ErrorContent = styled(Content)`
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 3;
 `
 const HeaderContainer = styled.div`
   display: flex;
@@ -63,11 +73,55 @@ const GrabberTitle = styled.header`
   letter-spacing: 10px;
   color: #fff;
 `
+const ErrorEmoji = styled.div`
+  display: flex;
+  font-size: 8rem;
+  justify-items: center;
+  justify-content: center;
+  align-content: center;
+`
+const ErrorHeading = styled.div`
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+`
+const ErrorMessage = styled.div`
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: #fff;
+  text-align: center;
+`
+
+function ErrorFallback() {
+
+  useEffect(() => {
+    setTimeout(function(){
+      window.location.reload(1);
+    }, 3000);
+  });
+
+  return (
+    <Wrapper>
+          <MainPanel>
+            <ErrorGridContainer>
+              <ErrorContent>
+                  <ErrorEmoji>🤒</ErrorEmoji>
+                  <ErrorHeading>Uh oh...</ErrorHeading>
+                  <ErrorMessage>Looks like you input an invalid user ID, or something else broke. We'll refresh the page so you can try again!</ErrorMessage>
+              </ErrorContent>
+            </ErrorGridContainer>
+          </MainPanel>
+        </Wrapper>
+  )
+}
+
 
 function App() {
-  var ps;
   const mainPanelRef = useRef(null);
   useEffect(() => {
+    var ps;
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(mainPanelRef.current, {
         suppressScrollX: true,
@@ -82,7 +136,7 @@ function App() {
   });
 
   return (
-    <ErrorBoundary>
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
       <Wrapper>
         <MainPanel ref={mainPanelRef}>
           <HeaderContainer>
