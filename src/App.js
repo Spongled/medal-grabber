@@ -27,6 +27,10 @@ const MainPanel = styled.div`
   background-color: rgb(0 0 0 / 100%);
   // This colour is applied over the background image. The image is transparent, meaning there's also a colour behind it in on the body tag. This is located in index.css. Use background-color: rgb(0 0 0 / 100%) to mimic official styling.
 `
+const ErrorMainPanel = styled(MainPanel)`
+  box-shadow: inset 0 0 0 1000px rgb(0 0 0 / 50%);
+  background-color: transparent;
+`
 const GridContainer = styled.div`
   display: grid;
   flex-direction: column;
@@ -79,6 +83,8 @@ const ErrorEmoji = styled.div`
   justify-items: center;
   justify-content: center;
   align-content: center;
+  -webkit-animation: bounce 2.2s infinite linear;
+  animation: bounce 2.2s infinite linear;
 `
 const ErrorHeading = styled.div`
   font-size: 3.5rem;
@@ -93,28 +99,47 @@ const ErrorMessage = styled.div`
   color: #fff;
   text-align: center;
 `
+const ProgressContainer = styled.div`
+  margin-top: 2rem;
+  width: 100%;
+  height: 6px;
+  background: #e1e4e8;
+  border-radius: 3px;
+  overflow: hidden;
+`
+
+const ProgressBar = styled.span`
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg,#ffd33d,#ea4aaa 17%,#b34bff 34%,#01feff 51%,#ffd33d 68%,#ea4aaa 85%,#b34bff);
+  background-size: 300% 100%;
+  width: 0;
+  animation: progress-animation 5s linear infinite;
+`
 
 function ErrorFallback() {
-
   useEffect(() => {
     setTimeout(function(){
       window.location.reload(1);
-    }, 3000);
+    }, 150000);
   });
 
   return (
     <Wrapper>
-          <MainPanel>
+          <ErrorMainPanel>
             <ErrorGridContainer>
               <ErrorContent>
-                  <ErrorEmoji>🤒</ErrorEmoji>
+                  <ErrorEmoji>💩</ErrorEmoji>
                   <ErrorHeading>Uh oh...</ErrorHeading>
                   <ErrorMessage>Looks like you input an invalid user ID, or something else broke. We'll refresh the page so you can try again!</ErrorMessage>
+                  <ProgressContainer>
+                    <ProgressBar></ProgressBar>
+                  </ProgressContainer>
               </ErrorContent>
             </ErrorGridContainer>
-          </MainPanel>
+          </ErrorMainPanel>
         </Wrapper>
-  )
+  );
 }
 
 

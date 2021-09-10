@@ -118,6 +118,7 @@ const Instruction = styled.p`
 // Add toggle for trending vs latest content - hide userID input if trending is selected
 // Format view and like numbers?
 // Add scrolltop button
+// Make it clear when an ID is being used: e.g. turn button green with a tick when ID var isn't null
 
 
 function Grabber () {
