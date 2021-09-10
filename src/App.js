@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   height: 100vh;
 `
 const MainPanel = styled.div`
-  border-top: 2px solid #FFB84B;
+  border-top: 2px solid #ffb84b;
   max-height: 100% !important;
   width: 100%;
   background-image: url(https://cdn.medal.tv/games/background/background-default.png);
@@ -111,7 +111,7 @@ const ProgressContainer = styled.div`
 const ProgressBar = styled.span`
   display: block;
   height: 100%;
-  background: linear-gradient(90deg,#ffd33d,#ea4aaa 17%,#b34bff 34%,#01feff 51%,#ffd33d 68%,#ea4aaa 85%,#b34bff);
+  background: linear-gradient(90deg,#ffb84b,#ffb84b 17%,#ffb84b 34%,#ffb84b 51%,#ffb84b 68%,#ff8a17 85%,#ffb84b);
   background-size: 300% 100%;
   width: 0;
   animation: progress-animation 5s linear infinite;
