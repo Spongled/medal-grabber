@@ -140,13 +140,15 @@ const Instruction = styled.p`
 // Look into useCallback
 // Pressing enter in user ID input should trigger getInputFromDOM()
 // Add toggle for trending vs latest content - hide userID input if trending is selected
-// Format view and like numbers?
+// Format view and like numbers? e.g. 1,000 not 1000
 // Add scrolltop button
 // Make it clear when an ID is being used: e.g. turn button green with a tick when ID var isn't null
 // Disable grab btn if ID box is empty
 // Change game input to combobox
 // Need logic to display "no clips found!" if searching for a game that the user doesn't play
-
+// Need logic to display "no more clips"! if trying to access an amount larger than available
+// What happens when user cancels prompt input?
+ 
 
 function Grabber () {
   const [clipArray, setClipArray] = useState([])
@@ -215,7 +217,7 @@ function Grabber () {
 
   // Pull ID from InputUserID component and use setter to re-render
   function getInputFromDOM() {
-    const input = document.querySelector('#InputUserID')
+    const input = document.querySelector('#inputUserID')
     const userID = input.value
     setUserID(userID)
   }
@@ -250,6 +252,9 @@ function Grabber () {
     const categoryObj = JSON.parse(categoryJSONstring)
     var gameArray = []
     console.log(gameName)
+    console.log("set option as gameName")
+    document.querySelector("#inputGameName").selectedIndex=1
+    document.querySelector("#customOption").innerHTML = gameName
     console.log(categoryObj)
     gameArray = categoryObj.filter(e => e.categoryName === gameName);
     if (gameArray.length === 0) {
@@ -264,13 +269,14 @@ function Grabber () {
       const gameID = gameArray[0].categoryId
       setCategoryID(gameID)
     }
+    // Empty the array so that it's prepared for the next grab
     gameArray.splice(0, gameArray.length)
   }
 
   return (
       <>
         <Instruction>Choose clip amount:</Instruction>
-        <InputSelect onChange={e => setClipAmount(e.target.value)} type="select" id="inputID">
+        <InputSelect onChange={e => setClipAmount(e.target.value)} type="select">
           <option value="" defaultValue hidden>How many clips?</option>
           <InputOption>1</InputOption>
           <InputOption>2</InputOption>
@@ -286,8 +292,9 @@ function Grabber () {
           <InputOption>20</InputOption>
         </InputSelect>
         <Instruction>Choose game, or leave blank for random game:</Instruction>
-        <InputSelect onChange={e => categoryMatcher(e.target.value)} type="text" id="inputID">
-          <option value="" defaultValue hidden>Which game?</option>
+        <InputSelect onChange={e => categoryMatcher(e.target.value)} type="text" id="inputGameName">
+          <option defaultValue hidden>Which game?</option>
+          <InputOption value="customOption" hidden id="customOption"></InputOption>
           <InputOption>Halo Infinite</InputOption>
           <InputOption>Old School RuneScape</InputOption>
           <InputOption>Overwatch</InputOption>
@@ -299,7 +306,7 @@ function Grabber () {
         </InputSelect>
         <Instruction>Enter your user ID and click grab, or leave blank for random clips:</Instruction>
         <FlexContainer>
-          <InputUserID type="number" id="InputUserID" placeholder="e.g. 261997"/>
+          <InputUserID type="number" id="inputUserID" placeholder="e.g. 261997"/>
           <BtnRefresh btnText={loading ? 'Grab from ID' : 'Grabbing 😎 '} refreshClicked={() => getInputFromDOM()}/>
         </FlexContainer>
       { loading 
