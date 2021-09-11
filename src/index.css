@@ -10,6 +10,7 @@ body {
 /* Used to space FontAwesome icon away from button text */
 button svg {
   margin-right: 12px;
+  margin-left: 11px;
 } 
 
 /* Used to space FontAwesome icon away from badge text */

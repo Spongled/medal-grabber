@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import ClipPlayer from './ClipPlayer.js'
 import BtnSet from './BtnSet.js'
 import BtnClear from './BtnClear.js'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 const InputSelect = styled.select`
   font-family: "DM Sans", sans-serif;
@@ -35,7 +37,8 @@ const InputOption = styled.option`
 const InputUserID = styled.input`
   font-family: "DM Sans", sans-serif;
   font-size: 0.75rem;
-  width: 65%;
+  width: 87%;
+  height: 26px;
   border-radius: 0.4285rem;
   border: 2px solid #5F5F66;
   padding: 0.5rem 0.7rem;
@@ -50,19 +53,19 @@ const InputUserID = styled.input`
   }
 
   @media screen and (max-width: 2050px){
-    width: 60%;
+    width: 85%;
   }
 
   @media screen and (max-width: 1795px){
-    width: 52%;
+    width: 82%;
   }
 
   @media screen and (max-width: 1500px){
-    width: 63%;
+    width: 85%;
   }
 
   @media screen and (max-width: 768px){
-    width: 45%;
+    width: 78%;
   }
 `
 const FlexContainer = styled.div`
@@ -105,6 +108,12 @@ const Instruction = styled.p`
   font-size: 0.875rem;
   color: rgb(179, 177, 182);
 `
+const IconContainer = styled.span`
+  position: absolute;
+  color: #01d28e;
+  margin-top: 14px;
+  margin-left: -30px;
+`
 
 // Maybe add a JSON file containing the whole categoryID array? Read from it and display game icon + custom game input by user. Test using JSON server? Would be useful to learn basic frontend/backend interactions
 // Add a dismissable box with brief description. Maybe dull the background and focus the box until "Got it!" is clicked by the user?
@@ -132,7 +141,6 @@ function Grabber () {
   const [clipAmount, setClipAmount] = useState(0)
   const [userID, setUserID] = useState()
   const [categoryID, setCategoryID] = useState(null)
-  // const [gameArray, setGameArray] = useState([])
   const API_KEY = `pub_MsoICw6lrMKaofb7YjV8Qs9ggYFhWWp5`;
   const options = {
     host: 'https://developers.medal.tv',
@@ -159,7 +167,7 @@ function Grabber () {
 
   // Fetch clip
   const fetchClips = async () => {
-    const URL = 'https://developers.medal.tv/v1/latest?categoryId=' + categoryID + '&userId=' + userID + '&limit=' + clipAmount + '&autoplay=0&muted=0&cta=0&width=768&height=432'
+    const URL = 'https://developers.medal.tv/v1/latest?categoryId=' + categoryID + '&userId=' + userID + '&limit=' + clipAmount + '&autoplay=0&muted=0&cta=0'
     const res = await fetch(URL, options)
     const data = await res.json()
     console.log(data)
@@ -196,6 +204,10 @@ function Grabber () {
     const input = document.querySelector('#inputUserID')
     const userID = input.value
     setUserID(userID)
+  }
+
+  function testFunc() {
+    console.log("test btn")
   }
 
   const categoryMatcher = async (e) => {
@@ -282,12 +294,16 @@ function Grabber () {
           <InputOption>Roblox</InputOption>
           <InputOption>Custom</InputOption>
         </InputSelect>
-        <Instruction>Enter your user ID and click set, or leave blank for random clips:</Instruction>
+        <Instruction>Enter your user ID and click +, or leave blank for random clips:</Instruction>
         <FlexContainer>
+          { userID
+            ? <IconContainer><FontAwesomeIcon icon={faCheck}/></IconContainer>
+            : null
+          }
           <InputUserID type="number" id="inputUserID" placeholder="e.g. 261997"/>
           { userID
-            ? <BtnClear btnText={loading ? 'User ID Set!' : 'Clearing ID 🔧'}/>
-            : <BtnSet btnText={loading ? 'Set User ID' : 'Setting ID 😎'} setID={() => getInputFromDOM()}/>
+            ? <BtnClear clearID={() => setUserID(null)}/>
+            : <BtnSet setID={() => getInputFromDOM()}/>
           }
         </FlexContainer>
       { loading 

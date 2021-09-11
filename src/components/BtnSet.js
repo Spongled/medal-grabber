@@ -7,35 +7,26 @@ const BtnMedal = styled.button`
   font-family: "DM Sans", sans-serif;
   font-weight: 500;
   font-size: 0.875rem;
-  border-radius: 0.4285rem;
+  border-radius: 50%;
   cursor: pointer;
   transition: all 0.2s ease 0s;
   position: relative;
   background: rgb(255, 184, 75);
   border: none;
-  padding: 15px 48px;
   color: rgb(19, 19, 29);
   transition: all 0.3s ease-in-out;
 
   :hover {
-    background: #FFE85C;
+    background: #01d28e;
     transform: translateY(-2px);
-  }
-
-  @media screen and (max-width: 880px){
-    padding: 15px 40px;
-  }
-
-  @media screen and (max-width: 768px){
-    padding: 15px 35px;
   }
 `
 
 
-const BtnSet = ({btnText, setID}) => {
+const BtnSet = ({setID}) => {
     return (
         <>
-          <BtnMedal onClick={setID}><FontAwesomeIcon icon={faPlus}/>{btnText}</BtnMedal>
+          <BtnMedal onClick={setID} title="Set ID"><FontAwesomeIcon icon={faPlus}/></BtnMedal>
         </>
     )
 }
