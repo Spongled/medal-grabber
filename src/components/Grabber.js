@@ -145,6 +145,7 @@ const Instruction = styled.p`
 // Make it clear when an ID is being used: e.g. turn button green with a tick when ID var isn't null
 // Disable grab btn if ID box is empty
 // Change game input to combobox
+// Need logic to display "no clips found!" if searching for a game that the user doesn't play
 
 
 function Grabber () {
@@ -221,21 +222,27 @@ function Grabber () {
 
   const categoryMatcher = async (e) => {
     const gameName = e
-    if (sessionStorage.getItem('categoryJSONstring') === null) {
-      const res = await fetch(`https://api-v2.medal.tv/categories/`, {
-        method: 'GET',
-        headers: {
-          'Content-type': 'application/json'
-        }
-      })
-      const data = await res.json()
-      const categoryJSONstring = JSON.stringify(data)
-      sessionStorage.setItem('categoryJSONstring', categoryJSONstring) 
-      updateCategory(categoryJSONstring, gameName)     
-    }
-    else {
-      const categoryJSONstring = sessionStorage.getItem('categoryJSONstring')
-      updateCategory(categoryJSONstring, gameName)
+    console.log("game name: " + gameName)
+    if (gameName === "Custom") {
+      const customGameName = prompt("Enter the name of the game you want to grab:")
+      categoryMatcher(customGameName)
+    } else {
+      if (sessionStorage.getItem('categoryJSONstring') === null) {
+        const res = await fetch(`https://api-v2.medal.tv/categories/`, {
+          method: 'GET',
+          headers: {
+            'Content-type': 'application/json'
+          }
+        })
+        const data = await res.json()
+        const categoryJSONstring = JSON.stringify(data)
+        sessionStorage.setItem('categoryJSONstring', categoryJSONstring) 
+        updateCategory(categoryJSONstring, gameName)     
+      }
+      else {
+        const categoryJSONstring = sessionStorage.getItem('categoryJSONstring')
+        updateCategory(categoryJSONstring, gameName)
+      }
     }
   }
 
@@ -260,8 +267,6 @@ function Grabber () {
     gameArray.splice(0, gameArray.length)
   }
 
-  // figure out solution for new combobox
-
   return (
       <>
         <Instruction>Choose clip amount:</Instruction>
@@ -281,26 +286,17 @@ function Grabber () {
           <InputOption>20</InputOption>
         </InputSelect>
         <Instruction>Choose game, or leave blank for random game:</Instruction>
-        <InputSelect  type="text" >
+        <InputSelect onChange={e => categoryMatcher(e.target.value)} type="text" id="inputID">
           <option value="" defaultValue hidden>Which game?</option>
           <InputOption>Halo Infinite</InputOption>
           <InputOption>Old School RuneScape</InputOption>
-          <InputOption>OSRS</InputOption>
           <InputOption>Overwatch</InputOption>
           <InputOption>Valorant</InputOption>
-          <InputOption>Rkt League</InputOption>
+          <InputOption>Rocket League</InputOption>
+          <InputOption>Minecraft</InputOption>
+          <InputOption>Roblox</InputOption>
+          <InputOption>Custom</InputOption>
         </InputSelect>
-        <FlexContainer>
-        <InputCombo onChange={e => categoryMatcher(e.target.value)} type="text" list="games" placeholder="Which game?" id="inputID"/>
-        <datalist id="games">
-          <InputOption>Halo Infinite</InputOption>
-          <InputOption>Old School RuneScape</InputOption>
-          <InputOption>OSRS</InputOption>
-          <InputOption>Overwatch</InputOption>
-          <InputOption>Valorant</InputOption>
-          <InputOption>Rkt League</InputOption>
-        </datalist>
-        </FlexContainer>
         <Instruction>Enter your user ID and click grab, or leave blank for random clips:</Instruction>
         <FlexContainer>
           <InputUserID type="number" id="InputUserID" placeholder="e.g. 261997"/>
