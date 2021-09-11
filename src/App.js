@@ -25,7 +25,7 @@ const MainPanel = styled.div`
   min-height: 100vh;
   // box-shadow: inset 0 0 0 1000px rgb(0 0 0 / 50%);
   background-color: rgb(0 0 0 / 100%);
-  // This colour is applied over the background image. The image is transparent, meaning there's also a colour behind it in on the body tag. This is located in index.css. Use background-color: rgb(0 0 0 / 100%) to mimic official styling.
+  // This colour is applied over the background image. The image is transparent, meaning there's also a colour behind it in on the body tag. This is located in index.css. Use background-color: rgb(0 0 0 / 100%) here to mimic official styling.
 `
 const ErrorMainPanel = styled(MainPanel)`
   box-shadow: inset 0 0 0 1000px rgb(0 0 0 / 50%);
@@ -95,7 +95,7 @@ const ErrorHeading = styled.div`
 const ErrorMessage = styled.div`
   margin-top: 1rem;
   margin-bottom: 1rem;
-  font-size: 2rem;
+  font-size: 1.6rem;
   color: #fff;
   text-align: center;
 `
@@ -107,21 +107,20 @@ const ProgressContainer = styled.div`
   border-radius: 3px;
   overflow: hidden;
 `
-
 const ProgressBar = styled.span`
   display: block;
   height: 100%;
   background: linear-gradient(90deg,#ffb84b,#ffb84b 17%,#ffb84b 34%,#ffb84b 51%,#ffb84b 68%,#ff8a17 85%,#ffb84b);
   background-size: 300% 100%;
   width: 0;
-  animation: progress-animation 5s linear infinite;
+  animation: progress-animation 10s linear;
 `
 
 function ErrorFallback() {
   useEffect(() => {
     setTimeout(function(){
-      window.location.reload(1);
-    }, 150000);
+      window.location.reload();
+    }, 500000);
   });
 
   return (
@@ -131,7 +130,7 @@ function ErrorFallback() {
               <ErrorContent>
                   <ErrorEmoji>💩</ErrorEmoji>
                   <ErrorHeading>Uh oh...</ErrorHeading>
-                  <ErrorMessage>Looks like you input an invalid user ID, or something else broke. We'll refresh the page so you can try again!</ErrorMessage>
+                  <ErrorMessage>Looks like you input an invalid user ID, or something else broke. We'll reload the app so you can try again!</ErrorMessage>
                   <ProgressContainer>
                     <ProgressBar></ProgressBar>
                   </ProgressContainer>

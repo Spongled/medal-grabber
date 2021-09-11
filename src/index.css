@@ -113,8 +113,11 @@ img {
     background-position: 100%;
     width: 0%;
   }
-  100% {
+  50% {
     background-position: 0;
+    width: 100%;
+  }
+  100% {
     width: 100%;
   }
 }

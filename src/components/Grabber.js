@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import ClipPlayer from './ClipPlayer.js'
 import BtnRefresh from './BtnRefresh.js'
 
-const InputClipSelect = styled.select`
+const InputSelect = styled.select`
   font-family: "DM Sans", sans-serif;
   font-size: 0.75rem;
   height: 48px;
@@ -26,7 +26,7 @@ const InputClipSelect = styled.select`
     cursor: pointer;
   }
 `
-const InputClipOption = styled.option`
+const InputOption = styled.option`
   font-family: "DM Sans", sans-serif;
   font-size: 0.75rem;
   color: rgba(0, 0, 0, 0.8);
@@ -107,7 +107,6 @@ const Instruction = styled.p`
 
 // Maybe add a JSON file containing the whole categoryID array? Read from it and display game icon + custom game input by user. Test using JSON server? Would be useful to learn basic frontend/backend interactions
 // Add a dismissable box with brief description. Maybe dull the background and focus the box until "Got it!" is clicked by the user?
-// Style ErrorBoundary
 // Animate border-top during grab? Could either 0-100% or gradient
 // Ask Josh if he can enable rawFileUrls on my API key
 // Add download functionality
@@ -119,9 +118,16 @@ const Instruction = styled.p`
 // Format view and like numbers?
 // Add scrolltop button
 // Make it clear when an ID is being used: e.g. turn button green with a tick when ID var isn't null
+// Disable grab btn if ID box is empty
+// Change game input to combobox
 
 
 function Grabber () {
+  const [clipArray, setClipArray] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [clipAmount, setClipAmount] = useState(0)
+  const [userID, setUserID] = useState()
+  const [categoryID, setCategoryID] = useState(null)
   const API_KEY = `pub_MsoICw6lrMKaofb7YjV8Qs9ggYFhWWp5`;
   const options = {
     host: 'https://developers.medal.tv',
@@ -134,11 +140,6 @@ function Grabber () {
     }
   }
 
-  const [clipArray, setClipArray] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [clipAmount, setClipAmount] = useState(0)
-  const [userID, setUserID] = useState()
-
   // Runs on load
   useEffect(() => {
     console.log("useEffect")
@@ -149,11 +150,12 @@ function Grabber () {
       setLoading(true)
     }
     getClip()
-  }, [clipAmount, userID])
+  }, [clipAmount, userID, categoryID])
 
   // Fetch clip
   const fetchClips = async () => {
-    const res = await fetch('https://developers.medal.tv/v1/latest?userId=' + userID + '&limit=' + clipAmount + '&autoplay=0&muted=0&cta=0&width=768&height=432', options)
+    const URL = 'https://developers.medal.tv/v1/latest?categoryId=' + categoryID + '&userId=' + userID + '&limit=' + clipAmount + '&autoplay=0&muted=0&cta=0&width=768&height=432'
+    const res = await fetch(URL, options)
     const data = await res.json()
     console.log(data)
     const clipArray = []
@@ -191,25 +193,65 @@ function Grabber () {
     setUserID(userID)
   }
 
+  const categoryMatcher = async (e) => {
+    const gameName = e
+    if (sessionStorage.getItem('categoryJSONstring') === null) {
+      const res = await fetch(`https://api-v2.medal.tv/categories/`, {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json'
+        }
+      })
+      const data = await res.json()
+      const categoryJSONstring = JSON.stringify(data)
+      sessionStorage.setItem('categoryJSONstring', categoryJSONstring) 
+      updateCategory(categoryJSONstring, gameName)     
+    }
+    else {
+      const categoryJSONstring = sessionStorage.getItem('categoryJSONstring')
+      updateCategory(categoryJSONstring, gameName)
+    }
+  }
+
+  function updateCategory(categoryJSONstring, gameName) {
+    const categoryObj = JSON.parse(categoryJSONstring)
+    console.log(gameName)
+    console.log(categoryObj)
+    const gameArray = categoryObj.filter(e => e.categoryName === gameName);
+    console.log(gameArray)
+    console.log(gameArray[0].categoryId)
+    const gameID = gameArray[0].categoryId
+    setCategoryID(gameID)
+  }
+
   return (
       <>
         <Instruction>Choose clip amount:</Instruction>
-        <InputClipSelect onChange={e => setClipAmount(e.target.value)} type="select" id="inputID">
+        <InputSelect onChange={e => setClipAmount(e.target.value)} type="select" id="inputID">
           <option value="" defaultValue hidden>How many clips?</option>
-          <InputClipOption>1</InputClipOption>
-          <InputClipOption>2</InputClipOption>
-          <InputClipOption>3</InputClipOption>
-          <InputClipOption>4</InputClipOption>
-          <InputClipOption>5</InputClipOption>
-          <InputClipOption>6</InputClipOption>
-          <InputClipOption>7</InputClipOption>
-          <InputClipOption>8</InputClipOption>
-          <InputClipOption>9</InputClipOption>
-          <InputClipOption>10</InputClipOption>
-          <InputClipOption>15</InputClipOption>
-          <InputClipOption>20</InputClipOption>
-        </InputClipSelect>
-        <Instruction>Enter your user ID and click grab,  or leave blank for random clips:</Instruction>
+          <InputOption>1</InputOption>
+          <InputOption>2</InputOption>
+          <InputOption>3</InputOption>
+          <InputOption>4</InputOption>
+          <InputOption>5</InputOption>
+          <InputOption>6</InputOption>
+          <InputOption>7</InputOption>
+          <InputOption>8</InputOption>
+          <InputOption>9</InputOption>
+          <InputOption>10</InputOption>
+          <InputOption>15</InputOption>
+          <InputOption>20</InputOption>
+        </InputSelect>
+        <Instruction>Choose game, or leave blank for random game:</Instruction>
+        <InputSelect onChange={e => categoryMatcher(e.target.value)} type="select" id="inputID">
+          <option value="" defaultValue hidden>Which game?</option>
+          <InputOption>Halo Infinite</InputOption>
+          <InputOption>OSRS</InputOption>
+          <InputOption>Overwatch</InputOption>
+          <InputOption>Valorant</InputOption>
+          <InputOption>rocket League</InputOption>
+        </InputSelect>
+        <Instruction>Enter your user ID and click grab, or leave blank for random clips:</Instruction>
         <FlexContainer>
           <InputUserID type="number" id="InputUserID" placeholder="e.g. 261997"/>
           <BtnRefresh btnText={loading ? 'Grab from ID' : 'Grabbing 😎 '} refreshClicked={() => getInputFromDOM()}/>
