@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSyncAlt } from '@fortawesome/free-solid-svg-icons'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 const BtnMedal = styled.button`
   font-family: "DM Sans", sans-serif;
@@ -32,10 +32,10 @@ const BtnMedal = styled.button`
 `
 
 
-const BtnRefresh = ({btnText, refreshClicked}) => {
+const BtnSet = ({btnText, setID}) => {
     return (
         <>
-          <BtnMedal onClick={refreshClicked}><FontAwesomeIcon icon={faSyncAlt}/> {btnText}</BtnMedal>
+          <BtnMedal onClick={setID}><FontAwesomeIcon icon={faPlus}/>{btnText}</BtnMedal>
         </>
     )
 }
@@ -44,4 +44,4 @@ BtnMedal.propTypes = {
   onClick: PropTypes.func
 }
 
-export default BtnRefresh
+export default BtnSet

@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import medalLogo from './assets/img/medal.svg'
-// import ErrorBoundary from './components/ErrorBoundary.js'
 import Grabber from './components/Grabber.js'
 import PerfectScrollbar from 'perfect-scrollbar';
 import {ErrorBoundary} from 'react-error-boundary'

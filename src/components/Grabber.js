@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import ClipPlayer from './ClipPlayer.js'
-import BtnRefresh from './BtnRefresh.js'
+import BtnSet from './BtnSet.js'
+import BtnClear from './BtnClear.js'
 
 const InputSelect = styled.select`
   font-family: "DM Sans", sans-serif;
@@ -26,31 +27,6 @@ const InputSelect = styled.select`
     cursor: pointer;
   }
 `
-const InputCombo = styled.input`
-  display: flex;
-  height: 27px;
-  width: 100%;
-  font-family: "DM Sans", sans-serif;
-  font-size: 0.75rem;
-  border-radius: 0.4285rem;
-  border: 2px solid #5F5F66;
-  padding: 0.5rem 0.7rem;
-  margin-bottom: 1rem;
-  color: rgba(255, 255, 255, 0.8);
-  background-color: transparent;
-  background-clip: padding-box;
-  transition: all 0.3s ease-in-out;
-
-  :focus-visible {
-    border-color: rgb(255,184,75);
-    outline: 0;
-  }
-
-  :hover {
-    cursor: pointer;
-  }
-`
-
 const InputOption = styled.option`
   font-family: "DM Sans", sans-serif;
   font-size: 0.75rem;
@@ -265,6 +241,7 @@ function Grabber () {
     console.log(gameArray)
     if (gameArray.length === 0) {
       alert("find out how to trigger the errorboundary")
+      document.querySelector("#inputGameName").selectedIndex=2
     } else {
       const gameID = gameArray[0].categoryId
       setCategoryID(gameID)
@@ -295,6 +272,7 @@ function Grabber () {
         <InputSelect onChange={e => categoryMatcher(e.target.value)} type="text" id="inputGameName">
           <option defaultValue hidden>Which game?</option>
           <InputOption value="customOption" hidden id="customOption"></InputOption>
+          <InputOption value="invalidOption" hidden id="invalidOption">Invalid selection!</InputOption>
           <InputOption>Halo Infinite</InputOption>
           <InputOption>Old School RuneScape</InputOption>
           <InputOption>Overwatch</InputOption>
@@ -304,10 +282,13 @@ function Grabber () {
           <InputOption>Roblox</InputOption>
           <InputOption>Custom</InputOption>
         </InputSelect>
-        <Instruction>Enter your user ID and click grab, or leave blank for random clips:</Instruction>
+        <Instruction>Enter your user ID and click set, or leave blank for random clips:</Instruction>
         <FlexContainer>
           <InputUserID type="number" id="inputUserID" placeholder="e.g. 261997"/>
-          <BtnRefresh btnText={loading ? 'Grab from ID' : 'Grabbing 😎 '} refreshClicked={() => getInputFromDOM()}/>
+          { userID
+            ? <BtnClear btnText={loading ? 'User ID Set!' : 'Clearing ID 🔧'}/>
+            : <BtnSet btnText={loading ? 'Set User ID' : 'Setting ID 😎'} setID={() => getInputFromDOM()}/>
+          }
         </FlexContainer>
       { loading 
         ? null
