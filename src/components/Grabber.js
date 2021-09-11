@@ -5,6 +5,7 @@ import BtnSet from './BtnSet.js'
 import BtnClear from './BtnClear.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import PropTypes from 'prop-types'
 
 const InputSelect = styled.select`
   font-family: "DM Sans", sans-serif;
@@ -40,7 +41,7 @@ const InputUserID = styled.input`
   width: 87%;
   height: 26px;
   border-radius: 0.4285rem;
-  border: 2px solid #5F5F66;
+  border: 2px solid ${props => props.borderColor};
   padding: 0.5rem 0.7rem;
   color: rgba(255, 255, 255, 0.8);
   background-color: transparent;
@@ -48,7 +49,7 @@ const InputUserID = styled.input`
   transition: all 0.3s ease-in-out;
 
   :focus-visible {
-    border-color: rgb(255,184,75) !important;
+    border-color: ${props => props.focusBorderColor};
     outline: 0;
   }
 
@@ -132,7 +133,8 @@ const IconContainer = styled.span`
 // Change game input to combobox
 // Need logic to display "no clips found!" if searching for a game that the user doesn't play
 // Need logic to display "no more clips"! if trying to access an amount larger than available
-// What happens when user cancels prompt input?
+// What happens when user cancels prompt input?#
+// Disable set ID until at least 5 digits have been input
  
 
 function Grabber () {
@@ -300,7 +302,7 @@ function Grabber () {
             ? <IconContainer><FontAwesomeIcon icon={faCheck}/></IconContainer>
             : null
           }
-          <InputUserID type="number" id="inputUserID" placeholder="e.g. 261997"/>
+          <InputUserID borderColor={ userID ? "#01d28e" : "#5F5F66"} focusBorderColor={ userID ? "#01d28e" : "rgb(255,184,75)"} type="number" id="inputUserID" placeholder="e.g. 261997"/>
           { userID
             ? <BtnClear clearID={() => setUserID(null)}/>
             : <BtnSet setID={() => getInputFromDOM()}/>
