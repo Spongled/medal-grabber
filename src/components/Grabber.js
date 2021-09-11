@@ -192,14 +192,13 @@ function Grabber () {
     console.log("Success")
   })
 
-  // Pull ID from InputUserID component and use setter to re-render
+  // Use tracked inputId from controlled component and re-trigger clip grab by updating userID using setUserID setter.
   function updateUserID() {
-    // const input = document.querySelector('#inputUserID')
-    // const userID = input.value
     const userID = inputID
     setUserID(userID)
   }
 
+  // Constantly tracks the input of the <InputUserID> component. Updates the inputID var using the setInputID setter on each keystroke (onChange). This is a controlled component.
   function updateInputID(e) {
     console.log("look here")
     setInputID(e)
