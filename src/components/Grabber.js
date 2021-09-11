@@ -3,9 +3,6 @@ import styled from 'styled-components'
 import ClipPlayer from './ClipPlayer.js'
 import BtnSet from './BtnSet.js'
 import BtnClear from './BtnClear.js'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck } from '@fortawesome/free-solid-svg-icons'
-import PropTypes from 'prop-types'
 
 const InputSelect = styled.select`
   font-family: "DM Sans", sans-serif;
@@ -109,13 +106,6 @@ const Instruction = styled.p`
   font-size: 0.875rem;
   color: rgb(179, 177, 182);
 `
-const IconContainer = styled.span`
-  position: absolute;
-  color: #01d28e;
-  margin-top: 14px;
-  margin-left: -30px;
-`
-
 // Maybe add a JSON file containing the whole categoryID array? Read from it and display game icon + custom game input by user. Test using JSON server? Would be useful to learn basic frontend/backend interactions
 // Add a dismissable box with brief description. Maybe dull the background and focus the box until "Got it!" is clicked by the user?
 // Animate border-top during grab? Could either 0-100% or gradient
@@ -298,10 +288,6 @@ function Grabber () {
         </InputSelect>
         <Instruction>Enter your user ID and click +, or leave blank for random clips:</Instruction>
         <FlexContainer>
-          { userID
-            ? <IconContainer><FontAwesomeIcon icon={faCheck}/></IconContainer>
-            : null
-          }
           <InputUserID borderColor={ userID ? "#01d28e" : "#5F5F66"} focusBorderColor={ userID ? "#01d28e" : "rgb(255,184,75)"} type="number" id="inputUserID" placeholder="e.g. 261997"/>
           { userID
             ? <BtnClear clearID={() => setUserID(null)}/>
