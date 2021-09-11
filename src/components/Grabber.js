@@ -132,6 +132,7 @@ function Grabber () {
   const [loading, setLoading] = useState(false)
   const [clipAmount, setClipAmount] = useState(0)
   const [userID, setUserID] = useState()
+  const [inputID, setInputID] = useState()
   const [categoryID, setCategoryID] = useState(null)
   const API_KEY = `pub_MsoICw6lrMKaofb7YjV8Qs9ggYFhWWp5`;
   const options = {
@@ -145,7 +146,7 @@ function Grabber () {
     }
   }
 
-  // Runs on load
+  // Runs on load and re-render
   useEffect(() => {
     console.log("useEffect")
     setLoading(false)
@@ -192,14 +193,22 @@ function Grabber () {
   })
 
   // Pull ID from InputUserID component and use setter to re-render
-  function getInputFromDOM() {
-    const input = document.querySelector('#inputUserID')
-    const userID = input.value
+  function updateUserID() {
+    // const input = document.querySelector('#inputUserID')
+    // const userID = input.value
+    const userID = inputID
     setUserID(userID)
   }
 
-  function testFunc() {
-    console.log("test btn")
+  function updateInputID(e) {
+    console.log("look here")
+    setInputID(e)
+    console.log(e)
+    console.log(inputID)
+  }
+
+  function clearInput() {
+    setUserID(null)
   }
 
   const categoryMatcher = async (e) => {
@@ -272,7 +281,7 @@ function Grabber () {
           <InputOption>15</InputOption>
           <InputOption>20</InputOption>
         </InputSelect>
-        <Instruction>Choose game, or leave blank for random game:</Instruction>
+        <Instruction>Choose game (leave blank for random):</Instruction>
         <InputSelect onChange={e => categoryMatcher(e.target.value)} type="text" id="inputGameName">
           <option defaultValue hidden>Which game?</option>
           <InputOption value="customOption" hidden id="customOption"></InputOption>
@@ -286,12 +295,12 @@ function Grabber () {
           <InputOption>Roblox</InputOption>
           <InputOption>Custom</InputOption>
         </InputSelect>
-        <Instruction>Enter your user ID and click +, or leave blank for random clips:</Instruction>
+        <Instruction>Enter user ID and click + (leave blank for random):</Instruction>
         <FlexContainer>
-          <InputUserID borderColor={ userID ? "#01d28e" : "#5F5F66"} focusBorderColor={ userID ? "#01d28e" : "rgb(255,184,75)"} type="number" id="inputUserID" placeholder="e.g. 261997"/>
+          <InputUserID borderColor={ userID ? "#01d28e" : "#5F5F66"} focusBorderColor={ userID ? "#01d28e" : "rgb(255,184,75)"} type="number" id="inputUserID" placeholder="e.g. 261997" value={inputID} onChange={(e) => updateInputID(e.currentTarget.value)}/>
           { userID
-            ? <BtnClear clearID={() => setUserID(null)}/>
-            : <BtnSet setID={() => getInputFromDOM()}/>
+            ? <BtnClear clearID={() => clearInput()}/>
+            : <BtnSet setID={() => updateUserID()}/>
           }
         </FlexContainer>
       { loading 
