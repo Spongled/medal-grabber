@@ -26,6 +26,31 @@ const InputSelect = styled.select`
     cursor: pointer;
   }
 `
+const InputCombo = styled.input`
+  display: flex;
+  height: 27px;
+  width: 100%;
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.75rem;
+  border-radius: 0.4285rem;
+  border: 2px solid #5F5F66;
+  padding: 0.5rem 0.7rem;
+  margin-bottom: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  background-color: transparent;
+  background-clip: padding-box;
+  transition: all 0.3s ease-in-out;
+
+  :focus-visible {
+    border-color: rgb(255,184,75);
+    outline: 0;
+  }
+
+  :hover {
+    cursor: pointer;
+  }
+`
+
 const InputOption = styled.option`
   font-family: "DM Sans", sans-serif;
   font-size: 0.75rem;
@@ -128,6 +153,7 @@ function Grabber () {
   const [clipAmount, setClipAmount] = useState(0)
   const [userID, setUserID] = useState()
   const [categoryID, setCategoryID] = useState(null)
+  // const [gameArray, setGameArray] = useState([])
   const API_KEY = `pub_MsoICw6lrMKaofb7YjV8Qs9ggYFhWWp5`;
   const options = {
     host: 'https://developers.medal.tv',
@@ -215,14 +241,26 @@ function Grabber () {
 
   function updateCategory(categoryJSONstring, gameName) {
     const categoryObj = JSON.parse(categoryJSONstring)
+    var gameArray = []
     console.log(gameName)
     console.log(categoryObj)
-    const gameArray = categoryObj.filter(e => e.categoryName === gameName);
+    gameArray = categoryObj.filter(e => e.categoryName === gameName);
+    if (gameArray.length === 0) {
+      // Use this to check for an alternative game name if nothing was found initially, replace the gameArray if found
+      gameArray = categoryObj.filter(e => e.alternativeName === gameName)
+      console.log("is null")
+    }
     console.log(gameArray)
-    console.log(gameArray[0].categoryId)
-    const gameID = gameArray[0].categoryId
-    setCategoryID(gameID)
+    if (gameArray.length === 0) {
+      alert("find out how to trigger the errorboundary")
+    } else {
+      const gameID = gameArray[0].categoryId
+      setCategoryID(gameID)
+    }
+    gameArray.splice(0, gameArray.length)
   }
+
+  // figure out solution for new combobox
 
   return (
       <>
@@ -243,14 +281,26 @@ function Grabber () {
           <InputOption>20</InputOption>
         </InputSelect>
         <Instruction>Choose game, or leave blank for random game:</Instruction>
-        <InputSelect onChange={e => categoryMatcher(e.target.value)} type="select" id="inputID">
+        <InputSelect  type="text" >
           <option value="" defaultValue hidden>Which game?</option>
           <InputOption>Halo Infinite</InputOption>
+          <InputOption>Old School RuneScape</InputOption>
           <InputOption>OSRS</InputOption>
           <InputOption>Overwatch</InputOption>
           <InputOption>Valorant</InputOption>
-          <InputOption>rocket League</InputOption>
+          <InputOption>Rkt League</InputOption>
         </InputSelect>
+        <FlexContainer>
+        <InputCombo onChange={e => categoryMatcher(e.target.value)} type="text" list="games" placeholder="Which game?" id="inputID"/>
+        <datalist id="games">
+          <InputOption>Halo Infinite</InputOption>
+          <InputOption>Old School RuneScape</InputOption>
+          <InputOption>OSRS</InputOption>
+          <InputOption>Overwatch</InputOption>
+          <InputOption>Valorant</InputOption>
+          <InputOption>Rkt League</InputOption>
+        </datalist>
+        </FlexContainer>
         <Instruction>Enter your user ID and click grab, or leave blank for random clips:</Instruction>
         <FlexContainer>
           <InputUserID type="number" id="InputUserID" placeholder="e.g. 261997"/>
