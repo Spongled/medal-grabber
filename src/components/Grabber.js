@@ -226,6 +226,9 @@ function Grabber () {
   const categoryMatcher = async (e) => {
     const gameName = e
     console.log("game name: " + gameName)
+    if (gameName === "None") {
+      setCategoryID(null)
+    }
     if (gameName === "Custom") {
       const customGameName = prompt("Enter the name of the game you want to grab:")
       categoryMatcher(customGameName)
@@ -265,11 +268,15 @@ function Grabber () {
       console.log("is null")
     }
     console.log(gameArray)
-    if (gameArray.length === 0) {
-      document.querySelector("#inputGameName").selectedIndex=2
+    if (gameArray.length === 0 && gameName === "None") {
+      alert("nice")
     } else {
-      const gameID = gameArray[0].categoryId
-      setCategoryID(gameID)
+      if (gameArray.length === 0 && gameName !== "None") {
+        document.querySelector("#inputGameName").selectedIndex=2
+      } else {
+        const gameID = gameArray[0].categoryId
+        setCategoryID(gameID)
+      }
     }
     // Empty the array so that it's prepared for the next grab
     gameArray.splice(0, gameArray.length)
@@ -298,6 +305,7 @@ function Grabber () {
           <option defaultValue hidden>Which game?</option>
           <InputOption value="customOption" hidden id="customOption"></InputOption>
           <InputOption value="invalidOption" hidden id="invalidOption">Invalid game name! Please try again.</InputOption>
+          <InputOption>None</InputOption>
           <InputOption>Halo Infinite</InputOption>
           <InputOption>Old School RuneScape</InputOption>
           <InputOption>Overwatch</InputOption>
