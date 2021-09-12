@@ -114,19 +114,15 @@ const Instruction = styled.p`
 // Tick multiple clips to download at once
 // Optimise renders
 // Look into useCallback
-// Pressing enter in user ID input should trigger getInputFromDOM()
-// Add toggle for trending vs latest content - hide userID input if trending is selected
+// Add toggle for trending vs latest content - hide <InputUserID> if trending is selected
 // Format view and like numbers? e.g. 1,000 not 1000
 // Add scrolltop button
-// Make it clear when an ID is being used: e.g. turn button green with a tick when ID var isn't null
-// Disable grab btn if ID box is empty
-// Change game input to combobox
 // Need logic to display "no clips found!" if searching for a game that the user doesn't play
 // Need logic to display "no more clips"! if trying to access an amount larger than available
 // What happens when user cancels prompt input?
-// Disable set ID until at least 5 digits have been input
 // Add ? next to "user ID" instruction which displays gif of where to find user ID on hover
-// Disable <InputUserID> while userID isn't null
+// Display game name and cover photo on clip container
+// Format input from prompt so that the first letter of each word is uppercase: https://www.freecodecamp.org/news/how-to-capitalize-words-in-javascript/
  
 
 function Grabber () {
