@@ -135,6 +135,7 @@ function Grabber () {
   const [clipAmount, setClipAmount] = useState(0)
   const [userID, setUserID] = useState()
   const [inputID, setInputID] = useState()
+  const [inputPlaceholder, setInputPlaceholder] = useState("e.g. 261997")
   const [categoryID, setCategoryID] = useState(null)
   const API_KEY = `pub_MsoICw6lrMKaofb7YjV8Qs9ggYFhWWp5`;
   const options = {
@@ -199,6 +200,7 @@ function Grabber () {
     const userID = inputID
     setUserID(userID)
     setInputID("")
+    setInputPlaceholder("ID: " + userID + " active!")
   }
 
   // Constantly tracks the input of the <InputUserID> component. Updates the inputID var using the setInputID setter on each keystroke (onChange). This is a controlled component.
@@ -214,6 +216,7 @@ function Grabber () {
 
   function clearInput() {
     setUserID(null)
+    setInputPlaceholder("e.g. 261997")
   }
 
   const categoryMatcher = async (e) => {
@@ -302,7 +305,7 @@ function Grabber () {
         </InputSelect>
         <Instruction>Enter user ID and click + (leave blank for random):</Instruction>
         <FlexContainer>
-          <InputUserID borderColor={userID ? "#01d28e" : "#5F5F66"} focusBorderColor={userID ? "#01d28e" : "rgb(255,184,75)"} type="number" id="inputUserID" placeholder="e.g. 261997" value={inputID} onChange={(e) => updateInputID(e.currentTarget.value)}/>
+          <InputUserID borderColor={userID ? "#01d28e" : "#5F5F66"} focusBorderColor={userID ? "#01d28e" : "rgb(255,184,75)"} type="number" id="inputUserID" placeholder={inputPlaceholder} value={inputID} onChange={(e) => updateInputID(e.currentTarget.value)}/>
           { userID
             ? <BtnClear clearID={() => clearInput()}/>
             : <BtnSet inputID={inputID} setID={() => updateUserID()}/>
