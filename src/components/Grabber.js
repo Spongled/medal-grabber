@@ -190,11 +190,11 @@ function Grabber () {
     console.log("Success")
   })
 
-  // Use tracked inputId from controlled component and re-trigger clip grab by updating userID using setUserID setter.
+  // Use constantly tracked inputID (which is the value of <InputUserID> at any given moment) from controlled component and re-trigger inclip grab in useEffect by updating userID dependency using setUserID setter.
   function updateUserID() {
     const userID = inputID
     setUserID(userID)
-    setInputID("")
+    setInputID("") // Clear the value so we can see the placeholder beneath, and so that a new value can be input next time.
     setInputPlaceholder("ID: " + userID + " active!")
   }
 
@@ -249,7 +249,7 @@ function Grabber () {
     var gameArray = []
     document.querySelector("#inputGameName").selectedIndex = 1
     document.querySelector("#customOption").innerHTML = gameName
-    gameArray = categoryObj.filter(e => e.categoryName === gameName);
+    gameArray = categoryObj.filter(e => e.categoryName === gameName)
     if (gameArray.length === 0) {
       // Use this to check for an alternative game name if nothing was found initially, replace the gameArray if found
       gameArray = categoryObj.filter(e => e.alternativeName === gameName)
@@ -289,7 +289,7 @@ function Grabber () {
         <Instruction>Choose game:</Instruction>
         <InputSelect onChange={e => categoryMatcher(e.target.value)} type="text" id="inputGameName">
           <InputOption defaultValue>Latest clips / all games!</InputOption>
-          <InputOption value="customOption" hidden id="customOption"></InputOption>
+          <InputOption value="customOption" hidden id="customOption"></InputOption> {/* Used as a dummy which can be named as any valid game that isn't initally in the list */}
           <InputOption value="invalidOption" hidden id="invalidOption">Invalid game name! Please try again.</InputOption>
           <InputOption>Halo Infinite</InputOption>
           <InputOption>Old School RuneScape</InputOption>
