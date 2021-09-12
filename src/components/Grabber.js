@@ -114,15 +114,14 @@ const Instruction = styled.p`
 // Tick multiple clips to download at once
 // Optimise renders
 // Look into useCallback
-// Add toggle for trending vs latest content - hide <InputUserID> if trending is selected
 // Format view and like numbers? e.g. 1,000 not 1000
 // Add scrolltop button
 // Need logic to display "no clips found!" if searching for a game that the user doesn't play
 // Need logic to display "no more clips"! if trying to access an amount larger than available
-// What happens when user cancels prompt input?
 // Add ? next to "user ID" instruction which displays gif of where to find user ID on hover
 // Display game name and cover photo on clip container
 // Format input from prompt so that the first letter of each word is uppercase: https://www.freecodecamp.org/news/how-to-capitalize-words-in-javascript/
+// Create readme.md
  
 
 function Grabber () {
