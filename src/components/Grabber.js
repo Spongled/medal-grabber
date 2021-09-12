@@ -268,11 +268,11 @@ function Grabber () {
       console.log("is null")
     }
     console.log(gameArray)
-    if (gameArray.length === 0 && gameName === "None") {
-      alert("nice")
+    if (gameArray.length === 0 && gameName === "Latest clips / all games!") {
+      setCategoryID(null)
     } else {
-      if (gameArray.length === 0 && gameName !== "None") {
-        document.querySelector("#inputGameName").selectedIndex=2
+      if (gameArray.length === 0 && gameName !== "Latest clips / all games!") {
+        document.querySelector("#inputGameName").selectedIndex = 2
       } else {
         const gameID = gameArray[0].categoryId
         setCategoryID(gameID)
@@ -300,12 +300,11 @@ function Grabber () {
           <InputOption>15</InputOption>
           <InputOption>20</InputOption>
         </InputSelect>
-        <Instruction>Choose game (leave blank for random):</Instruction>
+        <Instruction>Choose game:</Instruction>
         <InputSelect onChange={e => categoryMatcher(e.target.value)} type="text" id="inputGameName">
-          <option defaultValue hidden>Which game?</option>
+          <InputOption defaultValue>Latest clips / all games!</InputOption>
           <InputOption value="customOption" hidden id="customOption"></InputOption>
           <InputOption value="invalidOption" hidden id="invalidOption">Invalid game name! Please try again.</InputOption>
-          <InputOption>None</InputOption>
           <InputOption>Halo Infinite</InputOption>
           <InputOption>Old School RuneScape</InputOption>
           <InputOption>Overwatch</InputOption>
@@ -315,7 +314,7 @@ function Grabber () {
           <InputOption>Roblox</InputOption>
           <InputOption>Custom</InputOption>
         </InputSelect>
-        <Instruction>Enter user ID and click + (leave blank for random):</Instruction>
+        <Instruction>Add user ID (leave blank for random):</Instruction>
         <FlexContainer>
           { userID
             ? <InputUserID disabled borderColor={userID ? "#01d28e" : "#5F5F66"} focusBorderColor={userID ? "#01d28e" : "rgb(255,184,75)"} type="number" placeholder={inputPlaceholder} value={inputID} onChange={(e) => updateInputID(e.currentTarget.value)}/>
