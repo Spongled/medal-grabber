@@ -147,7 +147,6 @@ function Grabber () {
 
   // Runs on load and re-render
   useEffect(() => {
-    console.log("useEffect")
     setLoading(false)
     const getClip = async () => {
       const data = await fetchClips()
@@ -201,13 +200,7 @@ function Grabber () {
 
   // Constantly tracks the input of the <InputUserID> component. Updates the inputID var using the setInputID setter on each keystroke (onChange). This is a controlled component.
   function updateInputID(e) {
-    console.log("look here")
     setInputID(e)
-    console.log(e)
-    console.log(inputID)
-    if (inputID > 9999) {
-      console.log("big ID")
-    }
   }
 
   function clearInput() {
@@ -217,7 +210,6 @@ function Grabber () {
 
   // We can instead capture the Enter key from <InputUserID> as a shortcut instead of the user having to press BtnSet. Add validation so that a user cannot Enter while BtnSet is still disabled.
   function handleKeypress(e) {
-    console.log(e.keyCode)
     if (e.key === 'Enter' && inputID > 9999) {
       updateUserID()
     }
@@ -225,7 +217,6 @@ function Grabber () {
 
   const categoryMatcher = async (e) => {
     const gameName = e
-    console.log("game name: " + gameName)
     if (gameName === "None") {
       setCategoryID(null)
     }
@@ -256,18 +247,13 @@ function Grabber () {
     // Convert JSON string back to JSON object.
     const categoryObj = JSON.parse(categoryString)
     var gameArray = []
-    console.log(gameName)
-    console.log("set option as gameName")
     document.querySelector("#inputGameName").selectedIndex = 1
     document.querySelector("#customOption").innerHTML = gameName
-    console.log(categoryObj)
     gameArray = categoryObj.filter(e => e.categoryName === gameName);
     if (gameArray.length === 0) {
       // Use this to check for an alternative game name if nothing was found initially, replace the gameArray if found
       gameArray = categoryObj.filter(e => e.alternativeName === gameName)
-      console.log("is null")
     }
-    console.log(gameArray)
     if (gameArray.length === 0 && gameName === "Latest clips / all games!") {
       setCategoryID(null)
     } else {
