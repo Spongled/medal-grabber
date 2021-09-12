@@ -216,7 +216,7 @@ function Grabber () {
   }
 
   // We can instead capture the Enter key from <InputUserID> as a shortcut instead of the user having to press BtnSet. Add validation so that a user cannot Enter while BtnSet is still disabled.
-  const handleKeypress = e => {
+  function handleKeypress(e) {
     console.log(e.keyCode)
     if (e.key === 'Enter' && inputID > 9999) {
       updateUserID()
