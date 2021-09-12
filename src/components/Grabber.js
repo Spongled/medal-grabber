@@ -102,9 +102,11 @@ const Loader = styled.div`
   }
 }
 `
-const Instruction = styled.p`
+const Instruction = styled.div`
   font-size: 0.875rem;
   color: rgb(179, 177, 182);
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
 `
 // Maybe add a JSON file containing the whole categoryID array? Read from it and display game icon + custom game input by user. Test using JSON server? Would be useful to learn basic frontend/backend interactions
 // Add a dismissable box with brief description. Maybe dull the background and focus the box until "Got it!" is clicked by the user?
@@ -220,8 +222,17 @@ function Grabber () {
       setCategoryID(null)
     }
     if (gameName === "Custom") {
-      const customGameName = prompt("Enter the name of the game you want to grab:")
-      categoryMatcher(customGameName)
+      const customGameName = prompt("Enter the name of the game you want to grab. Please format the name properly:")
+      const formattedCustomGameName = customGameName.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
+      // ^ matches the beginning of the string.
+      // \w matches any word character.
+      // {1} takes only the first character.
+      // ^\w{1} matches the first letter of the word.
+      // | works like the boolean OR. It matches the expression after and before the |.
+      // \s+ matches any amount of whitespace between the words (for example spaces, tabs, or line breaks).
+      // Together, this formats the user-input custom game name to have a capital letter at the beginning of each word, aligning to the naming convention of the API. E.G. "apex legends" -> "Apex Legends".
+      // This isn't foolproof though. Trickier names like "league of Legends" and "RuneScape" won't work here.
+      categoryMatcher(formattedCustomGameName)
     } else {
       if (sessionStorage.getItem('sessionJSON') === null) {
         const res = await fetch(`https://api-v2.medal.tv/categories/`, {
@@ -290,13 +301,51 @@ function Grabber () {
           <InputOption defaultValue>Latest clips / all games!</InputOption>
           <InputOption value="customOption" hidden id="customOption"></InputOption> {/* Used as a dummy which can be named as any valid game that isn't initally in the list */}
           <InputOption value="invalidOption" hidden id="invalidOption">Invalid game name! Please try again.</InputOption>
-          <InputOption>Halo Infinite</InputOption>
-          <InputOption>Old School RuneScape</InputOption>
-          <InputOption>Overwatch</InputOption>
           <InputOption>Valorant</InputOption>
-          <InputOption>Rocket League</InputOption>
-          <InputOption>Minecraft</InputOption>
+          <InputOption>Fortnite</InputOption>
+          <InputOption>GTA V</InputOption>
           <InputOption>Roblox</InputOption>
+          <InputOption>Minecraft</InputOption>
+          <InputOption>Rocket League</InputOption>
+          <InputOption>Counter Strike: Global Offensive</InputOption>
+          <InputOption>Apex Legends</InputOption>
+          <InputOption>Overwatch</InputOption>
+          <InputOption>League of Legends</InputOption>
+          <InputOption>Call of Duty Warzone</InputOption>
+          <InputOption>Call of Duty®: Black Ops Cold War</InputOption>
+          <InputOption>Call of Duty: Mobile</InputOption>
+          <InputOption>Among Us</InputOption>
+          <InputOption>Rust</InputOption>
+          <InputOption>Tom Clancy's Rainbow Six Siege</InputOption>
+          <InputOption>Halo Infinite</InputOption>
+          <InputOption>Halo: The Master Chief Collection</InputOption>
+          <InputOption>Old School RuneScape</InputOption>
+          <InputOption>RuneScape</InputOption>
+          <InputOption>World of Warcraft Classic</InputOption>
+          <InputOption>World of Warcraft</InputOption>
+          <InputOption>New World</InputOption>
+          <InputOption>Destiny 2</InputOption>
+          <InputOption>Escape From Tarkov</InputOption>
+          <InputOption>Dead By Daylight</InputOption>
+          <InputOption>osu!</InputOption>
+          <InputOption>Garry's Mod</InputOption>
+          <InputOption>Splitgate</InputOption>
+          <InputOption>PUBG</InputOption>
+          <InputOption>Aim Lab</InputOption>
+          <InputOption>Battlefield V</InputOption>
+          <InputOption>Warframe</InputOption>
+          <InputOption>Sea of Thieves</InputOption>
+          <InputOption>Red Dead Redemption 2</InputOption>
+          <InputOption>Hearthstone</InputOption>
+          <InputOption>Terraria</InputOption>
+          <InputOption>Binding of Isaac</InputOption>
+          <InputOption>No Man's Sky</InputOption>
+          <InputOption>Fall Guys</InputOption>
+          <InputOption>Valheim</InputOption>
+          <InputOption>Skyrim</InputOption>
+          <InputOption>Rogue Company</InputOption>
+          <InputOption>Spellbreak</InputOption>
+          <InputOption>Hyper Scape</InputOption>
           <InputOption>Custom</InputOption>
         </InputSelect>
         <Instruction>Add user ID (leave blank for random):</Instruction>
