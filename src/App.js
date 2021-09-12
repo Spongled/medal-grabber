@@ -94,7 +94,7 @@ const ErrorHeading = styled.div`
 const ErrorMessage = styled.div`
   margin-top: 1rem;
   margin-bottom: 1rem;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   color: #fff;
   text-align: center;
 `
@@ -119,7 +119,7 @@ function ErrorFallback() {
   useEffect(() => {
     setTimeout(function(){
       window.location.reload();
-    }, 5000);
+    }, 50000);
   });
 
   return (
@@ -129,7 +129,7 @@ function ErrorFallback() {
               <ErrorContent>
                   <ErrorEmoji>💩</ErrorEmoji>
                   <ErrorHeading>Uh oh...</ErrorHeading>
-                  <ErrorMessage>Looks like you either: chose and invalid user ID, selected a clip size larger than what was available, or tried to grab a game from an ID that doesn't have any clips from that game... or something else broke. We'll reload the app so you can try again!</ErrorMessage>
+                  <ErrorMessage>Looks like you either: entered a non-existent user ID, selected a clip amount larger than what exists for your parameters, tried to grab a certain game from an ID that doesn't have any clips from that game... or something else broke. We'll reload the app so you can try again!</ErrorMessage>
                   <ProgressContainer>
                     <ProgressBar></ProgressBar>
                   </ProgressContainer>
