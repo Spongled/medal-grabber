@@ -305,7 +305,10 @@ function Grabber () {
         </InputSelect>
         <Instruction>Enter user ID and click + (leave blank for random):</Instruction>
         <FlexContainer>
-          <InputUserID borderColor={userID ? "#01d28e" : "#5F5F66"} focusBorderColor={userID ? "#01d28e" : "rgb(255,184,75)"} type="number" id="inputUserID" placeholder={inputPlaceholder} value={inputID} onChange={(e) => updateInputID(e.currentTarget.value)}/>
+          { userID
+            ? <InputUserID disabled borderColor={userID ? "#01d28e" : "#5F5F66"} focusBorderColor={userID ? "#01d28e" : "rgb(255,184,75)"} type="number" id="inputUserID" placeholder={inputPlaceholder} value={inputID} onChange={(e) => updateInputID(e.currentTarget.value)}/>
+            : <InputUserID borderColor={userID ? "#01d28e" : "#5F5F66"} focusBorderColor={userID ? "#01d28e" : "rgb(255,184,75)"} type="number" id="inputUserID" placeholder={inputPlaceholder} value={inputID} onChange={(e) => updateInputID(e.currentTarget.value)}/>
+          }
           { userID
             ? <BtnClear clearID={() => clearInput()}/>
             : <BtnSet inputID={inputID} setID={() => updateUserID()}/>
