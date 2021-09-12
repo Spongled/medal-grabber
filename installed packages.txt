@@ -5,4 +5,3 @@ npm install @fortawesome/free-solid-svg-icons
 npm install @fortawesome/react-fontawesome
 npm install perfect-scrollbar@1.4.0 // use 1.4, 1.5 is bugged and lets you scroll past boundaries.
 npm install react-error-boundary
-!

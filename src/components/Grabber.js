@@ -230,7 +230,7 @@ function Grabber () {
       const customGameName = prompt("Enter the name of the game you want to grab:")
       categoryMatcher(customGameName)
     } else {
-      if (sessionStorage.getItem('categoryJSONstring') === null) {
+      if (sessionStorage.getItem('sessionJSON') === null) {
         const res = await fetch(`https://api-v2.medal.tv/categories/`, {
           method: 'GET',
           headers: {
@@ -238,19 +238,20 @@ function Grabber () {
           }
         })
         const data = await res.json()
-        const categoryJSONstring = JSON.stringify(data)
-        sessionStorage.setItem('categoryJSONstring', categoryJSONstring) 
-        updateCategory(categoryJSONstring, gameName)     
+        const categoryString = JSON.stringify(data)
+        sessionStorage.setItem('sessionJSON', categoryString) 
+        updateCategory(categoryString, gameName)     
       }
       else {
-        const categoryJSONstring = sessionStorage.getItem('categoryJSONstring')
-        updateCategory(categoryJSONstring, gameName)
+        const categoryString = sessionStorage.getItem('sessionJSON')
+        updateCategory(categoryString, gameName)
       }
     }
   }
 
-  function updateCategory(categoryJSONstring, gameName) {
-    const categoryObj = JSON.parse(categoryJSONstring)
+  function updateCategory(categoryString, gameName) {
+    // Convert JSON string back to JSON object.
+    const categoryObj = JSON.parse(categoryString)
     var gameArray = []
     console.log(gameName)
     console.log("set option as gameName")
@@ -265,7 +266,6 @@ function Grabber () {
     }
     console.log(gameArray)
     if (gameArray.length === 0) {
-      alert("find out how to trigger the errorboundary")
       document.querySelector("#inputGameName").selectedIndex=2
     } else {
       const gameID = gameArray[0].categoryId
@@ -297,7 +297,7 @@ function Grabber () {
         <InputSelect onChange={e => categoryMatcher(e.target.value)} type="text" id="inputGameName">
           <option defaultValue hidden>Which game?</option>
           <InputOption value="customOption" hidden id="customOption"></InputOption>
-          <InputOption value="invalidOption" hidden id="invalidOption">Invalid selection!</InputOption>
+          <InputOption value="invalidOption" hidden id="invalidOption">Invalid game name! Please try again.</InputOption>
           <InputOption>Halo Infinite</InputOption>
           <InputOption>Old School RuneScape</InputOption>
           <InputOption>Overwatch</InputOption>
