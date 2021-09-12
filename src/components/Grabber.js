@@ -123,8 +123,10 @@ const Instruction = styled.p`
 // Change game input to combobox
 // Need logic to display "no clips found!" if searching for a game that the user doesn't play
 // Need logic to display "no more clips"! if trying to access an amount larger than available
-// What happens when user cancels prompt input?#
+// What happens when user cancels prompt input?
 // Disable set ID until at least 5 digits have been input
+// Add ? next to "user ID" instruction which displays gif of where to find user ID on hover
+// Disable <InputUserID> while userID isn't null
  
 
 function Grabber () {
@@ -196,6 +198,7 @@ function Grabber () {
   function updateUserID() {
     const userID = inputID
     setUserID(userID)
+    setInputID("")
   }
 
   // Constantly tracks the input of the <InputUserID> component. Updates the inputID var using the setInputID setter on each keystroke (onChange). This is a controlled component.
@@ -204,6 +207,9 @@ function Grabber () {
     setInputID(e)
     console.log(e)
     console.log(inputID)
+    if (inputID > 9999) {
+      console.log("big ID")
+    }
   }
 
   function clearInput() {
@@ -241,7 +247,7 @@ function Grabber () {
     var gameArray = []
     console.log(gameName)
     console.log("set option as gameName")
-    document.querySelector("#inputGameName").selectedIndex=1
+    document.querySelector("#inputGameName").selectedIndex = 1
     document.querySelector("#customOption").innerHTML = gameName
     console.log(categoryObj)
     gameArray = categoryObj.filter(e => e.categoryName === gameName);
@@ -296,10 +302,10 @@ function Grabber () {
         </InputSelect>
         <Instruction>Enter user ID and click + (leave blank for random):</Instruction>
         <FlexContainer>
-          <InputUserID borderColor={ userID ? "#01d28e" : "#5F5F66"} focusBorderColor={ userID ? "#01d28e" : "rgb(255,184,75)"} type="number" id="inputUserID" placeholder="e.g. 261997" value={inputID} onChange={(e) => updateInputID(e.currentTarget.value)}/>
+          <InputUserID borderColor={userID ? "#01d28e" : "#5F5F66"} focusBorderColor={userID ? "#01d28e" : "rgb(255,184,75)"} type="number" id="inputUserID" placeholder="e.g. 261997" value={inputID} onChange={(e) => updateInputID(e.currentTarget.value)}/>
           { userID
             ? <BtnClear clearID={() => clearInput()}/>
-            : <BtnSet setID={() => updateUserID()}/>
+            : <BtnSet inputID={inputID} setID={() => updateUserID()}/>
           }
         </FlexContainer>
       { loading 

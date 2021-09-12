@@ -20,13 +20,27 @@ const BtnMedal = styled.button`
     background: #01d28e;
     transform: translateY(-2px);
   }
+
+  :disabled {
+    background: #5F5F66;
+    cursor: default;
+  }
+
+  :hover:disabled {
+    background: #5F5F66;
+    transform: translateY(0px);
+    cursor: default;
+  }
 `
 
 
-const BtnSet = ({setID}) => {
+const BtnSet = ({setID, inputID}) => {
     return (
         <>
-          <BtnMedal onClick={setID} title="Set ID"><FontAwesomeIcon icon={faPlus}/></BtnMedal>
+          { inputID > 9999
+            ? <BtnMedal onClick={setID} title="Set ID"><FontAwesomeIcon icon={faPlus}/></BtnMedal>
+            : <BtnMedal disabled title="Disabled"><FontAwesomeIcon icon={faPlus}/></BtnMedal>
+          }
         </>
     )
 }

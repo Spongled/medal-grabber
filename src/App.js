@@ -119,7 +119,7 @@ function ErrorFallback() {
   useEffect(() => {
     setTimeout(function(){
       window.location.reload();
-    }, 500000);
+    }, 5000);
   });
 
   return (
@@ -129,7 +129,7 @@ function ErrorFallback() {
               <ErrorContent>
                   <ErrorEmoji>💩</ErrorEmoji>
                   <ErrorHeading>Uh oh...</ErrorHeading>
-                  <ErrorMessage>Looks like you input an invalid user ID, or something else broke. We'll reload the app so you can try again!</ErrorMessage>
+                  <ErrorMessage>Looks like you either: chose and invalid user ID, selected a clip size larger than what was available, or tried to grab a game from an ID that doesn't have any clips from that game... or something else broke. We'll reload the app so you can try again!</ErrorMessage>
                   <ProgressContainer>
                     <ProgressBar></ProgressBar>
                   </ProgressContainer>
