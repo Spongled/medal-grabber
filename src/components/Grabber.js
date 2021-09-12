@@ -219,6 +219,14 @@ function Grabber () {
     setInputPlaceholder("e.g. 261997")
   }
 
+  // We can instead capture the Enter key from <InputUserID> as a shortcut instead of the user having to press BtnSet. Add validation so that a user cannot Enter while BtnSet is still disabled.
+  const handleKeypress = e => {
+    console.log(e.keyCode)
+    if (e.key === 'Enter' && inputID > 9999) {
+      updateUserID()
+    }
+  }
+
   const categoryMatcher = async (e) => {
     const gameName = e
     console.log("game name: " + gameName)
@@ -307,7 +315,7 @@ function Grabber () {
         <FlexContainer>
           { userID
             ? <InputUserID disabled borderColor={userID ? "#01d28e" : "#5F5F66"} focusBorderColor={userID ? "#01d28e" : "rgb(255,184,75)"} type="number" id="inputUserID" placeholder={inputPlaceholder} value={inputID} onChange={(e) => updateInputID(e.currentTarget.value)}/>
-            : <InputUserID borderColor={userID ? "#01d28e" : "#5F5F66"} focusBorderColor={userID ? "#01d28e" : "rgb(255,184,75)"} type="number" id="inputUserID" placeholder={inputPlaceholder} value={inputID} onChange={(e) => updateInputID(e.currentTarget.value)}/>
+            : <InputUserID onKeyPress={handleKeypress} borderColor={userID ? "#01d28e" : "#5F5F66"} focusBorderColor={userID ? "#01d28e" : "rgb(255,184,75)"} type="number" id="inputUserID" placeholder={inputPlaceholder} value={inputID} onChange={(e) => updateInputID(e.currentTarget.value)}/>
           }
           { userID
             ? <BtnClear clearID={() => clearInput()}/>
