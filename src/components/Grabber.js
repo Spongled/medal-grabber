@@ -181,7 +181,7 @@ function Grabber () {
   clipArray.forEach((clipArray, i)=>{
     console.log("Obtaining iFrame for clip and pushing to clipPlayers array - #" + i)
     console.log(clipPlayers[i])
-    const categoryID = clipArray.contentObjects[i].categoryId
+    // const categoryID = clipArray.contentObjects[i].categoryId
 
     clipPlayers.push(
     <ClipPlayer
@@ -222,6 +222,7 @@ function Grabber () {
     }
   }
 
+  // Takes the input from "Choose game" whether it be custom or predefined, formats it if required, and sends through to the updateCategoryByGameName() function.
   function gameMatcher(e) {
     const gameName = e
     if (gameName === "None") {
@@ -245,14 +246,15 @@ function Grabber () {
     } else {
       if (sessionStorage.getItem('sessionJSON') === null) {
         createStorage()
-        updateCategory(gameName)     
+        updateCategoryByGameName(gameName)     
       }
       else {
-        updateCategory(gameName)
+        updateCategoryByGameName(gameName)
       }
     }
   }
 
+  // Retrieves the entire JSON object for games from the Medal API, converts it to a string, and stores in sessionStorage.
   const createStorage = async () => {
     const res = await fetch('https://api-v2.medal.tv/categories/', {
       method: 'GET',
@@ -265,7 +267,7 @@ function Grabber () {
     sessionStorage.setItem('sessionJSON', categoryString)
   }
 
-  function updateCategory(gameName) {
+  function updateCategoryByGameName(gameName) {
     // Convert JSON string back to JSON object.
     const categoryString = sessionStorage.getItem('sessionJSON')
     const categoryObj = JSON.parse(categoryString)
