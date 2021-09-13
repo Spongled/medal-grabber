@@ -83,7 +83,7 @@ const TimeAndExternalContainer = styled.div`
   align-items: center;
 `
 
-const ClipPlayer = ({clipFrame, clipTitle, clipViews, clipLikes, clipLink, clipLength}) => {
+const ClipPlayer = ({clipFrame, clipTitle, clipViews, clipLikes, clipLink, clipLength, clipGame}) => {
   const clipLengthSeconds = clipLength;
 
     return (
@@ -95,6 +95,9 @@ const ClipPlayer = ({clipFrame, clipTitle, clipViews, clipLikes, clipLink, clipL
           <ClipInfo>
             <TitleAndEngagementContainer>
               <ClipInfoEngagement>
+                <InfoBadge>
+                  {clipGame}
+                </InfoBadge>
                 <InfoBadge>
                   <EngagementViews src={medalViews}></EngagementViews>{clipViews}
                   <EngagementLikes src={medalLikes}></EngagementLikes>{clipLikes}

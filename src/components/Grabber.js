@@ -103,12 +103,12 @@ const Loader = styled.div`
 }
 `
 const Instruction = styled.div`
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   color: rgb(179, 177, 182);
   margin-top: 1rem;
   margin-bottom: 0.5rem;
 `
-// Maybe add a JSON file containing the whole categoryID array? Read from it and display game icon + custom game input by user. Test using JSON server? Would be useful to learn basic frontend/backend interactions
+
 // Add a dismissable box with brief description. Maybe dull the background and focus the box until "Got it!" is clicked by the user?
 // Animate border-top during grab? Could either 0-100% or gradient
 // Ask Josh if he can enable rawFileUrls on my API key
@@ -122,9 +122,12 @@ const Instruction = styled.div`
 // Need logic to display "no more clips"! if trying to access an amount larger than available
 // Add ? next to "user ID" instruction which displays gif of where to find user ID on hover
 // Display game name and cover photo on clip container
-// Format input from prompt so that the first letter of each word is uppercase: https://www.freecodecamp.org/news/how-to-capitalize-words-in-javascript/
+// Add credits page
+// Add footer
 // Create readme.md
- 
+// Add a toggle between classic and new styling?
+// Convert to Redux
+// Custom prompt breaks if input is null
 
 function Grabber () {
   const [clipArray, setClipArray] = useState([])
@@ -146,7 +149,7 @@ function Grabber () {
     }
   }
 
-  // Runs on load and re-render
+  // Runs on load and re-render.
   useEffect(() => {
     setLoading(false)
     const getClip = async () => {
@@ -157,7 +160,7 @@ function Grabber () {
     getClip()
   }, [clipAmount, userID, categoryID])
 
-  // Fetch clip
+  // Fetch clip.
   const fetchClips = async () => {
     const URL = 'https://developers.medal.tv/v1/latest?categoryId=' + categoryID + '&userId=' + userID + '&limit=' + clipAmount + '&autoplay=0&muted=0&cta=0'
     const res = await fetch(URL, options)
@@ -173,11 +176,13 @@ function Grabber () {
     return clipArray
   }
 
-  // Create array of ClipPlayer components + props using incremental loop
+  // Create array of ClipPlayer components + props using incremental loop.
   const clipPlayers = []
   clipArray.forEach((clipArray, i)=>{
     console.log("Obtaining iFrame for clip and pushing to clipPlayers array - #" + i)
     console.log(clipPlayers[i])
+    const categoryID = clipArray.contentObjects[i].categoryId
+
     clipPlayers.push(
     <ClipPlayer
       clipFrame={clipArray.contentObjects[i].embedIframeCode}
@@ -186,12 +191,13 @@ function Grabber () {
       clipLikes={clipArray.contentObjects[i].contentLikes}
       clipLink={clipArray.contentObjects[i].directClipUrl}
       clipLength={clipArray.contentObjects[i].videoLengthSeconds}
+      clipGame="testName"
       key={i}/>
     )
     console.log("Success")
   })
 
-  // Use constantly tracked inputID (which is the value of <InputUserID> at any given moment) from controlled component and re-trigger inclip grab in useEffect by updating userID dependency using setUserID setter.
+  // Use constantly tracked inputID (which is the value of <InputUserID> at any given moment) from controlled component and re-trigger clip grab in useEffect by updating userID dependency using setUserID setter.
   function updateUserID() {
     const userID = inputID
     setUserID(userID)
@@ -209,14 +215,14 @@ function Grabber () {
     setInputPlaceholder("e.g. 261997")
   }
 
-  // We can instead capture the Enter key from <InputUserID> as a shortcut instead of the user having to press BtnSet. Add validation so that a user cannot Enter while BtnSet is still disabled.
+  // We can capture the Enter key from <InputUserID> as a shortcut instead of the user having to press BtnSet. Add validation so that a user cannot Enter while BtnSet is still disabled.
   function handleKeypress(e) {
     if (e.key === 'Enter' && inputID > 9999) {
       updateUserID()
     }
   }
 
-  const categoryMatcher = async (e) => {
+  function categoryMatcher(e) {
     const gameName = e
     if (gameName === "None") {
       setCategoryID(null)
@@ -235,33 +241,38 @@ function Grabber () {
       categoryMatcher(formattedCustomGameName)
     } else {
       if (sessionStorage.getItem('sessionJSON') === null) {
-        const res = await fetch(`https://api-v2.medal.tv/categories/`, {
-          method: 'GET',
-          headers: {
-            'Content-type': 'application/json'
-          }
-        })
-        const data = await res.json()
-        const categoryString = JSON.stringify(data)
-        sessionStorage.setItem('sessionJSON', categoryString) 
-        updateCategory(categoryString, gameName)     
+        createStorage()
+        updateCategory(gameName)     
       }
       else {
-        const categoryString = sessionStorage.getItem('sessionJSON')
-        updateCategory(categoryString, gameName)
+        updateCategory(gameName)
       }
     }
   }
 
-  function updateCategory(categoryString, gameName) {
+  const createStorage = async () => {
+    const res = await fetch('https://api-v2.medal.tv/categories/', {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json'
+      }
+    })
+    const data = await res.json()
+    const categoryString = JSON.stringify(data)
+    sessionStorage.setItem('sessionJSON', categoryString)
+  }
+
+
+  function updateCategory(gameName) {
     // Convert JSON string back to JSON object.
+    const categoryString = sessionStorage.getItem('sessionJSON')
     const categoryObj = JSON.parse(categoryString)
     var gameArray = []
     document.querySelector("#inputGameName").selectedIndex = 1
     document.querySelector("#customOption").innerHTML = gameName
     gameArray = categoryObj.filter(e => e.categoryName === gameName)
     if (gameArray.length === 0) {
-      // Use this to check for an alternative game name if nothing was found initially, replace the gameArray if found
+      // Use this to check for an alternative game name if nothing was found initially, replace the gameArray if found.
       gameArray = categoryObj.filter(e => e.alternativeName === gameName)
     }
     if (gameArray.length === 0 && gameName === "Latest clips / all games!") {
@@ -274,8 +285,6 @@ function Grabber () {
         setCategoryID(gameID)
       }
     }
-    // Empty the array so that it's prepared for the next grab
-    gameArray.splice(0, gameArray.length)
   }
 
   return (
@@ -299,7 +308,7 @@ function Grabber () {
         <Instruction>Choose game:</Instruction>
         <InputSelect onChange={e => categoryMatcher(e.target.value)} type="text" id="inputGameName">
           <InputOption defaultValue>Latest clips / all games!</InputOption>
-          <InputOption value="customOption" hidden id="customOption"></InputOption> {/* Used as a dummy which can be named as any valid game that isn't initally in the list */}
+          <InputOption value="customOption" hidden id="customOption"></InputOption> {/* Used as a dummy which can be named as any valid game that isn't initally in the list. */}
           <InputOption value="invalidOption" hidden id="invalidOption">Invalid game name! Please try again.</InputOption>
           <InputOption>Valorant</InputOption>
           <InputOption>Fortnite</InputOption>
@@ -329,7 +338,6 @@ function Grabber () {
           <InputOption>Dead By Daylight</InputOption>
           <InputOption>osu!</InputOption>
           <InputOption>Garry's Mod</InputOption>
-          <InputOption>Splitgate</InputOption>
           <InputOption>PUBG</InputOption>
           <InputOption>Aim Lab</InputOption>
           <InputOption>Battlefield V</InputOption>
@@ -343,12 +351,11 @@ function Grabber () {
           <InputOption>Fall Guys</InputOption>
           <InputOption>Valheim</InputOption>
           <InputOption>Skyrim</InputOption>
-          <InputOption>Rogue Company</InputOption>
           <InputOption>Spellbreak</InputOption>
           <InputOption>Hyper Scape</InputOption>
           <InputOption>Custom</InputOption>
         </InputSelect>
-        <Instruction>Add user ID (leave blank for random):</Instruction>
+        <Instruction>Optional - add user ID:</Instruction>
         <FlexContainer>
           { userID
             ? <InputUserID disabled borderColor={userID ? "#01d28e" : "#5F5F66"} focusBorderColor={userID ? "#01d28e" : "rgb(255,184,75)"} type="number" placeholder={inputPlaceholder} value={inputID} onChange={(e) => updateInputID(e.currentTarget.value)}/>
