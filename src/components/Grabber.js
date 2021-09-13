@@ -228,7 +228,10 @@ function Grabber () {
       setCategoryID(null)
     }
     if (gameName === "Custom") {
-      const customGameName = prompt("Enter the name of the game you want to grab. Please format the name properly:")
+      var customGameName = prompt("Enter the name of the game you want to grab. Please format the name properly:")
+      if (customGameName == null) {
+        customGameName = "Invalid"
+      }
       const formattedCustomGameName = customGameName.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
       // ^ matches the beginning of the string.
       // \w matches any word character.
