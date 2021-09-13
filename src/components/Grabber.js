@@ -222,7 +222,7 @@ function Grabber () {
     }
   }
 
-  function categoryMatcher(e) {
+  function gameMatcher(e) {
     const gameName = e
     if (gameName === "None") {
       setCategoryID(null)
@@ -241,7 +241,7 @@ function Grabber () {
       // \s+ matches any amount of whitespace between the words (for example spaces, tabs, or line breaks).
       // Together, this formats the user-input custom game name to have a capital letter at the beginning of each word, aligning to the naming convention of the API. E.G. "apex legends" -> "Apex Legends".
       // This isn't foolproof though. Trickier names like "league of Legends" and "RuneScape" won't work here.
-      categoryMatcher(formattedCustomGameName)
+      gameMatcher(formattedCustomGameName)
     } else {
       if (sessionStorage.getItem('sessionJSON') === null) {
         createStorage()
@@ -264,7 +264,6 @@ function Grabber () {
     const categoryString = JSON.stringify(data)
     sessionStorage.setItem('sessionJSON', categoryString)
   }
-
 
   function updateCategory(gameName) {
     // Convert JSON string back to JSON object.
@@ -309,7 +308,7 @@ function Grabber () {
           <InputOption>20</InputOption>
         </InputSelect>
         <Instruction>Choose game:</Instruction>
-        <InputSelect onChange={e => categoryMatcher(e.target.value)} type="text" id="inputGameName">
+        <InputSelect onChange={e => gameMatcher(e.target.value)} type="text" id="inputGameName">
           <InputOption defaultValue>Latest clips / all games!</InputOption>
           <InputOption value="customOption" hidden id="customOption"></InputOption> {/* Used as a dummy which can be named as any valid game that isn't initally in the list. */}
           <InputOption value="invalidOption" hidden id="invalidOption">Invalid game name! Please try again.</InputOption>
