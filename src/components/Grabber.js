@@ -131,6 +131,7 @@ const Instruction = styled.div`
 
 function Grabber () {
   const [clipObjects, setClipObjects] = useState([])
+  const [clipPlayers, setClipPlayers] = useState ([])
   const [loading, setLoading] = useState(false)
   const [clipAmount, setClipAmount] = useState(0)
   const [userID, setUserID] = useState()
@@ -166,6 +167,10 @@ function Grabber () {
     console.log(clipObjects)
     setClipObjects(clipObjects)
     setLoading(true)
+    const clipPlayers = await createClipPlayers(clipObjects)
+    console.log("All clip players: ")
+    console.log(clipPlayers)
+    setClipPlayers(clipPlayers)
     console.log("-------------------------------------------------------------------------END getClip")
   }
 
@@ -189,31 +194,40 @@ function Grabber () {
   }
   
   // Create array of ClipPlayer components + props using incremental loop.
-  const clipPlayers = []
-  clipObjects.forEach((clipObjects, i)=>{
-    console.log("START clipPlayers-------------------------------------------------------------------------")
-    console.log("I'm in clipArray.forEach")
+  const createClipPlayers = async (clipObjects) => {
+    console.log("START createClipPlayers-------------------------------------------------------------------------")
+    console.log("I'm in createClipPlayers")
+    console.log("All clip objects: ")
+    console.log(clipObjects)
+    var tempArray = []
+    clipObjects.forEach((clipObjects, i)=>{
+      
+     
+  
+      // const categoryID = clipArray.contentObjects[i].categoryId
+      // findGameByCategoryID(categoryID)
+      // const gameName = findGameByCategoryID()
+      const gameName = "test"
 
-    // const categoryID = clipArray.contentObjects[i].categoryId
-    // findGameByCategoryID(categoryID)
-    // const gameName = findGameByCategoryID()
-    const gameName = "test"
-    clipPlayers.push(
-    <ClipPlayer
-      clipFrame={clipObjects.contentObjects[i].embedIframeCode}
-      clipTitle={clipObjects.contentObjects[i].contentTitle}
-      clipViews={clipObjects.contentObjects[i].contentViews}
-      clipLikes={clipObjects.contentObjects[i].contentLikes}
-      clipLink={clipObjects.contentObjects[i].directClipUrl}
-      clipLength={clipObjects.contentObjects[i].videoLengthSeconds}
-      clipGame={gameName}
-      key={i}/>
-    )
-    console.log("Obtaining iFrame embed of retrieved clip and pushing to clipPlayers array - #" + i)
-    console.log(clipPlayers[i])
-    console.log("Success")
-    console.log("-------------------------------------------------------------------------END clipPlayers")
-  })
+      console.log("Obtaining object data of retrieved clip and pushing to clipPlayers array - #" + i)
+      tempArray.push(
+      <ClipPlayer
+        clipFrame={clipObjects.contentObjects[i].embedIframeCode}
+        clipTitle={clipObjects.contentObjects[i].contentTitle}
+        clipViews={clipObjects.contentObjects[i].contentViews}
+        clipLikes={clipObjects.contentObjects[i].contentLikes}
+        clipLink={clipObjects.contentObjects[i].directClipUrl}
+        clipLength={clipObjects.contentObjects[i].videoLengthSeconds}
+        clipGame={gameName}
+        key={i}/>
+      )
+      console.log(tempArray[i])
+      console.log("Success")
+      
+    })
+    console.log("-------------------------------------------------------------------------END createClipPlayers")
+    return tempArray
+  }
 
   // function findGameByCategoryID(categoryID) {
   //   if (sessionStorage.getItem('sessionJSON') === null) {

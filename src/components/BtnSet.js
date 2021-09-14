@@ -29,7 +29,7 @@ const BtnMedal = styled.button`
   :hover:disabled {
     background: #5F5F66;
     transform: translateY(0px);
-    cursor: default;
+    cursor: not-allowed;
   }
 `
 
