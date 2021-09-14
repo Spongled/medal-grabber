@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import ClipPlayer from './ClipPlayer.js'
 import BtnSet from './BtnSet.js'
 import BtnClear from './BtnClear.js'
+import API_KEY from '../API_KEY.js'
 
 const InputSelect = styled.select`
   font-family: "DM Sans", sans-serif;
@@ -141,7 +142,6 @@ function Grabber () {
   const [inputID, setInputID] = useState()
   const [inputPlaceholder, setInputPlaceholder] = useState("e.g. 261997")
   const [categoryID, setCategoryID] = useState(null)
-  const API_KEY = `pub_MsoICw6lrMKaofb7YjV8Qs9ggYFhWWp5`;
   const options = {
     host: 'https://developers.medal.tv',
     port: 443,
@@ -422,7 +422,6 @@ function Grabber () {
             : <BtnSet inputID={inputID} setID={() => updateUserID()}/>
           }
           </FlexButtonContainer>
-
         </FlexContainer>
       { loading 
         ? null

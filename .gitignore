@@ -24,3 +24,4 @@ yarn-error.log*
 installed packages.txt
 src/medal-grabber.code-workspace
 db.json
+API_KEY.js
