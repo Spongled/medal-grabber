@@ -201,14 +201,8 @@ function Grabber () {
     console.log(clipObjects)
     var tempArray = []
     clipObjects.forEach((clipObjects, i)=>{
-      
-     
-  
-      // const categoryID = clipArray.contentObjects[i].categoryId
-      // findGameByCategoryID(categoryID)
-      // const gameName = findGameByCategoryID()
-      const gameName = "test"
-
+      const categoryID = clipObjects.contentObjects[i].categoryId
+      const gameName = findGameByCategoryID(categoryID)
       console.log("Obtaining object data of retrieved clip and pushing to clipPlayers array - #" + i)
       tempArray.push(
       <ClipPlayer
@@ -229,22 +223,25 @@ function Grabber () {
     return tempArray
   }
 
-  // function findGameByCategoryID(categoryID) {
-  //   if (sessionStorage.getItem('sessionJSON') === null) {
-  //     createStorage() 
-  //   }
-  //   console.log("Here is the category ID being filtered: " + categoryID)
-  //   const categoryString = sessionStorage.getItem('sessionJSON')
-  //   const categoryObj = JSON.parse(categoryString)
-  //   var gameObject = []
-  //   gameObject = categoryObj.filter(e => e.categoryId === categoryID)
-  //   console.log("Here is the gameObject for category ID:")
-  //   console.log(gameObject)
-  //   console.log("Attempt to pull out name:")
-  //   console.log(gameObject[0].categoryName)
-  //   const gameName = gameObject[0].categoryName
-  //   return gameName
-  // }
+  function findGameByCategoryID(categoryID) {
+    console.log("START findGameByCategoryID-------------------------------------------------------------------------")
+    console.log("I'm in findGameByCategoryID")
+    if (sessionStorage.getItem('sessionJSON') === null) {
+      createStorage() 
+    }
+    console.log("Here is the category ID being filtered: " + categoryID)
+    const categoryString = sessionStorage.getItem('sessionJSON')
+    const categoryObj = JSON.parse(categoryString)
+    var gameObject = []
+    gameObject = categoryObj.filter(e => e.categoryId === categoryID)
+    console.log("Here is the gameObject for category ID:")
+    console.log(gameObject)
+    console.log("Attempt to pull out name:")
+    console.log(gameObject[0].categoryName)
+    const gameName = gameObject[0].categoryName
+    console.log("-------------------------------------------------------------------------END findGameByCategoryID")
+    return gameName
+  }
 
   // Use constantly tracked inputID (which is the value of <InputUserID> at any given moment) from controlled component and re-trigger clip grab in useEffect by updating userID dependency using setUserID setter.
   function updateUserID() {
