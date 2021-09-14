@@ -119,7 +119,7 @@ function ErrorFallback() {
   useEffect(() => {
     setTimeout(function(){
       window.location.reload();
-    }, 50000);
+    }, 5000);
   });
 
   return (

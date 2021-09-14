@@ -23,26 +23,19 @@ const ClipInfoContainer = styled.div`
   margin-bottom: 1rem;
   z-index: 1;
 `
-const ClipInfoHeader = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  align-items: center;
-`
-const ClipInfo = styled.div`
+const FlexContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 `
-const ClipInfoEngagement = styled.div`
-  display: flex;
-  flex-direction: row;
+const NewFlexRow = styled(FlexContainer)`
+  margin-bottom: 0.5rem;
 `
 const ExternalLink = styled.a`
   color: rgba(255, 255, 255, 0.1);
   text-decoration: none;
-  margin-left: 15px;
+  padding-left: 15px;
 
   :hover {
     color: rgb(255,184,75);
@@ -50,6 +43,7 @@ const ExternalLink = styled.a`
 `
 const ExternalLinkTitle = styled(ExternalLink)`
   color: rgb(179, 177, 182);
+  padding-left: 0;
 `
 const ClipTitleContainer = styled.span`
   font-size: 1rem;
@@ -60,36 +54,21 @@ const InfoBadge = styled.span`
   justify-content: space-between;
   color: rgb(179, 177, 182);
   text-decoration: none;
-  font-size: 0.8rem;
+  font-size: 12px;
   box-sizing: border-box;
-  border-radius: 10%;
+  border-radius: 11px;
   max-width: 100%;
   padding: 5px 10px;
   align-items: center;
   background: #24262D;
 `
-const GameBadgeContainer = styled.div`
-  display: flex;
-  box-sizing: border-box;
-  max-width: 100%;
-  -webkit-box-align: center;
-  align-items: center;
-  min-width: 0px;
-  min-height: 0px;
-  flex-flow: row wrap;
-  }
-`
 const GameBadge = styled.div`
   display: flex;
   box-sizing: border-box;
-  max-width: 100%;
   margin-bottom: 4px;
   margin-right: 8px;
-  -webkit-box-align: center;
   align-items: center;
   background: #24262D;
-  min-width: 0px;
-  min-height: 0px;
   flex-direction: row;
   height: 24px;
   padding-top: 6px;
@@ -109,25 +88,15 @@ const GameTitle = styled.span`
   color: rgb(179, 177, 182);
 `
 const EngagementViews = styled.img`
+  width: 15px;
   margin-right: 5px;
 `
 const EngagementLikes = styled.img`
-  height: 80%;
+width: 15px;
   margin-left: 5px;
   margin-right: 5px;
 `
-const TitleAndEngagementContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`
-const TimeAndExternalContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`
+
 
 const ClipPlayer = ({clipFrame, clipTitle, clipViews, clipLikes, clipLink, clipLength, clipGame, clipImage}) => {
   const clipLengthSeconds = clipLength
@@ -138,33 +107,34 @@ const ClipPlayer = ({clipFrame, clipTitle, clipViews, clipLikes, clipLink, clipL
           <div dangerouslySetInnerHTML={{ __html: clipFrame}}></div>
         </VideoWrapper>
         <ClipInfoContainer>
-          <ClipInfoHeader>
-            <GameBadgeContainer>
+          <NewFlexRow>
+            <FlexContainer>
               <GameBadge>
                 <GameImg src={clipImage}></GameImg>
                 <GameTitle>{clipGame}</GameTitle>
               </GameBadge>
-            </GameBadgeContainer>
-            <input type="checkbox" id="scales" name="scales"></input>
-          </ClipInfoHeader>
-          <ClipInfo>
-            <TitleAndEngagementContainer>
-              <ClipInfoEngagement>
-                <InfoBadge>
-                  <EngagementViews src={medalViews}></EngagementViews>{clipViews}
-                  <EngagementLikes src={medalLikes}></EngagementLikes>{clipLikes}
-                </InfoBadge>
-              </ClipInfoEngagement>
-              <ExternalLinkTitle href={clipLink} target="blank_" title="View clip in new tab"><ClipTitleContainer>{clipTitle}</ClipTitleContainer></ExternalLinkTitle>
-            </TitleAndEngagementContainer>
-            <TimeAndExternalContainer>
-            { clipLengthSeconds > 0
-              ? <InfoBadge title="Clip length"><FontAwesomeIcon icon={faStopwatch}/> {clipLength}s</InfoBadge>
-              : null
-            }
-              <ExternalLink href={clipLink} target="blank_" title="View clip in new tab"><FontAwesomeIcon icon={faCloudDownloadAlt}/></ExternalLink>
-            </TimeAndExternalContainer>
-          </ClipInfo>
+            </FlexContainer>
+            <FlexContainer>
+              { clipLengthSeconds > 0
+                ? <InfoBadge title="Clip length"><FontAwesomeIcon icon={faStopwatch}/> {clipLength}s</InfoBadge>
+                : null
+              }
+            </FlexContainer>
+          </NewFlexRow>
+          <FlexContainer>
+            <FlexContainer>
+              <ExternalLinkTitle href={clipLink} target="blank_" title="View clip in new tab">
+                <ClipTitleContainer>{clipTitle}</ClipTitleContainer>
+              </ExternalLinkTitle>
+              <ExternalLink href={clipLink} target="blank_" title="Download clip"><FontAwesomeIcon icon={faCloudDownloadAlt}/></ExternalLink>
+            </FlexContainer>
+            <FlexContainer>
+              <InfoBadge>
+                <EngagementViews src={medalViews}></EngagementViews>{clipViews}
+                <EngagementLikes src={medalLikes}></EngagementLikes>{clipLikes}
+              </InfoBadge>
+            </FlexContainer>
+          </FlexContainer>
         </ClipInfoContainer>
       </>
     )
