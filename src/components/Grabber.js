@@ -132,6 +132,7 @@ const Instruction = styled.div`
 // Create readme.md
 // Add a toggle between classic and new styling?
 // Convert to Redux
+// Add tutorial button in footer
 
 function Grabber () {
   const [clipObjects, setClipObjects] = useState([])
@@ -155,58 +156,59 @@ function Grabber () {
 
   // Runs on load and re-render.
   useEffect(() => {
-    console.log("START useEffect-------------------------------------------------------------------------")
-    console.log("I'm in useEffect")
+    console.log("<------------------------------------------------------------]")
+    console.log("START useEffect")
     setLoading(false)
     getClip()
-    console.log("-------------------------------------------------------------------------END useEffect")
+    console.log("END useEffect")
+    console.log("[------------------------------------------------------------>")
   }, [clipAmount, userID, categoryID])
 
   const getClip = async () => {
-    console.log("START getClip-------------------------------------------------------------------------")
-    console.log("I'm in getClip")
+    console.log("<------------------------------------------------------------]")
+    console.log("START getClip")
     const clipObjects = await fetchClips()
-    console.log("All clip objects: ")
+    console.log("All clip objects:")
     console.log(clipObjects)
     setClipObjects(clipObjects)
     setLoading(true)
     const clipPlayers = await createClipPlayers(clipObjects)
-    console.log("All clip players: ")
+    console.log("All clip players:")
     console.log(clipPlayers)
     setClipPlayers(clipPlayers)
-    console.log("-------------------------------------------------------------------------END getClip")
+    console.log("END getClip")
+    console.log("[------------------------------------------------------------>")
   }
 
   // Fetch clip data from the Medal API using given parameters. Pass the objects back to getClip() and assign them to the clipObjects variable using the setClipObjects setter.
   const fetchClips = async () => {
-    console.log("START fetchClips-------------------------------------------------------------------------")
-    console.log("I'm in fetchClips")
+    console.log("<------------------------------------------------------------]")
+    console.log("START fetchClips")
     const URL = 'https://developers.medal.tv/v1/latest?categoryId=' + categoryID + '&userId=' + userID + '&limit=' + clipAmount + '&autoplay=0&muted=0&cta=0'
     const res = await fetch(URL, options)
     const data = await res.json()
     const retrievedClipObjects = []
     for (var i = 0; i < clipAmount; i++) {
-      console.log("Pushing JS object of retrieved clip to clipArray of number #" + i)
+      console.log("Pushing JS object of retrieved clip to clipArray of index: " + i)
       retrievedClipObjects.push(data)
       console.log(retrievedClipObjects[i])
-      console.log("Pushed JS object #" + i)
-      console.log("-------------------------------------------------------------------------END fetchClips")
+      console.log("Pushed JS object: " + i)
+      console.log("END fetchClips")
+      console.log("[------------------------------------------------------------>")
     }
     return retrievedClipObjects
   }
   
   // Create array of ClipPlayer components + props using incremental loop. Return this array of objects back to getClip() and assign to the clipPlayers variable using the setClipObjects setter.
   const createClipPlayers = async (clipObjects) => {
-    console.log("START createClipPlayers-------------------------------------------------------------------------")
-    console.log("I'm in createClipPlayers")
-    console.log("All clip objects: ")
-    console.log(clipObjects)
-    var tempArray = []
+    console.log("<------------------------------------------------------------]")
+    console.log("START createClipPlayers")
+    var tempClipPlayersArray = []
     clipObjects.forEach((clipObjects, i)=>{
       const categoryID = clipObjects.contentObjects[i].categoryId
       const gameNameAndImage = findGameByCategoryID(categoryID)
-      console.log("Obtaining object data of retrieved clip and pushing to clipPlayers array - #" + i)
-      tempArray.push(
+      console.log("Obtaining object data of retrieved clip and pushing to clipPlayers array of index: " + i)
+      tempClipPlayersArray.push(
       <ClipPlayer
         clipFrame={clipObjects.contentObjects[i].embedIframeCode}
         clipTitle={clipObjects.contentObjects[i].contentTitle}
@@ -218,32 +220,33 @@ function Grabber () {
         clipImage={gameNameAndImage[1]}
         key={i}/>
       )
-      console.log(tempArray[i])
-      console.log("Success") 
+      console.log(tempClipPlayersArray[i])
     })
-    console.log("-------------------------------------------------------------------------END createClipPlayers")
-    return tempArray
+    console.log("END createClipPlayers")
+    console.log("[------------------------------------------------------------>")
+    return tempClipPlayersArray
   }
 
   // Pulls the whole entry via category ID from the JSON array and extracts the categoryName and categoryBackground value. This is then passed back to createClipPlayers() so that it can be assigned to a prop.
   function findGameByCategoryID(categoryID) {
-    console.log("START findGameByCategoryID-------------------------------------------------------------------------")
-    console.log("I'm in findGameByCategoryID")
+    console.log("<------------------------------------------------------------]")
+    console.log("START findGameByCategoryID")
     if (sessionStorage.getItem('sessionJSON') === null) {
       createStorage() 
     }
     console.log("categoryID being filtered: " + categoryID)
-    const categoryString = sessionStorage.getItem('sessionJSON')
-    const categoryObj = JSON.parse(categoryString)
-    var gameObject = []
-    gameObject = categoryObj.filter(e => e.categoryId === categoryID)
-    console.log("gameObject for category ID:")
-    console.log(gameObject)
-    console.log("Attempt to pull out name:")
-    console.log(gameObject[0].categoryName)
+    const allCategoriesString = sessionStorage.getItem('sessionJSON')
+    const allCategoriesObj = JSON.parse(allCategoriesString)
+    var tempSingleCategoryObjArray = []
+    tempSingleCategoryObjArray = allCategoriesObj.filter(e => e.categoryId === categoryID)
+    console.log("Entry matching category ID:")
+    console.log(tempSingleCategoryObjArray)
+    console.log("Extract categoryName:")
+    console.log(tempSingleCategoryObjArray[0].categoryName)
     const gameNameAndImage = [] 
-    gameNameAndImage.push(gameObject[0].categoryName, gameObject[0].categoryBackground)
-    console.log("-------------------------------------------------------------------------END findGameByCategoryID")
+    gameNameAndImage.push(tempSingleCategoryObjArray[0].categoryName, tempSingleCategoryObjArray[0].categoryBackground)
+    console.log("END findGameByCategoryID")
+    console.log("[------------------------------------------------------------>")
     return gameNameAndImage
   }
 
@@ -310,22 +313,22 @@ function Grabber () {
       }
     })
     const data = await res.json()
-    const categoryString = JSON.stringify(data)
-    sessionStorage.setItem('sessionJSON', categoryString)
+    const allCategoriesString = JSON.stringify(data)
+    sessionStorage.setItem('sessionJSON', allCategoriesString)
   }
 
   // Takes the gameName from the gameMatcher() function, reads the JSON string from the sessionStorage, parses back into an object, and filters through until a matching entry is found using the gameName.
   function updateCategoryByGameName(gameName) {
     // Convert JSON string back to JS object.
-    const categoryString = sessionStorage.getItem('sessionJSON')
-    const categoryObj = JSON.parse(categoryString)
+    const allCategoriesString = sessionStorage.getItem('sessionJSON')
+    const allCategoriesObj = JSON.parse(allCategoriesString)
     var tempCategoryArray = []
     document.querySelector("#inputGameName").selectedIndex = 1
     document.querySelector("#customOption").innerHTML = gameName
-    tempCategoryArray = categoryObj.filter(e => e.categoryName === gameName)
+    tempCategoryArray = allCategoriesObj.filter(e => e.categoryName === gameName)
     if (tempCategoryArray.length === 0) {
     // Use this to check for an alternative game name if nothing was found initially, replace the tempCategoryArray if found.
-      tempCategoryArray = categoryObj.filter(e => e.alternativeName === gameName)
+      tempCategoryArray = allCategoriesObj.filter(e => e.alternativeName === gameName)
     }
     // If still nothing was found, assume the selection is "Latest clips / all games!" and reset the categoryID to null so all games can be viewed.
     if (tempCategoryArray.length === 0 && gameName === "Latest clips / all games!") {

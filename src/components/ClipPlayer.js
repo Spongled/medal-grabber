@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faExternalLinkSquareAlt, faStopwatch } from '@fortawesome/free-solid-svg-icons'
+import { faCloudDownloadAlt, faStopwatch } from '@fortawesome/free-solid-svg-icons'
 import medalLikes from '../assets/img/likes.svg'
 import medalViews from '../assets/img/views.svg'
 
@@ -48,11 +48,11 @@ const ExternalLink = styled.a`
     color: rgb(255,184,75);
   }
 `
-const ClipTitleContainer = styled.span`
-  font-size: 1rem;
-`
 const ExternalLinkTitle = styled(ExternalLink)`
   color: rgb(179, 177, 182);
+`
+const ClipTitleContainer = styled.span`
+  font-size: 1rem;
 `
 const InfoBadge = styled.span`
   display: flex;
@@ -66,7 +66,7 @@ const InfoBadge = styled.span`
   max-width: 100%;
   padding: 5px 10px;
   align-items: center;
-  background: rgba(255, 255, 255, 0.05);
+  background: #24262D;
 `
 const GameBadgeContainer = styled.div`
   display: flex;
@@ -87,7 +87,7 @@ const GameBadge = styled.div`
   margin-right: 8px;
   -webkit-box-align: center;
   align-items: center;
-  background: rgba(255, 255, 255, 0.05);
+  background: #24262D;
   min-width: 0px;
   min-height: 0px;
   flex-direction: row;
@@ -106,7 +106,7 @@ const GameTitle = styled.span`
   margin-right: 8px;
   font-size: 12px;
   line-height: 16px;
-  color: rgb(255, 255, 255);
+  color: rgb(179, 177, 182);
 `
 const EngagementViews = styled.img`
   margin-right: 5px;
@@ -130,7 +130,7 @@ const TimeAndExternalContainer = styled.div`
 `
 
 const ClipPlayer = ({clipFrame, clipTitle, clipViews, clipLikes, clipLink, clipLength, clipGame, clipImage}) => {
-  const clipLengthSeconds = clipLength;
+  const clipLengthSeconds = clipLength
 
     return (
       <>
@@ -145,6 +145,7 @@ const ClipPlayer = ({clipFrame, clipTitle, clipViews, clipLikes, clipLink, clipL
                 <GameTitle>{clipGame}</GameTitle>
               </GameBadge>
             </GameBadgeContainer>
+            <input type="checkbox" id="scales" name="scales"></input>
           </ClipInfoHeader>
           <ClipInfo>
             <TitleAndEngagementContainer>
@@ -161,7 +162,7 @@ const ClipPlayer = ({clipFrame, clipTitle, clipViews, clipLikes, clipLink, clipL
               ? <InfoBadge title="Clip length"><FontAwesomeIcon icon={faStopwatch}/> {clipLength}s</InfoBadge>
               : null
             }
-              <ExternalLink href={clipLink} target="blank_" title="View clip in new tab"><FontAwesomeIcon icon={faExternalLinkSquareAlt}/></ExternalLink>
+              <ExternalLink href={clipLink} target="blank_" title="View clip in new tab"><FontAwesomeIcon icon={faCloudDownloadAlt}/></ExternalLink>
             </TimeAndExternalContainer>
           </ClipInfo>
         </ClipInfoContainer>
