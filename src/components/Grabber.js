@@ -179,6 +179,12 @@ function Grabber () {
     return clipArray
   }
 
+  const createClipPlayers = async () => {
+    console.log("async ")
+    const result = await fetchClips()
+    console.log("async " + result)
+  }
+  
   // Create array of ClipPlayer components + props using incremental loop.
   const clipPlayers = []
   clipArray.forEach((clipArray, i)=>{
