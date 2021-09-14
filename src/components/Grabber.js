@@ -119,7 +119,7 @@ const Instruction = styled.div`
 // Format view and like numbers? e.g. 1,000 not 1000
 // Add scrolltop button
 // Need logic to display "no clips found!" if searching for a game that the user doesn't play
-// Need logic to display "no more clips"! if trying to access an amount larger than available
+// Need logic to display "no more clips!" if trying to access an amount larger than available
 // Add ? next to "user ID" instruction which displays gif of where to find user ID on hover
 // Display game name and cover photo on clip container
 // Add credits page
@@ -165,13 +165,14 @@ function Grabber () {
     const URL = 'https://developers.medal.tv/v1/latest?categoryId=' + categoryID + '&userId=' + userID + '&limit=' + clipAmount + '&autoplay=0&muted=0&cta=0'
     const res = await fetch(URL, options)
     const data = await res.json()
-    console.log(data)
     const clipArray = []
     for (var i = 0; i < clipAmount; i++) {
-      console.log("Pushing JSON data of clip to clipArray array - #" + i)
+      console.log("--------------------------------------------------------------------------")
+      console.log("Pushing JS object of retrieved clip to clipArray of number #" + i)
+      clipArray.push(data)
       console.log(clipArray[i])
-      clipArray.push(data);
-      console.log("Success")
+      console.log("Pushed JS object #" + i)
+      console.log("--------------------------------------------------------------------------")
     }
     return clipArray
   }
@@ -182,8 +183,9 @@ function Grabber () {
     console.log("Obtaining iFrame for clip and pushing to clipPlayers array - #" + i)
     console.log(clipPlayers[i])
     const categoryID = clipArray.contentObjects[i].categoryId
-    findGameByCategoryID(categoryID)
-    const gameName = findGameByCategoryID()
+    // findGameByCategoryID(categoryID)
+    // const gameName = findGameByCategoryID()
+    const gameName = "test"
     clipPlayers.push(
     <ClipPlayer
       clipFrame={clipArray.contentObjects[i].embedIframeCode}
@@ -205,12 +207,14 @@ function Grabber () {
     console.log("Here is the category ID being filtered: " + categoryID)
     const categoryString = sessionStorage.getItem('sessionJSON')
     const categoryObj = JSON.parse(categoryString)
-    const gameObject = categoryObj.filter(e => e.categoryId === categoryID)
+    var gameObject = []
+    gameObject = categoryObj.filter(e => e.categoryId === categoryID)
     console.log("Here is the gameObject for category ID:")
     console.log(gameObject)
     console.log("Attempt to pull out name:")
-    console.log(gameObject.categoryName)
-    return 
+    console.log(gameObject[0].categoryName)
+    const gameName = gameObject[0].categoryName
+    return gameName
 
   }
 
