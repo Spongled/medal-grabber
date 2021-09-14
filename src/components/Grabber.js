@@ -23,9 +23,12 @@ const GrabberTitle = styled.header`
   color: #fff;
 `
 const OptionsContainer = styled.div`
-  background-color: rgba(29, 31, 40, 0.75);
+  // background: rgba(29, 31, 40, 0.75); // Brand styling.
+  background: rgba(29, 31, 40, 0.45);
   padding: 5px 15px;
   border-radius: 11px;
+  max-width: 600px;
+  margin: auto;
 `
 const InputSelect = styled.select`
   font-family: "DM Sans", sans-serif;
@@ -269,7 +272,7 @@ function Grabber () {
     const userID = inputID
     setUserID(userID)
     setInputID("") // Clear the value so we can see the placeholder beneath, and so that a new value can be input next time.
-    setInputPlaceholder("ID: " + userID + " in use.")
+    setInputPlaceholder("Grabbing from ID: " + userID)
   }
 
   // Constantly tracks the input of the <InputUserID> component. Updates the inputID var using the setInputID setter on each keystroke (onChange). This is a controlled component.

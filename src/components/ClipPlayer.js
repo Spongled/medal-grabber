@@ -13,7 +13,8 @@ const VideoWrapper = styled.div`
   z-index: 2;
 `
 const ClipInfoContainer = styled.div`
-  background-color: rgba(29, 31, 40, 0.75);
+  // background-color: rgba(29, 31, 40, 0.75); // Brand styling.
+  background: rgba(29, 31, 40, 0.45);
   box-sizing: border-box;
   max-width: 100%;
   padding: 16px;
@@ -96,7 +97,7 @@ const EngagementViews = styled.img`
   margin-right: 5px;
 `
 const EngagementLikes = styled.img`
-width: 15px;
+  width: 15px;
   margin-left: 5px;
   margin-right: 5px;
 `
