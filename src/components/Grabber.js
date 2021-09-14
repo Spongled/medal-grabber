@@ -130,7 +130,7 @@ const Instruction = styled.div`
 // Custom prompt breaks if input is null
 
 function Grabber () {
-  const [clipArray, setClipArray] = useState([])
+  const [clipObjects, setClipObjects] = useState([])
   const [loading, setLoading] = useState(false)
   const [clipAmount, setClipAmount] = useState(0)
   const [userID, setUserID] = useState()
@@ -151,44 +151,47 @@ function Grabber () {
 
   // Runs on load and re-render.
   useEffect(() => {
+    console.log("START useEffect-------------------------------------------------------------------------")
     console.log("I'm in useEffect")
     setLoading(false)
-    const getClip = async () => {
-      const data = await fetchClips()
-      setClipArray(data)
-      setLoading(true)
-    }
     getClip()
+    console.log("-------------------------------------------------------------------------END useEffect")
   }, [clipAmount, userID, categoryID])
+
+  const getClip = async () => {
+    console.log("START getClip-------------------------------------------------------------------------")
+    console.log("I'm in getClip")
+    const clipObjects = await fetchClips()
+    console.log("All clip objects: ")
+    console.log(clipObjects)
+    setClipObjects(clipObjects)
+    setLoading(true)
+    console.log("-------------------------------------------------------------------------END getClip")
+  }
 
   // Fetch clip.
   const fetchClips = async () => {
+    console.log("START fetchClips-------------------------------------------------------------------------")
     console.log("I'm in fetchClips")
     const URL = 'https://developers.medal.tv/v1/latest?categoryId=' + categoryID + '&userId=' + userID + '&limit=' + clipAmount + '&autoplay=0&muted=0&cta=0'
     const res = await fetch(URL, options)
     const data = await res.json()
-    const clipArray = []
+    const retrievedClipObjects = []
     for (var i = 0; i < clipAmount; i++) {
-      console.log("START-------------------------------------------------------------------------")
+      
       console.log("Pushing JS object of retrieved clip to clipArray of number #" + i)
-      clipArray.push(data)
-      console.log(clipArray[i])
+      retrievedClipObjects.push(data)
+      console.log(retrievedClipObjects[i])
       console.log("Pushed JS object #" + i)
-      console.log("-------------------------------------------------------------------------END")
+      console.log("-------------------------------------------------------------------------END fetchClips")
     }
-    return clipArray
-  }
-
-  const createClipPlayers = async () => {
-    console.log("async ")
-    const result = await fetchClips()
-    console.log("async " + result)
+    return retrievedClipObjects
   }
   
   // Create array of ClipPlayer components + props using incremental loop.
   const clipPlayers = []
-  clipArray.forEach((clipArray, i)=>{
-    console.log("START-------------------------------------------------------------------------")
+  clipObjects.forEach((clipObjects, i)=>{
+    console.log("START clipPlayers-------------------------------------------------------------------------")
     console.log("I'm in clipArray.forEach")
 
     // const categoryID = clipArray.contentObjects[i].categoryId
@@ -197,19 +200,19 @@ function Grabber () {
     const gameName = "test"
     clipPlayers.push(
     <ClipPlayer
-      clipFrame={clipArray.contentObjects[i].embedIframeCode}
-      clipTitle={clipArray.contentObjects[i].contentTitle}
-      clipViews={clipArray.contentObjects[i].contentViews}
-      clipLikes={clipArray.contentObjects[i].contentLikes}
-      clipLink={clipArray.contentObjects[i].directClipUrl}
-      clipLength={clipArray.contentObjects[i].videoLengthSeconds}
+      clipFrame={clipObjects.contentObjects[i].embedIframeCode}
+      clipTitle={clipObjects.contentObjects[i].contentTitle}
+      clipViews={clipObjects.contentObjects[i].contentViews}
+      clipLikes={clipObjects.contentObjects[i].contentLikes}
+      clipLink={clipObjects.contentObjects[i].directClipUrl}
+      clipLength={clipObjects.contentObjects[i].videoLengthSeconds}
       clipGame={gameName}
       key={i}/>
     )
     console.log("Obtaining iFrame embed of retrieved clip and pushing to clipPlayers array - #" + i)
     console.log(clipPlayers[i])
     console.log("Success")
-    console.log("-------------------------------------------------------------------------END")
+    console.log("-------------------------------------------------------------------------END clipPlayers")
   })
 
   // function findGameByCategoryID(categoryID) {
