@@ -131,7 +131,6 @@ const Instruction = styled.div`
 // Create readme.md
 // Add a toggle between classic and new styling?
 // Convert to Redux
-// Custom prompt breaks if input is null
 
 function Grabber () {
   const [clipObjects, setClipObjects] = useState([])
@@ -178,7 +177,7 @@ function Grabber () {
     console.log("-------------------------------------------------------------------------END getClip")
   }
 
-  // Fetch clip.
+  // Fetch clip data from the Medal API using given parameters. Pass the objects back to getClip() and assign them to the clipObjects variable using the setClipObjects setter.
   const fetchClips = async () => {
     console.log("START fetchClips-------------------------------------------------------------------------")
     console.log("I'm in fetchClips")
@@ -187,7 +186,6 @@ function Grabber () {
     const data = await res.json()
     const retrievedClipObjects = []
     for (var i = 0; i < clipAmount; i++) {
-      
       console.log("Pushing JS object of retrieved clip to clipArray of number #" + i)
       retrievedClipObjects.push(data)
       console.log(retrievedClipObjects[i])
@@ -197,7 +195,7 @@ function Grabber () {
     return retrievedClipObjects
   }
   
-  // Create array of ClipPlayer components + props using incremental loop.
+  // Create array of ClipPlayer components + props using incremental loop. Return this array of objects back to getClip() and assign to the clipPlayers variable using the setClipObjects setter.
   const createClipPlayers = async (clipObjects) => {
     console.log("START createClipPlayers-------------------------------------------------------------------------")
     console.log("I'm in createClipPlayers")
@@ -221,8 +219,7 @@ function Grabber () {
         key={i}/>
       )
       console.log(tempArray[i])
-      console.log("Success")
-      
+      console.log("Success") 
     })
     console.log("-------------------------------------------------------------------------END createClipPlayers")
     return tempArray
@@ -246,7 +243,6 @@ function Grabber () {
     console.log(gameObject[0].categoryName)
     const gameNameAndImage = [] 
     gameNameAndImage.push(gameObject[0].categoryName, gameObject[0].categoryBackground)
-    
     console.log("-------------------------------------------------------------------------END findGameByCategoryID")
     return gameNameAndImage
   }
@@ -305,7 +301,7 @@ function Grabber () {
     }
   }
 
-  // Retrieves the entire JS object for games from the Medal API, converts it to a string, and stores in sessionStorage.
+  // Retrieves the entire JS object for categories from the Medal API, converts it to a string, and stores in sessionStorage.
   const createStorage = async () => {
     const res = await fetch('https://api-v2.medal.tv/categories/', {
       method: 'GET',
@@ -323,22 +319,25 @@ function Grabber () {
     // Convert JSON string back to JS object.
     const categoryString = sessionStorage.getItem('sessionJSON')
     const categoryObj = JSON.parse(categoryString)
-    var gameArray = []
+    var tempCategoryArray = []
     document.querySelector("#inputGameName").selectedIndex = 1
     document.querySelector("#customOption").innerHTML = gameName
-    gameArray = categoryObj.filter(e => e.categoryName === gameName)
-    if (gameArray.length === 0) {
-      // Use this to check for an alternative game name if nothing was found initially, replace the gameArray if found.
-      gameArray = categoryObj.filter(e => e.alternativeName === gameName)
+    tempCategoryArray = categoryObj.filter(e => e.categoryName === gameName)
+    if (tempCategoryArray.length === 0) {
+    // Use this to check for an alternative game name if nothing was found initially, replace the tempCategoryArray if found.
+      tempCategoryArray = categoryObj.filter(e => e.alternativeName === gameName)
     }
-    if (gameArray.length === 0 && gameName === "Latest clips / all games!") {
+    // If still nothing was found, assume the selection is "Latest clips / all games!" and reset the categoryID to null so all games can be viewed.
+    if (tempCategoryArray.length === 0 && gameName === "Latest clips / all games!") {
       setCategoryID(null)
     } else {
-      if (gameArray.length === 0 && gameName !== "Latest clips / all games!") {
+      // If still nothing was found, display the invalidOption input message.
+      if (tempCategoryArray.length === 0 && gameName !== "Latest clips / all games!") {
         document.querySelector("#inputGameName").selectedIndex = 2
       } else {
-        const gameID = gameArray[0].categoryId
-        setCategoryID(gameID)
+        // If all other edge-cases have been exhausted, rightfully set the categoryID that has been found from the game string which has either been selected or entered by the user.
+        const categoryID = tempCategoryArray[0].categoryId
+        setCategoryID(categoryID)
       }
     }
   }
