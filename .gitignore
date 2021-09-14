@@ -23,4 +23,4 @@ yarn-debug.log*
 yarn-error.log*
 installed packages.txt
 src/medal-grabber.code-workspace
-db.json
+db.json*
