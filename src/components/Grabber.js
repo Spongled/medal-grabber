@@ -150,6 +150,7 @@ const Instruction = styled.div`
 // Add a toggle between classic and new styling?
 // Convert to Redux
 // Add tutorial button in footer
+// App doesn't work in incognito due to lack of sessionStorage
 
 function Grabber () {
   const [clipObjects, setClipObjects] = useState([])
@@ -460,4 +461,4 @@ function Grabber () {
   );
 }
 
-export default Grabber;
+export default Grabber
