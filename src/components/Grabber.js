@@ -151,6 +151,7 @@ function Grabber () {
 
   // Runs on load and re-render.
   useEffect(() => {
+    console.log("I'm in useEffect")
     setLoading(false)
     const getClip = async () => {
       const data = await fetchClips()
@@ -162,17 +163,18 @@ function Grabber () {
 
   // Fetch clip.
   const fetchClips = async () => {
+    console.log("I'm in fetchClips")
     const URL = 'https://developers.medal.tv/v1/latest?categoryId=' + categoryID + '&userId=' + userID + '&limit=' + clipAmount + '&autoplay=0&muted=0&cta=0'
     const res = await fetch(URL, options)
     const data = await res.json()
     const clipArray = []
     for (var i = 0; i < clipAmount; i++) {
-      console.log("--------------------------------------------------------------------------")
+      console.log("START-------------------------------------------------------------------------")
       console.log("Pushing JS object of retrieved clip to clipArray of number #" + i)
       clipArray.push(data)
       console.log(clipArray[i])
       console.log("Pushed JS object #" + i)
-      console.log("--------------------------------------------------------------------------")
+      console.log("-------------------------------------------------------------------------END")
     }
     return clipArray
   }
@@ -180,9 +182,11 @@ function Grabber () {
   // Create array of ClipPlayer components + props using incremental loop.
   const clipPlayers = []
   clipArray.forEach((clipArray, i)=>{
-    console.log("Obtaining iFrame for clip and pushing to clipPlayers array - #" + i)
-    console.log(clipPlayers[i])
-    const categoryID = clipArray.contentObjects[i].categoryId
+    console.log("START-------------------------------------------------------------------------")
+    console.log("I'm in clipArray.forEach")
+    console.log("Obtaining iFrame embed of retrieved clip and pushing to clipPlayers array - #" + i)
+    console.log(clipArray[i])
+    // const categoryID = clipArray.contentObjects[i].categoryId
     // findGameByCategoryID(categoryID)
     // const gameName = findGameByCategoryID()
     const gameName = "test"
@@ -198,25 +202,25 @@ function Grabber () {
       key={i}/>
     )
     console.log("Success")
+    console.log("-------------------------------------------------------------------------END")
   })
 
-  function findGameByCategoryID(categoryID) {
-    if (sessionStorage.getItem('sessionJSON') === null) {
-      createStorage() 
-    }
-    console.log("Here is the category ID being filtered: " + categoryID)
-    const categoryString = sessionStorage.getItem('sessionJSON')
-    const categoryObj = JSON.parse(categoryString)
-    var gameObject = []
-    gameObject = categoryObj.filter(e => e.categoryId === categoryID)
-    console.log("Here is the gameObject for category ID:")
-    console.log(gameObject)
-    console.log("Attempt to pull out name:")
-    console.log(gameObject[0].categoryName)
-    const gameName = gameObject[0].categoryName
-    return gameName
-
-  }
+  // function findGameByCategoryID(categoryID) {
+  //   if (sessionStorage.getItem('sessionJSON') === null) {
+  //     createStorage() 
+  //   }
+  //   console.log("Here is the category ID being filtered: " + categoryID)
+  //   const categoryString = sessionStorage.getItem('sessionJSON')
+  //   const categoryObj = JSON.parse(categoryString)
+  //   var gameObject = []
+  //   gameObject = categoryObj.filter(e => e.categoryId === categoryID)
+  //   console.log("Here is the gameObject for category ID:")
+  //   console.log(gameObject)
+  //   console.log("Attempt to pull out name:")
+  //   console.log(gameObject[0].categoryName)
+  //   const gameName = gameObject[0].categoryName
+  //   return gameName
+  // }
 
   // Use constantly tracked inputID (which is the value of <InputUserID> at any given moment) from controlled component and re-trigger clip grab in useEffect by updating userID dependency using setUserID setter.
   function updateUserID() {
