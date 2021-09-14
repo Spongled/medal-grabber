@@ -60,7 +60,11 @@ const InfoBadge = styled.span`
   max-width: 100%;
   padding: 5px 10px;
   align-items: center;
-  background: #24262D;
+  background: rgb(29, 31, 40);
+`
+const TransparentBadge = styled(InfoBadge)`
+  background: transparent;
+  padding: 5px 0;
 `
 const GameBadge = styled.div`
   display: flex;
@@ -129,10 +133,10 @@ const ClipPlayer = ({clipFrame, clipTitle, clipViews, clipLikes, clipLink, clipL
               <ExternalLink href={clipLink} target="blank_" title="Download clip"><FontAwesomeIcon icon={faCloudDownloadAlt}/></ExternalLink>
             </FlexContainer>
             <FlexContainer>
-              <InfoBadge>
+              <TransparentBadge>
                 <EngagementViews src={medalViews}></EngagementViews>{clipViews}
                 <EngagementLikes src={medalLikes}></EngagementLikes>{clipLikes}
-              </InfoBadge>
+              </TransparentBadge>
             </FlexContainer>
           </FlexContainer>
         </ClipInfoContainer>

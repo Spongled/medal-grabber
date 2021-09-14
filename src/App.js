@@ -22,8 +22,8 @@ const MainPanel = styled.div`
   top: 0px;
   min-width: 100vw;
   min-height: 100vh;
-  // box-shadow: inset 0 0 0 1000px rgb(0 0 0 / 50%);
-  background-color: rgb(0 0 0 / 100%);
+  box-shadow: inset 0 0 0 1000px rgb(0 0 0 / 50%);
+  // background-color: rgb(0 0 0 / 100%);
   // This colour is applied over the background image. The image is transparent, meaning there's also a colour behind it in on the body tag. This is located in index.css. Use background-color: rgb(0 0 0 / 100%) here to mimic official styling.
 `
 const ErrorMainPanel = styled(MainPanel)`
@@ -39,6 +39,10 @@ const GridContainer = styled.div`
   // justify-items: center;
   // justify-content: center;
   // align-content: center;
+
+  @media screen and (max-width: 1920px){
+    grid-template-columns: 1fr 1.5fr 1fr;
+  }
 
   @media screen and (max-width: 1500px){
     grid-template-columns: 0.5fr 4fr 0.5fr;
@@ -60,7 +64,7 @@ const HeaderContainer = styled.div`
   display: flex;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 3.5rem;
+  margin-top: 2.5rem;
   margin-bottom: 1rem;
   justify-content: center;
 `

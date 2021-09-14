@@ -5,15 +5,21 @@ import BtnSet from './BtnSet.js'
 import BtnClear from './BtnClear.js'
 import API_KEY from '../API_KEY.js'
 
+const OptionsContainer = styled.div`
+  margin-top: 1rem;
+  background-color: rgba(29, 31, 40, 0.75);
+  padding: 5px 15px;
+  border-radius: 11px;
+`
+
 const InputSelect = styled.select`
   font-family: "DM Sans", sans-serif;
   font-size: 0.75rem;
   height: 48px;
   border-radius: 0.4285rem;
-  border: 2px solid #5F5F66;
+  border: 1px solid #5F5F66;
   width: 100%;
   padding: 0.5rem 0.7rem;
-  margin-bottom: 1rem;
   color: rgba(255, 255, 255, 0.8);
   background-color: transparent;
   background-clip: padding-box;
@@ -36,10 +42,10 @@ const InputOption = styled.option`
 const InputUserID = styled.input`
   font-family: "DM Sans", sans-serif;
   font-size: 0.75rem;
-  width: 90%;
+  width: 100%;
   height: 26px;
   border-radius: 0.4285rem;
-  border: 2px solid ${props => props.borderColor};
+  border: 1px solid ${props => props.borderColor};
   padding: 0.5rem 0.7rem;
   color: rgba(255, 255, 255, 0.8);
   background-color: transparent;
@@ -51,20 +57,8 @@ const InputUserID = styled.input`
     outline: 0;
   }
 
-  @media screen and (max-width: 2050px){
-    width: 85%;
-  }
-
-  @media screen and (max-width: 1500px){
-    width: 90%;
-  }
-
-  @media screen and (max-width: 990px){
-    width: 85%;
-  }
-
-  @media screen and (max-width: 768px){
-    width: 80%;
+  :disabled {
+    cursor: not-allowed;
   }
 `
 const FlexContainer = styled.div`
@@ -74,7 +68,10 @@ const FlexContainer = styled.div`
 `
 const FlexButtonContainer = styled(FlexContainer)`
   align-items: center;
+  justify-items: center;
   margin-bottom: 0;
+  display: flex;
+  margin-left: 1rem;
 `
 const Loader = styled.div`
   position: absolute;
@@ -126,7 +123,6 @@ const Instruction = styled.div`
 // Need logic to display "no clips found!" if searching for a game that the user doesn't play
 // Need logic to display "no more clips!" if trying to access an amount larger than available
 // Add ? next to "user ID" instruction which displays gif of where to find user ID on hover
-// Display game name and cover photo on clip container
 // Add credits page
 // Add footer
 // Create readme.md
@@ -255,7 +251,7 @@ function Grabber () {
     const userID = inputID
     setUserID(userID)
     setInputID("") // Clear the value so we can see the placeholder beneath, and so that a new value can be input next time.
-    setInputPlaceholder("ID: " + userID + " active!")
+    setInputPlaceholder("ID: " + userID + " in use.")
   }
 
   // Constantly tracks the input of the <InputUserID> component. Updates the inputID var using the setInputID setter on each keystroke (onChange). This is a controlled component.
@@ -347,89 +343,91 @@ function Grabber () {
 
   return (
       <>
-        <Instruction>Choose clip amount:</Instruction>
-        <InputSelect onChange={e => setClipAmount(e.target.value)} type="select">
-          <option value="" defaultValue hidden>How many clips?</option>
-          <InputOption>1</InputOption>
-          <InputOption>2</InputOption>
-          <InputOption>3</InputOption>
-          <InputOption>4</InputOption>
-          <InputOption>5</InputOption>
-          <InputOption>6</InputOption>
-          <InputOption>7</InputOption>
-          <InputOption>8</InputOption>
-          <InputOption>9</InputOption>
-          <InputOption>10</InputOption>
-          <InputOption>15</InputOption>
-          <InputOption>20</InputOption>
-        </InputSelect>
-        <Instruction>Choose game:</Instruction>
-        <InputSelect onChange={e => gameMatcher(e.target.value)} type="text" id="inputGameName">
-          <InputOption defaultValue>Latest clips / all games!</InputOption>
-          <InputOption value="customOption" hidden id="customOption"></InputOption> {/* Used as a dummy which can be named as any valid game that isn't initally in the list. */}
-          <InputOption value="invalidOption" hidden id="invalidOption">Invalid game name! Please try again.</InputOption>
-          <InputOption>Valorant</InputOption>
-          <InputOption>Fortnite</InputOption>
-          <InputOption>GTA V</InputOption>
-          <InputOption>Roblox</InputOption>
-          <InputOption>Minecraft</InputOption>
-          <InputOption>Rocket League</InputOption>
-          <InputOption>Counter Strike: Global Offensive</InputOption>
-          <InputOption>Apex Legends</InputOption>
-          <InputOption>Overwatch</InputOption>
-          <InputOption>League of Legends</InputOption>
-          <InputOption>Call of Duty Warzone</InputOption>
-          <InputOption>Call of Duty®: Black Ops Cold War</InputOption>
-          <InputOption>Call of Duty: Mobile</InputOption>
-          <InputOption>Among Us</InputOption>
-          <InputOption>Rust</InputOption>
-          <InputOption>Tom Clancy's Rainbow Six Siege</InputOption>
-          <InputOption>Halo Infinite</InputOption>
-          <InputOption>Halo: The Master Chief Collection</InputOption>
-          <InputOption>Old School RuneScape</InputOption>
-          <InputOption>RuneScape</InputOption>
-          <InputOption>World of Warcraft Classic</InputOption>
-          <InputOption>World of Warcraft</InputOption>
-          <InputOption>New World</InputOption>
-          <InputOption>Destiny 2</InputOption>
-          <InputOption>Escape From Tarkov</InputOption>
-          <InputOption>Dead By Daylight</InputOption>
-          <InputOption>osu!</InputOption>
-          <InputOption>Garry's Mod</InputOption>
-          <InputOption>PUBG</InputOption>
-          <InputOption>Aim Lab</InputOption>
-          <InputOption>Battlefield V</InputOption>
-          <InputOption>Warframe</InputOption>
-          <InputOption>Sea of Thieves</InputOption>
-          <InputOption>Red Dead Redemption 2</InputOption>
-          <InputOption>Hearthstone</InputOption>
-          <InputOption>Terraria</InputOption>
-          <InputOption>Binding of Isaac</InputOption>
-          <InputOption>No Man's Sky</InputOption>
-          <InputOption>Fall Guys</InputOption>
-          <InputOption>Valheim</InputOption>
-          <InputOption>Skyrim</InputOption>
-          <InputOption>Spellbreak</InputOption>
-          <InputOption>Hyper Scape</InputOption>
-          <InputOption>Custom</InputOption>
-        </InputSelect>
-        <Instruction>Optional - add user ID:</Instruction>
-        <FlexContainer>
-          { userID
-            ? <InputUserID disabled borderColor={userID ? "#01d28e" : "#5F5F66"} focusBorderColor={userID ? "#01d28e" : "rgb(255,184,75)"} type="number" placeholder={inputPlaceholder} value={inputID} onChange={(e) => updateInputID(e.currentTarget.value)}/>
-            : <InputUserID onKeyPress={handleKeypress} borderColor={userID ? "#01d28e" : "#5F5F66"} focusBorderColor={userID ? "#01d28e" : "rgb(255,184,75)"} type="number" placeholder={inputPlaceholder} value={inputID} onChange={(e) => updateInputID(e.currentTarget.value)}/>
-          }
-          <FlexButtonContainer>
-          { userID
-            ? <BtnClear clearID={() => clearInput()}/>
-            : <BtnSet inputID={inputID} setID={() => updateUserID()}/>
-          }
-          </FlexButtonContainer>
-        </FlexContainer>
-      { loading 
-        ? null
-        : <Loader/>
-      }
+        <OptionsContainer>
+          <Instruction>Choose clip amount:</Instruction>
+          <InputSelect onChange={e => setClipAmount(e.target.value)} type="select">
+            <option value="" defaultValue hidden>How many clips?</option>
+            <InputOption>1</InputOption>
+            <InputOption>2</InputOption>
+            <InputOption>3</InputOption>
+            <InputOption>4</InputOption>
+            <InputOption>5</InputOption>
+            <InputOption>6</InputOption>
+            <InputOption>7</InputOption>
+            <InputOption>8</InputOption>
+            <InputOption>9</InputOption>
+            <InputOption>10</InputOption>
+            <InputOption>15</InputOption>
+            <InputOption>20</InputOption>
+          </InputSelect>
+          <Instruction>Choose game:</Instruction>
+          <InputSelect onChange={e => gameMatcher(e.target.value)} type="text" id="inputGameName">
+            <InputOption defaultValue>Latest clips / all games!</InputOption>
+            <InputOption value="customOption" hidden id="customOption"></InputOption> {/* Used as a dummy which can be named as any valid game that isn't initally in the list. */}
+            <InputOption value="invalidOption" hidden id="invalidOption">Invalid game name! Please try again.</InputOption>
+            <InputOption>Valorant</InputOption>
+            <InputOption>Fortnite</InputOption>
+            <InputOption>GTA V</InputOption>
+            <InputOption>Roblox</InputOption>
+            <InputOption>Minecraft</InputOption>
+            <InputOption>Rocket League</InputOption>
+            <InputOption>Counter Strike: Global Offensive</InputOption>
+            <InputOption>Apex Legends</InputOption>
+            <InputOption>Overwatch</InputOption>
+            <InputOption>League of Legends</InputOption>
+            <InputOption>Call of Duty Warzone</InputOption>
+            <InputOption>Call of Duty®: Black Ops Cold War</InputOption>
+            <InputOption>Call of Duty: Mobile</InputOption>
+            <InputOption>Among Us</InputOption>
+            <InputOption>Rust</InputOption>
+            <InputOption>Tom Clancy's Rainbow Six Siege</InputOption>
+            <InputOption>Halo Infinite</InputOption>
+            <InputOption>Halo: The Master Chief Collection</InputOption>
+            <InputOption>Old School RuneScape</InputOption>
+            <InputOption>RuneScape</InputOption>
+            <InputOption>World of Warcraft Classic</InputOption>
+            <InputOption>World of Warcraft</InputOption>
+            <InputOption>New World</InputOption>
+            <InputOption>Destiny 2</InputOption>
+            <InputOption>Escape From Tarkov</InputOption>
+            <InputOption>Dead By Daylight</InputOption>
+            <InputOption>osu!</InputOption>
+            <InputOption>Garry's Mod</InputOption>
+            <InputOption>PUBG</InputOption>
+            <InputOption>Aim Lab</InputOption>
+            <InputOption>Battlefield V</InputOption>
+            <InputOption>Warframe</InputOption>
+            <InputOption>Sea of Thieves</InputOption>
+            <InputOption>Red Dead Redemption 2</InputOption>
+            <InputOption>Hearthstone</InputOption>
+            <InputOption>Terraria</InputOption>
+            <InputOption>Binding of Isaac</InputOption>
+            <InputOption>No Man's Sky</InputOption>
+            <InputOption>Fall Guys</InputOption>
+            <InputOption>Valheim</InputOption>
+            <InputOption>Skyrim</InputOption>
+            <InputOption>Spellbreak</InputOption>
+            <InputOption>Hyper Scape</InputOption>
+            <InputOption>Custom</InputOption>
+          </InputSelect>
+          <Instruction>Optional - add user ID:</Instruction>
+          <FlexContainer>
+            { userID
+              ? <InputUserID disabled borderColor={userID ? "#01d28e" : "#5F5F66"} focusBorderColor={userID ? "#01d28e" : "rgb(255,184,75)"} type="number" placeholder={inputPlaceholder} value={inputID} onChange={(e) => updateInputID(e.currentTarget.value)}/>
+              : <InputUserID onKeyPress={handleKeypress} borderColor={userID ? "#01d28e" : "#5F5F66"} focusBorderColor={userID ? "#01d28e" : "rgb(255,184,75)"} type="number" placeholder={inputPlaceholder} value={inputID} onChange={(e) => updateInputID(e.currentTarget.value)}/>
+            }
+            <FlexButtonContainer>
+            { userID
+              ? <BtnClear clearID={() => clearInput()}/>
+              : <BtnSet inputID={inputID} setID={() => updateUserID()}/>
+            }
+            </FlexButtonContainer>
+          </FlexContainer>
+        { loading 
+          ? null
+          : <Loader/>
+        }
+      </OptionsContainer>
       {clipPlayers}
     </>
   );
