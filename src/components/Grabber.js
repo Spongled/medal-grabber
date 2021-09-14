@@ -176,6 +176,10 @@ function Grabber () {
   useEffect(() => {
     console.log("<------------------------------------------------------------]")
     console.log("START useEffect")
+    console.log("Create session storage")
+    if (sessionStorage.getItem('sessionJSON') === null) {
+      createStorage() 
+    }
     setLoading(false)
     getClip()
     console.log("END useEffect")
@@ -249,9 +253,6 @@ function Grabber () {
   function findGameByCategoryID(categoryID) {
     console.log("<------------------------------------------------------------]")
     console.log("START findGameByCategoryID")
-    if (sessionStorage.getItem('sessionJSON') === null) {
-      createStorage() 
-    }
     console.log("categoryID being filtered: " + categoryID)
     const allCategoriesString = sessionStorage.getItem('sessionJSON')
     const allCategoriesObj = JSON.parse(allCategoriesString)
@@ -312,13 +313,7 @@ function Grabber () {
       // This isn't foolproof though. Trickier names like "league of Legends" and "RuneScape" won't work here.
       gameMatcher(formattedCustomGameName)
     } else {
-      if (sessionStorage.getItem('sessionJSON') === null) {
-        createStorage()
-        updateCategoryByGameName(gameName)     
-      }
-      else {
-        updateCategoryByGameName(gameName)
-      }
+      updateCategoryByGameName(gameName)
     }
   }
 
@@ -333,6 +328,7 @@ function Grabber () {
     const data = await res.json()
     const allCategoriesString = JSON.stringify(data)
     sessionStorage.setItem('sessionJSON', allCategoriesString)
+    console.log("Session storage created")
   }
 
   // Takes the gameName from the gameMatcher() function, reads the JSON string from the sessionStorage, parses back into an object, and filters through until a matching entry is found using the gameName.
