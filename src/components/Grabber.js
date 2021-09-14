@@ -181,8 +181,9 @@ function Grabber () {
   clipArray.forEach((clipArray, i)=>{
     console.log("Obtaining iFrame for clip and pushing to clipPlayers array - #" + i)
     console.log(clipPlayers[i])
-    // const categoryID = clipArray.contentObjects[i].categoryId
-
+    const categoryID = clipArray.contentObjects[i].categoryId
+    findGameByCategoryID(categoryID)
+    const gameName = findGameByCategoryID()
     clipPlayers.push(
     <ClipPlayer
       clipFrame={clipArray.contentObjects[i].embedIframeCode}
@@ -191,11 +192,27 @@ function Grabber () {
       clipLikes={clipArray.contentObjects[i].contentLikes}
       clipLink={clipArray.contentObjects[i].directClipUrl}
       clipLength={clipArray.contentObjects[i].videoLengthSeconds}
-      clipGame="testName"
+      clipGame={gameName}
       key={i}/>
     )
     console.log("Success")
   })
+
+  function findGameByCategoryID(categoryID) {
+    if (sessionStorage.getItem('sessionJSON') === null) {
+      createStorage() 
+    }
+    console.log("Here is the category ID being filtered: " + categoryID)
+    const categoryString = sessionStorage.getItem('sessionJSON')
+    const categoryObj = JSON.parse(categoryString)
+    const gameObject = categoryObj.filter(e => e.categoryId === categoryID)
+    console.log("Here is the gameObject for category ID:")
+    console.log(gameObject)
+    console.log("Attempt to pull out name:")
+    console.log(gameObject.categoryName)
+    return 
+
+  }
 
   // Use constantly tracked inputID (which is the value of <InputUserID> at any given moment) from controlled component and re-trigger clip grab in useEffect by updating userID dependency using setUserID setter.
   function updateUserID() {
@@ -210,6 +227,7 @@ function Grabber () {
     setInputID(e)
   }
 
+  // Removes userID from the clip API query and resets the placeholder.
   function clearInput() {
     setUserID(null)
     setInputPlaceholder("e.g. 261997")
@@ -234,13 +252,9 @@ function Grabber () {
         customGameName = "Invalid"
       }
       const formattedCustomGameName = customGameName.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
-      // ^ matches the beginning of the string.
-      // \w matches any word character.
-      // {1} takes only the first character.
-      // ^\w{1} matches the first letter of the word.
-      // | works like the boolean OR. It matches the expression after and before the |.
-      // \s+ matches any amount of whitespace between the words (for example spaces, tabs, or line breaks).
-      // Together, this formats the user-input custom game name to have a capital letter at the beginning of each word, aligning to the naming convention of the API. E.G. "apex legends" -> "Apex Legends".
+      // ^ matches the beginning of the string, \w matches any word character, {1} takes only the first character, ^\w{1} matches the first letter of the word.
+      // | works like the boolean OR. It matches the expression after and before the |, \s+ matches any amount of whitespace between the words (for example spaces, tabs, or line breaks).
+      // Together, this formats the custom game name which has been entered by the user to have a capital letter at the beginning of each word, aligning to the naming convention of the API. E.G. "apex legends" -> "Apex Legends".
       // This isn't foolproof though. Trickier names like "league of Legends" and "RuneScape" won't work here.
       gameMatcher(formattedCustomGameName)
     } else {
@@ -254,7 +268,7 @@ function Grabber () {
     }
   }
 
-  // Retrieves the entire JSON object for games from the Medal API, converts it to a string, and stores in sessionStorage.
+  // Retrieves the entire JS object for games from the Medal API, converts it to a string, and stores in sessionStorage.
   const createStorage = async () => {
     const res = await fetch('https://api-v2.medal.tv/categories/', {
       method: 'GET',
@@ -267,8 +281,9 @@ function Grabber () {
     sessionStorage.setItem('sessionJSON', categoryString)
   }
 
+  // Takes the gameName from the gameMatcher() function, reads the JSON string from the sessionStorage, parses back into an object, and filters through until a matching entry is found using the gameName.
   function updateCategoryByGameName(gameName) {
-    // Convert JSON string back to JSON object.
+    // Convert JSON string back to JS object.
     const categoryString = sessionStorage.getItem('sessionJSON')
     const categoryObj = JSON.parse(categoryString)
     var gameArray = []
