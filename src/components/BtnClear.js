@@ -4,6 +4,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
 const BtnMedal = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  width: 30px;
   font-family: "DM Sans", sans-serif;
   font-weight: 500;
   font-size: 1.1rem;

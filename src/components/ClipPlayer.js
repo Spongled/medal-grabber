@@ -23,6 +23,12 @@ const ClipInfoContainer = styled.div`
   margin-bottom: 1rem;
   z-index: 1;
 `
+const ClipInfoHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+`
 const ClipInfo = styled.div`
   display: flex;
   flex-direction: row;
@@ -62,6 +68,46 @@ const InfoBadge = styled.span`
   align-items: center;
   background: rgba(255, 255, 255, 0.05);
 `
+const GameBadgeContainer = styled.div`
+  display: flex;
+  box-sizing: border-box;
+  max-width: 100%;
+  -webkit-box-align: center;
+  align-items: center;
+  min-width: 0px;
+  min-height: 0px;
+  flex-flow: row wrap;
+  }
+`
+const GameBadge = styled.div`
+  display: flex;
+  box-sizing: border-box;
+  max-width: 100%;
+  margin-bottom: 4px;
+  margin-right: 8px;
+  -webkit-box-align: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  min-width: 0px;
+  min-height: 0px;
+  flex-direction: row;
+  height: 24px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  border-radius: 11px;
+`
+const GameImg = styled.img`
+  border-radius: 11px 0px 0px 11px;
+  height: 24px;
+  width: 18px;
+`
+const GameTitle = styled.span`
+  margin-left: 8px;
+  margin-right: 8px;
+  font-size: 12px;
+  line-height: 16px;
+  color: rgb(255, 255, 255);
+`
 const EngagementViews = styled.img`
   margin-right: 5px;
 `
@@ -83,7 +129,7 @@ const TimeAndExternalContainer = styled.div`
   align-items: center;
 `
 
-const ClipPlayer = ({clipFrame, clipTitle, clipViews, clipLikes, clipLink, clipLength, clipGame}) => {
+const ClipPlayer = ({clipFrame, clipTitle, clipViews, clipLikes, clipLink, clipLength, clipGame, clipImage}) => {
   const clipLengthSeconds = clipLength;
 
     return (
@@ -92,12 +138,17 @@ const ClipPlayer = ({clipFrame, clipTitle, clipViews, clipLikes, clipLink, clipL
           <div dangerouslySetInnerHTML={{ __html: clipFrame}}></div>
         </VideoWrapper>
         <ClipInfoContainer>
+          <ClipInfoHeader>
+            <GameBadgeContainer>
+              <GameBadge>
+                <GameImg src={clipImage}></GameImg>
+                <GameTitle>{clipGame}</GameTitle>
+              </GameBadge>
+            </GameBadgeContainer>
+          </ClipInfoHeader>
           <ClipInfo>
             <TitleAndEngagementContainer>
               <ClipInfoEngagement>
-                <InfoBadge>
-                  {clipGame}
-                </InfoBadge>
                 <InfoBadge>
                   <EngagementViews src={medalViews}></EngagementViews>{clipViews}
                   <EngagementLikes src={medalLikes}></EngagementLikes>{clipLikes}

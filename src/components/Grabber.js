@@ -35,7 +35,7 @@ const InputOption = styled.option`
 const InputUserID = styled.input`
   font-family: "DM Sans", sans-serif;
   font-size: 0.75rem;
-  width: 87%;
+  width: 90%;
   height: 26px;
   border-radius: 0.4285rem;
   border: 2px solid ${props => props.borderColor};
@@ -54,22 +54,26 @@ const InputUserID = styled.input`
     width: 85%;
   }
 
-  @media screen and (max-width: 1795px){
-    width: 82%;
+  @media screen and (max-width: 1500px){
+    width: 90%;
   }
 
-  @media screen and (max-width: 1500px){
+  @media screen and (max-width: 990px){
     width: 85%;
   }
 
   @media screen and (max-width: 768px){
-    width: 78%;
+    width: 80%;
   }
 `
 const FlexContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 2rem;
+`
+const FlexButtonContainer = styled(FlexContainer)`
+  align-items: center;
+  margin-bottom: 0;
 `
 const Loader = styled.div`
   position: absolute;
@@ -202,7 +206,7 @@ function Grabber () {
     var tempArray = []
     clipObjects.forEach((clipObjects, i)=>{
       const categoryID = clipObjects.contentObjects[i].categoryId
-      const gameName = findGameByCategoryID(categoryID)
+      const gameNameAndImage = findGameByCategoryID(categoryID)
       console.log("Obtaining object data of retrieved clip and pushing to clipPlayers array - #" + i)
       tempArray.push(
       <ClipPlayer
@@ -212,7 +216,8 @@ function Grabber () {
         clipLikes={clipObjects.contentObjects[i].contentLikes}
         clipLink={clipObjects.contentObjects[i].directClipUrl}
         clipLength={clipObjects.contentObjects[i].videoLengthSeconds}
-        clipGame={gameName}
+        clipGame={gameNameAndImage[0]}
+        clipImage={gameNameAndImage[1]}
         key={i}/>
       )
       console.log(tempArray[i])
@@ -223,24 +228,27 @@ function Grabber () {
     return tempArray
   }
 
+  // Pulls the whole entry via category ID from the JSON array and extracts the categoryName and categoryBackground value. This is then passed back to createClipPlayers() so that it can be assigned to a prop.
   function findGameByCategoryID(categoryID) {
     console.log("START findGameByCategoryID-------------------------------------------------------------------------")
     console.log("I'm in findGameByCategoryID")
     if (sessionStorage.getItem('sessionJSON') === null) {
       createStorage() 
     }
-    console.log("Here is the category ID being filtered: " + categoryID)
+    console.log("categoryID being filtered: " + categoryID)
     const categoryString = sessionStorage.getItem('sessionJSON')
     const categoryObj = JSON.parse(categoryString)
     var gameObject = []
     gameObject = categoryObj.filter(e => e.categoryId === categoryID)
-    console.log("Here is the gameObject for category ID:")
+    console.log("gameObject for category ID:")
     console.log(gameObject)
     console.log("Attempt to pull out name:")
     console.log(gameObject[0].categoryName)
-    const gameName = gameObject[0].categoryName
+    const gameNameAndImage = [] 
+    gameNameAndImage.push(gameObject[0].categoryName, gameObject[0].categoryBackground)
+    
     console.log("-------------------------------------------------------------------------END findGameByCategoryID")
-    return gameName
+    return gameNameAndImage
   }
 
   // Use constantly tracked inputID (which is the value of <InputUserID> at any given moment) from controlled component and re-trigger clip grab in useEffect by updating userID dependency using setUserID setter.
@@ -409,10 +417,13 @@ function Grabber () {
             ? <InputUserID disabled borderColor={userID ? "#01d28e" : "#5F5F66"} focusBorderColor={userID ? "#01d28e" : "rgb(255,184,75)"} type="number" placeholder={inputPlaceholder} value={inputID} onChange={(e) => updateInputID(e.currentTarget.value)}/>
             : <InputUserID onKeyPress={handleKeypress} borderColor={userID ? "#01d28e" : "#5F5F66"} focusBorderColor={userID ? "#01d28e" : "rgb(255,184,75)"} type="number" placeholder={inputPlaceholder} value={inputID} onChange={(e) => updateInputID(e.currentTarget.value)}/>
           }
+          <FlexButtonContainer>
           { userID
             ? <BtnClear clearID={() => clearInput()}/>
             : <BtnSet inputID={inputID} setID={() => updateUserID()}/>
           }
+          </FlexButtonContainer>
+
         </FlexContainer>
       { loading 
         ? null
