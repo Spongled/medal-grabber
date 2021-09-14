@@ -4,22 +4,37 @@ import ClipPlayer from './ClipPlayer.js'
 import BtnSet from './BtnSet.js'
 import BtnClear from './BtnClear.js'
 import API_KEY from '../API_KEY.js'
+import medalLogo from '../assets/img/medal.svg'
 
+const HeaderContainer = styled.div`
+  display: flex;
+  margin-top: 2.5rem;
+  justify-content: center;
+`
+const MedalLogo = styled.img`
+  vertical-align: middle;
+  width: 70px;
+  margin-right: 15px;
+`
+const GrabberTitle = styled.header`
+  vertical-align: middle;
+  font-size: 2.5rem;
+  letter-spacing: 8px;
+  color: #fff;
+`
 const OptionsContainer = styled.div`
-  margin-top: 1rem;
   background-color: rgba(29, 31, 40, 0.75);
   padding: 5px 15px;
   border-radius: 11px;
 `
-
 const InputSelect = styled.select`
   font-family: "DM Sans", sans-serif;
   font-size: 0.75rem;
-  height: 48px;
   border-radius: 0.4285rem;
   border: 1px solid #5F5F66;
   width: 100%;
   padding: 0.5rem 0.7rem;
+  margin-bottom: 0.5rem;
   color: rgba(255, 255, 255, 0.8);
   background-color: transparent;
   background-clip: padding-box;
@@ -43,7 +58,7 @@ const InputUserID = styled.input`
   font-family: "DM Sans", sans-serif;
   font-size: 0.75rem;
   width: 100%;
-  height: 26px;
+  height: 18px;
   border-radius: 0.4285rem;
   border: 1px solid ${props => props.borderColor};
   padding: 0.5rem 0.7rem;
@@ -66,11 +81,14 @@ const FlexContainer = styled.div`
   justify-content: space-between;
   margin-bottom: 2rem;
 `
+const FlexContainerCentered = styled(FlexContainer)`
+  justify-content: center;
+`
 const FlexButtonContainer = styled(FlexContainer)`
+  display: flex;
   align-items: center;
   justify-items: center;
   margin-bottom: 0;
-  display: flex;
   margin-left: 1rem;
 `
 const Loader = styled.div`
@@ -343,6 +361,12 @@ function Grabber () {
 
   return (
       <>
+        <FlexContainerCentered>
+          <HeaderContainer>
+              <MedalLogo src={medalLogo} alt="Medal.tv logo"/>
+              <GrabberTitle>GRABBER</GrabberTitle>
+            </HeaderContainer>
+        </FlexContainerCentered>
         <OptionsContainer>
           <Instruction>Choose clip amount:</Instruction>
           <InputSelect onChange={e => setClipAmount(e.target.value)} type="select">

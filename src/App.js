@@ -1,10 +1,8 @@
 import { useEffect, useRef } from 'react'
 import styled from 'styled-components'
-import medalLogo from './assets/img/medal.svg'
 import Grabber from './components/Grabber.js'
 import PerfectScrollbar from 'perfect-scrollbar';
 import {ErrorBoundary} from 'react-error-boundary'
-
 
 const Wrapper = styled.div`
   position: relative;
@@ -59,26 +57,6 @@ const ErrorContent = styled(Content)`
   grid-column-start: 2;
   grid-column-end: 3;
   grid-row-start: 3;
-`
-const HeaderContainer = styled.div`
-  display: flex;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 2.5rem;
-  margin-bottom: 1rem;
-  justify-content: center;
-`
-const MedalLogo = styled.img`
-  vertical-align: middle;
-  width: 70px;
-  margin-right: 15px;
-`
-const GrabberTitle = styled.header`
-  display: inline;
-  vertical-align: middle;
-  font-size: 2.5rem;
-  letter-spacing: 10px;
-  color: #fff;
 `
 const ErrorEmoji = styled.div`
   display: flex;
@@ -166,10 +144,6 @@ function App() {
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <Wrapper>
         <MainPanel ref={mainPanelRef}>
-          <HeaderContainer>
-            <MedalLogo src={medalLogo} alt="Medal.tv logo"/>
-            <GrabberTitle>GRABBER</GrabberTitle>
-          </HeaderContainer>
           <GridContainer>
             <Content>
               <Grabber/>
