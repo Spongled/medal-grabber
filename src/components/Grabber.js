@@ -184,8 +184,7 @@ function Grabber () {
   clipArray.forEach((clipArray, i)=>{
     console.log("START-------------------------------------------------------------------------")
     console.log("I'm in clipArray.forEach")
-    console.log("Obtaining iFrame embed of retrieved clip and pushing to clipPlayers array - #" + i)
-    console.log(clipArray[i])
+
     // const categoryID = clipArray.contentObjects[i].categoryId
     // findGameByCategoryID(categoryID)
     // const gameName = findGameByCategoryID()
@@ -201,6 +200,8 @@ function Grabber () {
       clipGame={gameName}
       key={i}/>
     )
+    console.log("Obtaining iFrame embed of retrieved clip and pushing to clipPlayers array - #" + i)
+    console.log(clipPlayers[i])
     console.log("Success")
     console.log("-------------------------------------------------------------------------END")
   })
