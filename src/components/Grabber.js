@@ -6,7 +6,7 @@ import BtnClear from './BtnClear.js'
 import API_KEY from '../API_KEY.js'
 import medalLogo from '../assets/img/medal.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { Collapse } from 'react-collapse';
 
 const HeaderContainer = styled.div`
@@ -114,10 +114,14 @@ const FlexToggleContainer = styled.div`
   align-content: center;
   align-items: center;
   color: #5F5F66;
+  transform: ${props => props.rotation};
+  transition: all 0.2s ease-in-out;
 
   :hover {
+    transform: transform:rotate(0deg);
     color: rgb(255, 255, 255, 0.8);
     cursor: pointer;
+    // transform: rotate(0deg);
   }
 `
 const Loader = styled.div`
@@ -397,11 +401,6 @@ function Grabber () {
     }
   }
   
-
-  function handleToggle(){
-    console.log("true")
-  }
-
   return (
       <>
         <FlexContainerCentered>
@@ -413,8 +412,8 @@ function Grabber () {
         <OptionsContainer>
           <FlexToggleParent>
             <Title>Settings</Title>
-            <FlexToggleContainer onClick={e => setToggle(!toggle)}>
-              <FontAwesomeIcon icon={faChevronDown}/>
+            <FlexToggleContainer onClick={e => setToggle(!toggle)} rotation={toggle ? "rotate(0deg)" : "rotate(180deg)"}>
+              <FontAwesomeIcon icon={faChevronUp}/>
             </FlexToggleContainer>
           </FlexToggleParent>
           <Collapse isOpened={toggle} >
