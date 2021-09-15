@@ -130,9 +130,8 @@ function ErrorFallback() {
 function App() {
   const mainPanelRef = useRef(null);
   useEffect(() => {
-    var ps
     if (navigator.platform.indexOf("Win") > -1) {
-      ps = new PerfectScrollbar(mainPanelRef.current, {
+       new PerfectScrollbar(mainPanelRef.current, {
         suppressScrollX: true,
       })
     }
