@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import Grabber from './components/Grabber.js'
 import PerfectScrollbar from 'perfect-scrollbar';
-import {ErrorBoundary} from 'react-error-boundary'
+import { ErrorBoundary } from 'react-error-boundary'
 import background from './assets/img/default-bg.jpg'
 
 const Wrapper = styled.div`
@@ -23,10 +23,9 @@ const MainPanel = styled.div`
   min-width: 100vw;
   min-height: 100vh;
   box-shadow: inset 0 0 0 1000px rgb(255 255 255 /4%);
-  // box-shadow: inset 0 0 0 1000px rgb(12 16 18 / 30%);
   // box-shadow: inset 0 0 0 1000px rgb(0 0 0 / 50%);
   // background-color: rgb(0 0 0 / 100%);
-  // This colour is applied over the background image. The image is transparent, meaning there's also a colour behind it in on the body tag. This is located in index.css. Use background-color: rgb(0 0 0 / 100%) here to mimic official styling.
+  // OLD: This colour is applied over the background image. The image is transparent, meaning there's also a colour behind it in on the body tag. This is located in index.css. Use background-color: rgb(0 0 0 / 100%) here to mimic official styling.
   // UPDATE: There's a new background for Medal. I've commented out the previous code due to the switch.
 `
 const ErrorMainPanel = styled(MainPanel)`

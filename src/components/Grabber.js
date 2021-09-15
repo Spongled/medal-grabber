@@ -7,7 +7,8 @@ import API_KEY from '../API_KEY.js'
 import medalLogo from '../assets/img/medal.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons'
-import { Collapse } from 'react-collapse';
+import { Collapse } from 'react-collapse'
+import { ErrorBoundary } from 'react-error-boundary'
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -188,7 +189,7 @@ const Instruction = styled.div`
 // App doesn't work in incognito due to lack of sessionStorage
 
 function Grabber () {
-  const [clipObjects, setClipObjects] = useState([])
+  const [_, setClipObjects] = useState([])
   const [clipPlayers, setClipPlayers] = useState ([])
   const [loading, setLoading] = useState(false)
   const [clipAmount, setClipAmount] = useState(0)
