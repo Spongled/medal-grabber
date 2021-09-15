@@ -34,7 +34,7 @@ const NewFlexRow = styled(FlexContainer)`
   margin-bottom: 0.5rem;
 `
 const ExternalLink = styled.a`
-  color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.2);
   text-decoration: none;
   padding-left: 15px;
 
@@ -60,12 +60,14 @@ const InfoBadge = styled.span`
   border-radius: 11px;
   max-width: 100%;
   padding: 5px 10px;
+  margin-right: 10px;
   align-items: center;
-  background: rgb(29, 31, 40);
+  background: #24262D;
 `
 const TransparentBadge = styled(InfoBadge)`
   background: transparent;
   padding: 5px 0;
+  margin-right: 0;
 `
 const GameBadge = styled.div`
   display: flex;
@@ -120,18 +122,18 @@ const ClipPlayer = ({clipFrame, clipTitle, clipViews, clipLikes, clipLink, clipL
               </GameBadge>
             </FlexContainer>
             <FlexContainer>
-              { clipLengthSeconds > 0
-                ? <InfoBadge title="Clip length"><FontAwesomeIcon icon={faStopwatch}/> {clipLength}s</InfoBadge>
-                : null
-              }
+              <ExternalLink href={clipLink} target="blank_" title="Download clip"><FontAwesomeIcon icon={faCloudDownloadAlt}/></ExternalLink>
             </FlexContainer>
           </NewFlexRow>
           <FlexContainer>
             <FlexContainer>
+              { clipLengthSeconds > 0
+                ? <InfoBadge title="Clip length"><FontAwesomeIcon icon={faStopwatch}/> {clipLength}s</InfoBadge>
+                : null
+              }
               <ExternalLinkTitle href={clipLink} target="blank_" title="View clip in new tab">
                 <ClipTitleContainer>{clipTitle}</ClipTitleContainer>
               </ExternalLinkTitle>
-              <ExternalLink href={clipLink} target="blank_" title="Download clip"><FontAwesomeIcon icon={faCloudDownloadAlt}/></ExternalLink>
             </FlexContainer>
             <FlexContainer>
               <TransparentBadge>

@@ -12,6 +12,11 @@ span svg {
   margin-right: 5px;
 }
 
+/* Animation for react-collapse */
+.ReactCollapse--collapse {
+  transition: height 150ms ease-in-out;
+} 
+
 iframe {
   border-top-left-radius: 0.2857rem;
   border-top-right-radius: 0.2857rem;

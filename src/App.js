@@ -30,8 +30,8 @@ const MainPanel = styled.div`
   // UPDATE: There's a new background for Medal. I've commented out the previous code due to the switch.
 `
 const ErrorMainPanel = styled(MainPanel)`
-  box-shadow: inset 0 0 0 1000px rgb(0 0 0 / 50%);
-  background-color: transparent;
+  // box-shadow: inset 0 0 0 1000px rgb(0 0 0 / 50%);
+  box-shadow: inset 0 0 0 1000px rgb(255 255 255 / 0%);
 `
 const GridContainer = styled.div`
   display: grid;

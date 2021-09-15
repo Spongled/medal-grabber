@@ -5,6 +5,9 @@ import BtnSet from './BtnSet.js'
 import BtnClear from './BtnClear.js'
 import API_KEY from '../API_KEY.js'
 import medalLogo from '../assets/img/medal.svg'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { Collapse } from 'react-collapse';
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -25,7 +28,7 @@ const GrabberTitle = styled.header`
 const OptionsContainer = styled.div`
   // background: rgba(29, 31, 40, 0.75); // Brand styling.
   background: rgba(29, 31, 40, 0.45);
-  padding: 5px 15px;
+  padding: 5px 20px;
   border-radius: 11px;
   max-width: 600px;
   margin: auto;
@@ -37,7 +40,7 @@ const InputSelect = styled.select`
   border: 1px solid #5F5F66;
   width: 100%;
   padding: 0.5rem 0.7rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   color: rgba(255, 255, 255, 0.8);
   background-color: transparent;
   background-clip: padding-box;
@@ -94,6 +97,29 @@ const FlexButtonContainer = styled(FlexContainer)`
   margin-bottom: 0;
   margin-left: 1rem;
 `
+const FlexToggleParent = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  color: #5F5F66;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+`
+const FlexToggleContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  color: #5F5F66;
+
+  :hover {
+    color: rgb(255, 255, 255, 0.8);
+    cursor: pointer;
+  }
+`
 const Loader = styled.div`
   position: absolute;
   margin-top: 5rem;
@@ -125,10 +151,22 @@ const Loader = styled.div`
   }
 }
 `
+const Title = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  color: #5F5F66;
+  background: #1f1f1f;
+  border-radius: 100px;
+  padding: 4px 12px;
+  color: #ffb84b;
+`
 const Instruction = styled.div`
   font-size: 0.75rem;
   color: rgb(179, 177, 182);
-  margin-top: 1rem;
   margin-bottom: 0.5rem;
 `
 
@@ -161,6 +199,7 @@ function Grabber () {
   const [inputID, setInputID] = useState()
   const [inputPlaceholder, setInputPlaceholder] = useState("e.g. 261997")
   const [categoryID, setCategoryID] = useState(null)
+  const [toggle, setToggle] = useState(true)
   const options = {
     host: 'https://developers.medal.tv',
     port: 443,
@@ -328,7 +367,6 @@ function Grabber () {
     const data = await res.json()
     const allCategoriesString = JSON.stringify(data)
     sessionStorage.setItem('sessionJSON', allCategoriesString)
-    console.log("Session storage created")
   }
 
   // Takes the gameName from the gameMatcher() function, reads the JSON string from the sessionStorage, parses back into an object, and filters through until a matching entry is found using the gameName.
@@ -358,6 +396,11 @@ function Grabber () {
       }
     }
   }
+  
+
+  function handleToggle(){
+    console.log("true")
+  }
 
   return (
       <>
@@ -368,85 +411,93 @@ function Grabber () {
             </HeaderContainer>
         </FlexContainerCentered>
         <OptionsContainer>
-          <Instruction>Choose clip amount:</Instruction>
-          <InputSelect onChange={e => setClipAmount(e.target.value)} type="select">
-            <option value="" defaultValue hidden>How many clips?</option>
-            <InputOption>1</InputOption>
-            <InputOption>2</InputOption>
-            <InputOption>3</InputOption>
-            <InputOption>4</InputOption>
-            <InputOption>5</InputOption>
-            <InputOption>6</InputOption>
-            <InputOption>7</InputOption>
-            <InputOption>8</InputOption>
-            <InputOption>9</InputOption>
-            <InputOption>10</InputOption>
-            <InputOption>15</InputOption>
-            <InputOption>20</InputOption>
-          </InputSelect>
-          <Instruction>Choose game:</Instruction>
-          <InputSelect onChange={e => gameMatcher(e.target.value)} type="text" id="inputGameName">
-            <InputOption defaultValue>Latest clips / all games!</InputOption>
-            <InputOption value="customOption" hidden id="customOption"></InputOption> {/* Used as a dummy which can be named as any valid game that isn't initally in the list. */}
-            <InputOption value="invalidOption" hidden id="invalidOption">Invalid game name! Please try again.</InputOption>
-            <InputOption>Valorant</InputOption>
-            <InputOption>Fortnite</InputOption>
-            <InputOption>GTA V</InputOption>
-            <InputOption>Roblox</InputOption>
-            <InputOption>Minecraft</InputOption>
-            <InputOption>Rocket League</InputOption>
-            <InputOption>Counter Strike: Global Offensive</InputOption>
-            <InputOption>Apex Legends</InputOption>
-            <InputOption>Overwatch</InputOption>
-            <InputOption>League of Legends</InputOption>
-            <InputOption>Call of Duty Warzone</InputOption>
-            <InputOption>Call of Duty®: Black Ops Cold War</InputOption>
-            <InputOption>Call of Duty: Mobile</InputOption>
-            <InputOption>Among Us</InputOption>
-            <InputOption>Rust</InputOption>
-            <InputOption>Tom Clancy's Rainbow Six Siege</InputOption>
-            <InputOption>Halo Infinite</InputOption>
-            <InputOption>Halo: The Master Chief Collection</InputOption>
-            <InputOption>Old School RuneScape</InputOption>
-            <InputOption>RuneScape</InputOption>
-            <InputOption>World of Warcraft Classic</InputOption>
-            <InputOption>World of Warcraft</InputOption>
-            <InputOption>New World</InputOption>
-            <InputOption>Destiny 2</InputOption>
-            <InputOption>Escape From Tarkov</InputOption>
-            <InputOption>Dead By Daylight</InputOption>
-            <InputOption>osu!</InputOption>
-            <InputOption>Garry's Mod</InputOption>
-            <InputOption>PUBG</InputOption>
-            <InputOption>Aim Lab</InputOption>
-            <InputOption>Battlefield V</InputOption>
-            <InputOption>Warframe</InputOption>
-            <InputOption>Sea of Thieves</InputOption>
-            <InputOption>Red Dead Redemption 2</InputOption>
-            <InputOption>Hearthstone</InputOption>
-            <InputOption>Terraria</InputOption>
-            <InputOption>Binding of Isaac</InputOption>
-            <InputOption>No Man's Sky</InputOption>
-            <InputOption>Fall Guys</InputOption>
-            <InputOption>Valheim</InputOption>
-            <InputOption>Skyrim</InputOption>
-            <InputOption>Spellbreak</InputOption>
-            <InputOption>Hyper Scape</InputOption>
-            <InputOption>Custom</InputOption>
-          </InputSelect>
-          <Instruction>Optional - add user ID:</Instruction>
-          <FlexContainer>
-            { userID
-              ? <InputUserID disabled borderColor={userID ? "#01d28e" : "#5F5F66"} focusBorderColor={userID ? "#01d28e" : "rgb(255,184,75)"} type="number" placeholder={inputPlaceholder} value={inputID} onChange={(e) => updateInputID(e.currentTarget.value)}/>
-              : <InputUserID onKeyPress={handleKeypress} borderColor={userID ? "#01d28e" : "#5F5F66"} focusBorderColor={userID ? "#01d28e" : "rgb(255,184,75)"} type="number" placeholder={inputPlaceholder} value={inputID} onChange={(e) => updateInputID(e.currentTarget.value)}/>
-            }
-            <FlexButtonContainer>
-            { userID
-              ? <BtnClear clearID={() => clearInput()}/>
-              : <BtnSet inputID={inputID} setID={() => updateUserID()}/>
-            }
-            </FlexButtonContainer>
-          </FlexContainer>
+          <FlexToggleParent>
+            <Title>Settings</Title>
+            <FlexToggleContainer onClick={e => setToggle(!toggle)}>
+              <FontAwesomeIcon icon={faChevronDown}/>
+            </FlexToggleContainer>
+          </FlexToggleParent>
+          <Collapse isOpened={toggle} >
+            <Instruction>Choose clip amount:</Instruction>
+            <InputSelect onChange={e => setClipAmount(e.target.value)} type="select">
+              <option value="" defaultValue hidden>How many clips?</option>
+              <InputOption>1</InputOption>
+              <InputOption>2</InputOption>
+              <InputOption>3</InputOption>
+              <InputOption>4</InputOption>
+              <InputOption>5</InputOption>
+              <InputOption>6</InputOption>
+              <InputOption>7</InputOption>
+              <InputOption>8</InputOption>
+              <InputOption>9</InputOption>
+              <InputOption>10</InputOption>
+              <InputOption>15</InputOption>
+              <InputOption>20</InputOption>
+            </InputSelect>
+            <Instruction>Choose game:</Instruction>
+            <InputSelect onChange={e => gameMatcher(e.target.value)} type="text" id="inputGameName">
+              <InputOption defaultValue>Latest clips / all games!</InputOption>
+              <InputOption value="customOption" hidden id="customOption"></InputOption> {/* Used as a dummy which can be named as any valid game that isn't initally in the list. */}
+              <InputOption value="invalidOption" hidden id="invalidOption">Invalid game name! Please try again.</InputOption>
+              <InputOption>Valorant</InputOption>
+              <InputOption>Fortnite</InputOption>
+              <InputOption>GTA V</InputOption>
+              <InputOption>Roblox</InputOption>
+              <InputOption>Minecraft</InputOption>
+              <InputOption>Rocket League</InputOption>
+              <InputOption>Counter Strike: Global Offensive</InputOption>
+              <InputOption>Apex Legends</InputOption>
+              <InputOption>Overwatch</InputOption>
+              <InputOption>League of Legends</InputOption>
+              <InputOption>Call of Duty Warzone</InputOption>
+              <InputOption>Call of Duty®: Black Ops Cold War</InputOption>
+              <InputOption>Call of Duty: Mobile</InputOption>
+              <InputOption>Among Us</InputOption>
+              <InputOption>Rust</InputOption>
+              <InputOption>Tom Clancy's Rainbow Six Siege</InputOption>
+              <InputOption>Halo Infinite</InputOption>
+              <InputOption>Halo: The Master Chief Collection</InputOption>
+              <InputOption>Old School RuneScape</InputOption>
+              <InputOption>RuneScape</InputOption>
+              <InputOption>World of Warcraft Classic</InputOption>
+              <InputOption>World of Warcraft</InputOption>
+              <InputOption>New World</InputOption>
+              <InputOption>Destiny 2</InputOption>
+              <InputOption>Escape From Tarkov</InputOption>
+              <InputOption>Dead By Daylight</InputOption>
+              <InputOption>osu!</InputOption>
+              <InputOption>Garry's Mod</InputOption>
+              <InputOption>PUBG</InputOption>
+              <InputOption>Aim Lab</InputOption>
+              <InputOption>Battlefield V</InputOption>
+              <InputOption>Warframe</InputOption>
+              <InputOption>Sea of Thieves</InputOption>
+              <InputOption>Red Dead Redemption 2</InputOption>
+              <InputOption>Hearthstone</InputOption>
+              <InputOption>Terraria</InputOption>
+              <InputOption>Binding of Isaac</InputOption>
+              <InputOption>No Man's Sky</InputOption>
+              <InputOption>Fall Guys</InputOption>
+              <InputOption>Valheim</InputOption>
+              <InputOption>Skyrim</InputOption>
+              <InputOption>Spellbreak</InputOption>
+              <InputOption>Hyper Scape</InputOption>
+              <InputOption>Custom</InputOption>
+            </InputSelect>
+            <Instruction>Optional - add user ID:</Instruction>
+            <FlexContainer>
+              { userID
+                ? <InputUserID disabled borderColor={userID ? "#01d28e" : "#5F5F66"} focusBorderColor={userID ? "#01d28e" : "rgb(255,184,75)"} type="number" placeholder={inputPlaceholder} value={inputID} onChange={(e) => updateInputID(e.currentTarget.value)}/>
+                : <InputUserID onKeyPress={handleKeypress} borderColor={userID ? "#01d28e" : "#5F5F66"} focusBorderColor={userID ? "#01d28e" : "rgb(255,184,75)"} type="number" placeholder={inputPlaceholder} value={inputID} onChange={(e) => updateInputID(e.currentTarget.value)}/>
+              }
+              <FlexButtonContainer>
+              { userID
+                ? <BtnClear clearID={() => clearInput()}/>
+                : <BtnSet inputID={inputID} setID={() => updateUserID()}/>
+              }
+              </FlexButtonContainer>
+            </FlexContainer>
+          </Collapse>
         { loading 
           ? null
           : <Loader/>
