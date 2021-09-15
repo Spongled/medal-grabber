@@ -130,19 +130,13 @@ function ErrorFallback() {
 function App() {
   const mainPanelRef = useRef(null);
   useEffect(() => {
-    var ps;
+    var ps
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(mainPanelRef.current, {
         suppressScrollX: true,
-      });
+      })
     }
-    // Specify how to clean up after this effect:
-    return function cleanup() {
-      if (navigator.platform.indexOf("Win") > -1) {
-        ps.destroy();
-      }
-    };
-  });
+  })
 
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
