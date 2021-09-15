@@ -408,7 +408,7 @@ function Grabber () {
               <Title>Settings</Title>
               { loading 
                 ? null
-                :<Loader/>
+                : <Loader/>
               }
             </FlexTitleAndLoader>
             <FlexToggleContainer onClick={e => setToggle(!toggle)} rotation={toggle ? "rotate(0deg)" : "rotate(180deg)"}>

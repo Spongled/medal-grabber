@@ -22,7 +22,7 @@ const MainPanel = styled.div`
   top: 0px;
   min-width: 100vw;
   min-height: 100vh;
-  box-shadow: inset 0 0 0 1000px rgb(255 255 255 / 3%);
+  box-shadow: inset 0 0 0 1000px rgb(255 255 255 / 5%);
   // box-shadow: inset 0 0 0 1000px rgb(12 16 18 / 30%);
   // box-shadow: inset 0 0 0 1000px rgb(0 0 0 / 50%);
   // background-color: rgb(0 0 0 / 100%);
@@ -126,7 +126,6 @@ function ErrorFallback() {
         </Wrapper>
   );
 }
-
 
 function App() {
   const mainPanelRef = useRef(null);
