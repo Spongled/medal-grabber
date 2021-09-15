@@ -97,6 +97,11 @@ const FlexButtonContainer = styled(FlexContainer)`
   margin-bottom: 0;
   margin-left: 1rem;
 `
+const FlexTitleAndLoader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
 const FlexToggleParent = styled.div`
   display: flex;
   justify-content: space-between;
@@ -125,33 +130,21 @@ const FlexToggleContainer = styled.div`
   }
 `
 const Loader = styled.div`
-  position: absolute;
-  margin-top: 5rem;
-  font-size: 5px;
+  display: flex;
+  margin-left: 1rem;
   border-radius: 50%;
-  width: 9em;
-  height: 9em;
-  left: 49%;
-  border-top: 1.1em solid rgba(255, 255, 255, 0.2);
-  border-right: 1.1em solid rgba(255, 255, 255, 0.2);
-  border-bottom: 1.1em solid rgba(255, 255, 255, 0.2);
-  border-left: 1.1em solid #ffffff;
-  -webkit-transform: translateZ(0);
-  -ms-transform: translateZ(0);
-  transform: translateZ(0);
-  -webkit-animation: load8 1.1s infinite linear;
+  width: 1rem;
+  height: 1rem;
+  border-top: 0.2rem solid rgba(255, 255, 255, 0.2);
+  border-right: 0.2rem solid rgba(255, 255, 255, 0.2);
+  border-bottom: 0.2rem solid rgba(255, 255, 255, 0.2);
+  border-left: 0.2rem solid #ffffff;
   animation: load8 1.1s infinite linear;
 
   :after {
     border-radius: 50%;
     width: 10em;
     height: 10em;
-  }
-
-  @media only screen and (max-width: 414px) {
-    .loader {
-      top: 28%;
-      left: 45%;
   }
 }
 `
@@ -411,7 +404,13 @@ function Grabber () {
         </FlexContainerCentered>
         <OptionsContainer>
           <FlexToggleParent>
-            <Title>Settings</Title>
+            <FlexTitleAndLoader>
+              <Title>Settings</Title>
+              { loading 
+                ? null
+                :<Loader/>
+              }
+            </FlexTitleAndLoader>
             <FlexToggleContainer onClick={e => setToggle(!toggle)} rotation={toggle ? "rotate(0deg)" : "rotate(180deg)"}>
               <FontAwesomeIcon icon={faChevronUp}/>
             </FlexToggleContainer>
@@ -497,10 +496,6 @@ function Grabber () {
               </FlexButtonContainer>
             </FlexContainer>
           </Collapse>
-        { loading 
-          ? null
-          : <Loader/>
-        }
       </OptionsContainer>
       {clipPlayers}
     </>
