@@ -59,8 +59,7 @@ const InfoBadge = styled.span`
   box-sizing: border-box;
   border-radius: 11px;
   max-width: 100%;
-  padding: 5px 10px;
-  margin-right: 10px;
+  padding: 4px 10px;
   align-items: center;
   background: #24262D;
 `
@@ -72,7 +71,6 @@ const TransparentBadge = styled(InfoBadge)`
 const GameBadge = styled.div`
   display: flex;
   box-sizing: border-box;
-  margin-bottom: 4px;
   margin-right: 8px;
   align-items: center;
   background: #24262D;
@@ -95,11 +93,11 @@ const GameTitle = styled.span`
   color: rgb(179, 177, 182);
 `
 const EngagementViews = styled.img`
-  width: 15px;
+  width: 18px;
   margin-right: 5px;
 `
 const EngagementLikes = styled.img`
-  width: 15px;
+  width: 18px;
   margin-left: 5px;
   margin-right: 5px;
 `
@@ -114,34 +112,34 @@ const ClipPlayer = ({clipFrame, clipTitle, clipViews, clipLikes, clipLink, clipL
           <div dangerouslySetInnerHTML={{ __html: clipFrame}}></div>
         </VideoWrapper>
         <ClipInfoContainer>
-          <NewFlexRow>
-            <FlexContainer>
-              <GameBadge>
-                <GameImg src={clipImage}></GameImg>
-                <GameTitle>{clipGame}</GameTitle>
-              </GameBadge>
-            </FlexContainer>
-            <FlexContainer>
-              <ExternalLink href={clipLink} target="blank_" title="Download clip"><FontAwesomeIcon icon={faCloudDownloadAlt}/></ExternalLink>
-            </FlexContainer>
-          </NewFlexRow>
+        <NewFlexRow>
           <FlexContainer>
-            <FlexContainer>
-              { clipLengthSeconds > 0
-                ? <InfoBadge title="Clip length"><FontAwesomeIcon icon={faStopwatch}/> {clipLength}s</InfoBadge>
-                : null
-              }
-              <ExternalLinkTitle href={clipLink} target="blank_" title="View clip in new tab">
-                <ClipTitleContainer>{clipTitle}</ClipTitleContainer>
-              </ExternalLinkTitle>
-            </FlexContainer>
-            <FlexContainer>
-              <TransparentBadge>
-                <EngagementViews src={medalViews}></EngagementViews>{clipViews}
-                <EngagementLikes src={medalLikes}></EngagementLikes>{clipLikes}
-              </TransparentBadge>
-            </FlexContainer>
+            <ExternalLinkTitle href={clipLink} target="blank_" title="View clip in new tab">
+              <ClipTitleContainer>{clipTitle}</ClipTitleContainer>
+            </ExternalLinkTitle>
           </FlexContainer>
+          <FlexContainer>
+            <ExternalLink href={clipLink} target="blank_" title="Download clip"><FontAwesomeIcon icon={faCloudDownloadAlt}/></ExternalLink>
+          </FlexContainer>
+        </NewFlexRow>
+        <FlexContainer>
+          <FlexContainer>
+            <GameBadge>
+              <GameImg src={clipImage}></GameImg>
+              <GameTitle>{clipGame}</GameTitle>
+            </GameBadge>
+            { clipLengthSeconds > 0
+              ? <InfoBadge title="Clip length"><FontAwesomeIcon icon={faStopwatch}/> {clipLength}s</InfoBadge>
+              : null
+            }
+          </FlexContainer>
+          <FlexContainer>
+            <InfoBadge>
+              <EngagementViews src={medalViews}></EngagementViews>{clipViews}
+              <EngagementLikes src={medalLikes}></EngagementLikes>{clipLikes}
+            </InfoBadge>
+          </FlexContainer>
+        </FlexContainer>
         </ClipInfoContainer>
       </>
     )
