@@ -34,7 +34,7 @@ const NewFlexRow = styled(FlexContainer)`
   margin-bottom: 0.5rem;
 `
 const ExternalLink = styled.a`
-  color: rgba(255, 255, 255, 0.2);
+  color: #5F5F66;
   text-decoration: none;
   padding-left: 15px;
 
