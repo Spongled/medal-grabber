@@ -27,7 +27,6 @@ const BtnMedal = styled.button`
   }
 `
 
-
 const BtnClear = ({clearID}) => {
     return (
         <>

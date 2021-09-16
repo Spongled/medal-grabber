@@ -38,7 +38,6 @@ const BtnMedal = styled.button`
   }
 `
 
-
 const BtnSet = ({setID, inputID}) => {
     return (
         <>

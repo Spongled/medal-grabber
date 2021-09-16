@@ -102,7 +102,6 @@ const EngagementLikes = styled.img`
   margin-right: 5px;
 `
 
-
 const ClipPlayer = ({clipFrame, clipTitle, clipViews, clipLikes, clipLink, clipLength, clipGame, clipImage}) => {
   const clipLengthSeconds = clipLength
 
