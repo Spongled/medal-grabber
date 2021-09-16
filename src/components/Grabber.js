@@ -6,7 +6,7 @@ import BtnClear from './BtnClear.js'
 import API_KEY from '../API_KEY.js'
 import medalLogo from '../assets/img/medal.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronUp } from '@fortawesome/free-solid-svg-icons'
+import { faChevronUp, faCog } from '@fortawesome/free-solid-svg-icons'
 import { Collapse } from 'react-collapse'
 
 const HeaderContainer = styled.div`
@@ -101,6 +101,7 @@ const FlexTitleAndLoader = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 `
 const FlexToggleParent = styled.div`
   display: flex;
@@ -160,6 +161,15 @@ const Title = styled.div`
   border-radius: 100px;
   padding: 4px 12px;
   color: #ffb84b;
+  transition: all 0.2s ease-in-out;
+
+  :hover {
+    background: rgb(36, 38, 45);
+  }
+
+  svg {
+    padding-right: 5px;
+  }
 `
 const Instruction = styled.div`
   font-size: 0.75rem;
@@ -181,6 +191,9 @@ const Instruction = styled.div`
 // In footer, add a tutorial page: displays gif of where to find user ID, etc.
 // Create readme.md
 // App doesn't work in incognito due to lack of sessionStorage/third-party cookie blocking. This originates from the Medal iFrames that use Facebook Pixel(?) which require storage.
+// Add "download all" button to the right of "choose game"
+// Move "choose game" to top?
+// Add settings cog to the left of settings? rename settings?
 
 function Grabber () {
   const [_, setClipObjects] = useState([])
@@ -412,8 +425,8 @@ function Grabber () {
         </FlexContainerCentered>
         <OptionsContainer>
           <FlexToggleParent>
-            <FlexTitleAndLoader>
-              <Title>Settings</Title>
+            <FlexTitleAndLoader onClick={e => setToggle(!toggle)}>
+              <Title><FontAwesomeIcon icon={faCog}/>Settings</Title>
               { loading 
                 ? null
                 : <Loader/>
