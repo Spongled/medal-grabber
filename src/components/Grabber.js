@@ -243,7 +243,7 @@ function Grabber () {
   }, [clipAmount, userID, categoryID])
 
   const getClip = async () => {
-    try {
+    // try {
       console.log("<------------------------------------------------------------]")
       console.log("START getClip")
       if (allCategoriesObj === null) {
@@ -260,9 +260,9 @@ function Grabber () {
       setClipPlayers(clipPlayers)
       console.log("END getClip")
       console.log("[------------------------------------------------------------>")
-    } catch {
-        throwError(new Error("Asynchronous error"))
-      }
+    // } catch {
+        // throwError(new Error("Asynchronous error"))
+      // }
   }
 
   // Fetch clip data from the Medal API using given parameters. Pass the objects back to getClip() and assign them to the clipObjects variable using the setClipObjects setter.
@@ -289,24 +289,29 @@ function Grabber () {
     console.log("<------------------------------------------------------------]")
     console.log("START createClipPlayers")
     var tempClipPlayersArray = []
-    clipObjects.forEach((clipObjects, i)=>{
-      const categoryID = clipObjects.contentObjects[i].categoryId
-      const gameNameAndImage = findGameByCategoryID(categoryID)
-      console.log("Obtaining object data of retrieved clip and pushing to clipPlayers array of index: " + i)
-      tempClipPlayersArray.push(
-      <ClipPlayer
-        clipFrame={clipObjects.contentObjects[i].embedIframeCode}
-        clipTitle={clipObjects.contentObjects[i].contentTitle}
-        clipViews={clipObjects.contentObjects[i].contentViews}
-        clipLikes={clipObjects.contentObjects[i].contentLikes}
-        clipLink={clipObjects.contentObjects[i].directClipUrl}
-        clipLength={clipObjects.contentObjects[i].videoLengthSeconds}
-        clipGame={gameNameAndImage[0]}
-        clipImage={gameNameAndImage[1]}
-        key={i}/>
-      )
-      console.log(tempClipPlayersArray[i])
-    })
+    try {
+      clipObjects.forEach((clipObjects, i)=>{
+        const categoryID = clipObjects.contentObjects[i].categoryId
+        const gameNameAndImage = findGameByCategoryID(categoryID)
+        console.log("Obtaining object data of retrieved clip and pushing to clipPlayers array of index: " + i)
+        tempClipPlayersArray.push(
+        <ClipPlayer
+          clipFrame={clipObjects.contentObjects[i].embedIframeCode}
+          clipTitle={clipObjects.contentObjects[i].contentTitle}
+          clipViews={clipObjects.contentObjects[i].contentViews}
+          clipLikes={clipObjects.contentObjects[i].contentLikes}
+          clipLink={clipObjects.contentObjects[i].directClipUrl}
+          clipLength={clipObjects.contentObjects[i].videoLengthSeconds}
+          clipGame={gameNameAndImage[0]}
+          clipImage={gameNameAndImage[1]}
+          key={i}/>
+        )
+        console.log(tempClipPlayersArray[i])
+      })
+    } catch {
+      document.querySelector("#inputClipAmount").selectedIndex = 1
+    }
+    
     console.log("END createClipPlayers")
     console.log("[------------------------------------------------------------>")
     return tempClipPlayersArray
@@ -439,8 +444,9 @@ function Grabber () {
           </FlexToggleParent>
           <Collapse isOpened={toggle} >
             <Instruction>Choose clip amount:</Instruction>
-            <InputSelect onChange={e => setClipAmount(e.target.value)} type="select">
-              <option value="" defaultValue hidden>How many clips?</option>
+            <InputSelect onChange={e => setClipAmount(e.target.value)} type="select" id="inputClipAmount">
+              <InputOption value="" defaultValue hidden>How many clips?</InputOption>
+              <InputOption value="" hidden id="invalidClipOption">User doesn't have this amount of clips!</InputOption>
               <InputOption>1</InputOption>
               <InputOption>2</InputOption>
               <InputOption>3</InputOption>
