@@ -116,7 +116,7 @@ function ErrorFallback() {
                   <ErrorEmoji>💩</ErrorEmoji>
                   <ErrorHeading>Uh oh...</ErrorHeading>
                   <ErrorMessage>
-                    We couldn't fetch clips with the settings you provided. If you're grabbing from a user ID, make sure what you're trying to grab actually exists!
+                    Something broke. We'll reload the page so you can try again!
                   </ErrorMessage>
                   <ProgressContainer>
                     <ProgressBar></ProgressBar>

@@ -184,8 +184,6 @@ const Instruction = styled.div`
 // Tick multiple clips to download at once?
 // Format view and like numbers? e.g. 1,000 not 1000
 // Add scrolltop button
-// Need logic to display "no clips found!" if searching for a game that the user hasn't clipped
-// Need logic to display "no more clips!" if trying to access an amount larger than available, or simply move the try/catch out of getClip to elsewhere so the rejected promise for an array too large doesn't trigger it
 // Add credits page
 // Add footer
 // In footer, add a tutorial page: displays gif of where to find user ID, etc.
@@ -237,13 +235,17 @@ function Grabber () {
     console.log("<------------------------------------------------------------]")
     console.log("START useEffect")
     setLoading(false)
+    // After error message is display, reset the clip amount to whatever it wass before if a valid selection is made.
+    if (document.querySelector("#inputClipAmount").selectedIndex === 1) {
+      document.querySelector("#inputClipAmount").value = clipAmount
+    }
     getClip()
     console.log("END useEffect")
     console.log("[------------------------------------------------------------>")
   }, [clipAmount, userID, categoryID])
 
   const getClip = async () => {
-    // try {
+    try {
       console.log("<------------------------------------------------------------]")
       console.log("START getClip")
       if (allCategoriesObj === null) {
@@ -260,9 +262,9 @@ function Grabber () {
       setClipPlayers(clipPlayers)
       console.log("END getClip")
       console.log("[------------------------------------------------------------>")
-    // } catch {
-        // throwError(new Error("Asynchronous error"))
-      // }
+    } catch {
+        throwError(new Error("Asynchronous error"))
+      }
   }
 
   // Fetch clip data from the Medal API using given parameters. Pass the objects back to getClip() and assign them to the clipObjects variable using the setClipObjects setter.
@@ -446,7 +448,7 @@ function Grabber () {
             <Instruction>Choose clip amount:</Instruction>
             <InputSelect onChange={e => setClipAmount(e.target.value)} type="select" id="inputClipAmount">
               <InputOption value="" defaultValue hidden>How many clips?</InputOption>
-              <InputOption value="" hidden id="invalidClipOption">User doesn't have this amount of clips!</InputOption>
+              <InputOption value="" hidden>Oops! This user either doesn't exist or own this number of clips.</InputOption>
               <InputOption>1</InputOption>
               <InputOption>2</InputOption>
               <InputOption>3</InputOption>
@@ -463,8 +465,8 @@ function Grabber () {
             <Instruction>Choose game:</Instruction>
             <InputSelect onChange={e => gameMatcher(e.target.value)} type="text" id="inputGameName">
               <InputOption defaultValue>Latest clips / all games!</InputOption>
-              <InputOption value="customOption" hidden id="customOption"></InputOption> {/* Used as a dummy which can be named as any valid game that isn't initally in the list. */}
-              <InputOption value="invalidOption" hidden id="invalidOption">Invalid game name! Please try again.</InputOption>
+              <InputOption value="" hidden id="customOption"></InputOption> {/* Used as a dummy which can be named as any valid game that isn't initally in the list. */}
+              <InputOption value="" hidden>Invalid game name! Please try again.</InputOption>
               <InputOption>Valorant</InputOption>
               <InputOption>Fortnite</InputOption>
               <InputOption>GTA V</InputOption>
