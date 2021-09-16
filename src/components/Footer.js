@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import githubIcon from '../assets/img/github.svg'
 import medalIcon from '../assets/img/medal-white.svg'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faQuestion } from '@fortawesome/free-solid-svg-icons'
 
 const FooterContainer = styled.footer`
   display: flex;
@@ -16,17 +18,18 @@ const FlexContainer = styled.div`
   justify-content: space-between;
   align-items: center;
 `
-
 const NavContainer = styled.nav`
   font-size: 0.75rem;
-  font-weight: 400;
+  font-weight: 700;
 `
 const ExternalLink = styled.a`
-  color: #ffb84b;
+  color: #5F5F66;
+  transition: all 0.15s ease-in-out;
   text-decoration: none;
+  cursor: pointer;
 
   :hover {
-    color: rgb(255, 232, 92);
+    color: #ffb84b;
   }
 `
 const Icon = styled.img`
@@ -40,14 +43,14 @@ const Footer = () => {
   return (
     <FooterContainer>
       <NavContainer>
-        <ExternalLink href="https://medal.tv" target="blank_">Medal.tv</ExternalLink>
+        <ExternalLink><FontAwesomeIcon size="lg" icon={faQuestion} title="Help"/></ExternalLink>
       </NavContainer>
       <FlexContainer>
         <NavContainer>
-          <ExternalLink href="https://github.com/Spongled/medal-grabber" target="blank_"><Icon src={githubIcon}></Icon></ExternalLink>
+          <ExternalLink href="https://github.com/Spongled/medal-grabber" target="blank_" title="GitHub Repo"><Icon src={githubIcon}></Icon></ExternalLink>
         </NavContainer>
         <NavContainer>
-          <ExternalLink href="https://medal.tv/jimmeh" target="blank_"><Icon src={medalIcon}></Icon></ExternalLink>
+          <ExternalLink href="https://medal.tv/jimmeh" target="blank_" title="Medal Profile"><Icon src={medalIcon}></Icon></ExternalLink>
         </NavContainer>
       </FlexContainer>
     </FooterContainer>

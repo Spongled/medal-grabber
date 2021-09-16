@@ -36,6 +36,7 @@ const NewFlexRow = styled(FlexContainer)`
 const ExternalLink = styled.a`
   color: #5F5F66;
   text-decoration: none;
+  transition: all 0.15s ease-in-out;
   padding-left: 15px;
 
   :hover {

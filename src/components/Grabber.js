@@ -133,7 +133,7 @@ const FlexToggleContainer = styled.div`
   align-items: center;
   color: #5F5F66;
   transform: ${props => props.rotation};
-  transition: all 0.2s ease-in-out;
+  transition: all 0.15s ease-in-out;
 
   :hover {
     transform: transform:rotate(0deg);
@@ -173,7 +173,7 @@ const Title = styled.div`
   border-radius: 100px;
   padding: 4px 12px;
   color: #ffb84b;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.15s ease-in-out;
 
   :hover {
     background: rgb(36, 38, 45);
