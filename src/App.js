@@ -98,14 +98,14 @@ const ProgressBar = styled.span`
   background: linear-gradient(90deg,#ffb84b,#ffb84b 17%,#ffb84b 34%,#ffb84b 51%,#ffb84b 68%,#ff8a17 85%,#ffb84b);
   background-size: 300% 100%;
   width: 0;
-  animation: progress-animation 10s linear;
+  animation: progress-animation 35s ease-in-out;
 `
 
 function ErrorFallback() {
   useEffect(() => {
     setTimeout(function(){
       window.location.reload();
-    }, 5000);
+    }, 9000);
   });
 
   return (
@@ -115,7 +115,9 @@ function ErrorFallback() {
               <ErrorContent>
                   <ErrorEmoji>💩</ErrorEmoji>
                   <ErrorHeading>Uh oh...</ErrorHeading>
-                  <ErrorMessage>Looks like you either: entered a non-existent user ID, selected a clip amount larger than what exists for your parameters, tried to grab a certain game from an ID that doesn't have any clips from that game... or something else broke. We'll reload the app so you can try again!</ErrorMessage>
+                  <ErrorMessage>
+                    We couldn't fetch clips with the settings you provided. If you're grabbing from a user ID, make sure what you're trying to grab actually exists!
+                  </ErrorMessage>
                   <ProgressContainer>
                     <ProgressBar></ProgressBar>
                   </ProgressContainer>

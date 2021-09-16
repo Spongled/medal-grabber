@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import styled from 'styled-components'
 import ClipPlayer from './ClipPlayer.js'
 import BtnSet from './BtnSet.js'
@@ -8,7 +8,6 @@ import medalLogo from '../assets/img/medal.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { Collapse } from 'react-collapse'
-import { ErrorBoundary } from 'react-error-boundary'
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -209,6 +208,19 @@ function Grabber () {
     }
   }
 
+  const useAsyncError = () => {
+    const [_, setError] = useState()
+    return useCallback(
+      error => {
+        setError(() => {
+          throw error
+        })
+      },
+      [setError],
+    )
+  }
+  const throwError = useAsyncError()
+
   // Runs on load and re-render.
   useEffect(() => {
     console.log("<------------------------------------------------------------]")
@@ -224,19 +236,23 @@ function Grabber () {
   }, [clipAmount, userID, categoryID])
 
   const getClip = async () => {
-    console.log("<------------------------------------------------------------]")
-    console.log("START getClip")
-    const clipObjects = await fetchClips()
-    console.log("All clip objects:")
-    console.log(clipObjects)
-    setClipObjects(clipObjects)
-    setLoading(true)
-    const clipPlayers = await createClipPlayers(clipObjects)
-    console.log("All clip players:")
-    console.log(clipPlayers)
-    setClipPlayers(clipPlayers)
-    console.log("END getClip")
-    console.log("[------------------------------------------------------------>")
+    try {
+      console.log("<------------------------------------------------------------]")
+      console.log("START getClip")
+      const clipObjects = await fetchClips()
+      console.log("All clip objects:")
+      console.log(clipObjects)
+      setClipObjects(clipObjects)
+      setLoading(true)
+      const clipPlayers = await createClipPlayers(clipObjects)
+      console.log("All clip players:")
+      console.log(clipPlayers)
+      setClipPlayers(clipPlayers)
+      console.log("END getClip")
+      console.log("[------------------------------------------------------------>")
+    } catch {
+        throwError(new Error("Asynchronous error"))
+      }
   }
 
   // Fetch clip data from the Medal API using given parameters. Pass the objects back to getClip() and assign them to the clipObjects variable using the setClipObjects setter.
@@ -486,8 +502,8 @@ function Grabber () {
             <Instruction>Optional - add user ID:</Instruction>
             <FlexContainer>
               { userID
-                ? <InputUserID disabled borderColor={userID ? "#01d28e" : "#5F5F66"} focusBorderColor={userID ? "#01d28e" : "rgb(255,184,75)"} type="number" placeholder={inputPlaceholder} value={inputID} onChange={(e) => updateInputID(e.currentTarget.value)}/>
-                : <InputUserID onKeyPress={handleKeypress} borderColor={userID ? "#01d28e" : "#5F5F66"} focusBorderColor={userID ? "#01d28e" : "rgb(255,184,75)"} type="number" placeholder={inputPlaceholder} value={inputID} onChange={(e) => updateInputID(e.currentTarget.value)}/>
+                ? <InputUserID max="999" disabled borderColor={userID ? "#01d28e" : "#5F5F66"} focusBorderColor={userID ? "#01d28e" : "rgb(255,184,75)"} type="number" placeholder={inputPlaceholder} value={inputID} onChange={(e) => updateInputID(e.currentTarget.value)}/>
+                : <InputUserID max="999" onKeyPress={handleKeypress} borderColor={userID ? "#01d28e" : "#5F5F66"} focusBorderColor={userID ? "#01d28e" : "rgb(255,184,75)"} type="number" placeholder={inputPlaceholder} value={inputID} onChange={(e) => updateInputID(e.currentTarget.value)}/>
               }
               <FlexButtonContainer>
               { userID
