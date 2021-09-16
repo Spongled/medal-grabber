@@ -23,7 +23,7 @@ const MainPanel = styled.div`
   top: 0px;
   min-width: 100vw;
   min-height: 100vh;
-  box-shadow: inset 0 0 0 1000px rgb(255 255 255 /4%);
+  box-shadow: inset 0 0 0 1000px rgb(255 255 255 /3%);
   // box-shadow: inset 0 0 0 1000px rgb(0 0 0 / 50%);
   // background-color: rgb(0 0 0 / 100%);
   // OLD: This colour is applied over the background image. The image is transparent, meaning there's also a colour behind it in on the body tag. This is located in index.css. Use background-color: rgb(0 0 0 / 100%) here to mimic official styling.
@@ -38,8 +38,8 @@ const GridContainer = styled.div`
   flex-direction: column;
   grid-template-columns: 1.5fr 1.5fr 1.5fr;
   grid-template-rows: auto auto auto;
-  min-height: calc(100vh - 70px);
-  
+  min-height: calc(100vh - 7.5rem);
+
   @media screen and (max-width: 1920px){
     grid-template-columns: 1fr 1.5fr 1fr;
   }
@@ -58,7 +58,7 @@ const Content = styled.div`
 const ErrorContent = styled(Content)`
   grid-column-start: 2;
   grid-column-end: 3;
-  grid-row-start: 3;
+  grid-row-start: 2;
 `
 const ErrorEmoji = styled.div`
   display: flex;
