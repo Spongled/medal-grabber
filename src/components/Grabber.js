@@ -197,6 +197,7 @@ function Grabber () {
   const [inputPlaceholder, setInputPlaceholder] = useState("e.g. 261997")
   const [categoryID, setCategoryID] = useState(null)
   const [toggle, setToggle] = useState(true)
+  const [allCategoriesObj, setAllCategoriesObj] = useState(null)
   const options = {
     host: 'https://developers.medal.tv',
     port: 443,
@@ -226,9 +227,7 @@ function Grabber () {
     console.log("<------------------------------------------------------------]")
     console.log("START useEffect")
     console.log("Create session storage")
-    if (sessionStorage.getItem('sessionJSON') === null) {
-      createStorage() 
-    }
+
     setLoading(false)
     getClip()
     console.log("END useEffect")
@@ -239,6 +238,9 @@ function Grabber () {
     try {
       console.log("<------------------------------------------------------------]")
       console.log("START getClip")
+      if (allCategoriesObj === null) {
+        fetchJSON() 
+      }
       const clipObjects = await fetchClips()
       console.log("All clip objects:")
       console.log(clipObjects)
@@ -307,8 +309,6 @@ function Grabber () {
     console.log("<------------------------------------------------------------]")
     console.log("START findGameByCategoryID")
     console.log("categoryID being filtered: " + categoryID)
-    const allCategoriesString = sessionStorage.getItem('sessionJSON')
-    const allCategoriesObj = JSON.parse(allCategoriesString)
     var tempSingleCategoryObjArray = []
     tempSingleCategoryObjArray = allCategoriesObj.filter(e => e.categoryId === categoryID)
     console.log("Entry matching category ID:")
@@ -370,8 +370,9 @@ function Grabber () {
     }
   }
 
-  // Retrieves the entire JS object for categories from the Medal API, converts it to a string, and stores in sessionStorage.
-  const createStorage = async () => {
+  // Retrieves the entire JS object for categories from the Medal API and sets it to the allCategoriesObj variable using the setter.
+  const fetchJSON = async () => {
+    console.log("Pulling all category JSON and assigning to allCategoriesObj")
     const res = await fetch('https://api-v2.medal.tv/categories/', {
       method: 'GET',
       headers: {
@@ -379,15 +380,11 @@ function Grabber () {
       }
     })
     const data = await res.json()
-    const allCategoriesString = JSON.stringify(data)
-    sessionStorage.setItem('sessionJSON', allCategoriesString)
+    setAllCategoriesObj(data)
   }
 
-  // Takes the gameName from the gameMatcher() function, reads the JSON string from the sessionStorage, parses back into an object, and filters through until a matching entry is found using the gameName.
+  // Takes the gameName from the gameMatcher() function and filters through until a matching entry is found using the gameName.
   function updateCategoryByGameName(gameName) {
-    // Convert JSON string back to JS object.
-    const allCategoriesString = sessionStorage.getItem('sessionJSON')
-    const allCategoriesObj = JSON.parse(allCategoriesString)
     var tempCategoryArray = []
     document.querySelector("#inputGameName").selectedIndex = 1
     document.querySelector("#customOption").innerHTML = gameName
