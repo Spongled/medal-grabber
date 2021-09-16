@@ -185,7 +185,7 @@ const Instruction = styled.div`
 // Add a toggle between classic and new styling?
 // Convert to Redux
 // Add tutorial button in footer
-// App doesn't work in incognito due to lack of sessionStorage
+// App doesn't work in incognito due to lack of sessionStorage/third-party cookie blocking. This originates from the Medal iFrames that use Facebook Pixel(?) which require storage.
 
 function Grabber () {
   const [_, setClipObjects] = useState([])
