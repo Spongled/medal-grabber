@@ -99,6 +99,8 @@ const EngagementLikes = styled.img`
 
 const ClipPlayer = ({clipFrame, clipTitle, clipViews, clipLikes, clipLink, clipLength, clipGame, clipImage}) => {
   const clipLengthSeconds = clipLength
+  const formattedViews = new Intl.NumberFormat().format(clipViews)
+  const formattedLikes = new Intl.NumberFormat().format(clipLikes)
 
     return (
       <>
@@ -129,8 +131,8 @@ const ClipPlayer = ({clipFrame, clipTitle, clipViews, clipLikes, clipLink, clipL
           </FlexContainer>
           <FlexContainer>
             <InfoBadge>
-              <EngagementViews src={medalViews}></EngagementViews>{clipViews}
-              <EngagementLikes src={medalLikes}></EngagementLikes>{clipLikes}
+              <EngagementViews src={medalViews}></EngagementViews>{formattedViews}
+              <EngagementLikes src={medalLikes}></EngagementLikes>{formattedLikes}
             </InfoBadge>
           </FlexContainer>
         </FlexContainer>

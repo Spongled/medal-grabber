@@ -182,7 +182,6 @@ const Instruction = styled.div`
 // Look more into useCallback
 // Add download functionality
 // Add "download all" button to the right of "choose clips?"
-// Format view and like numbers? e.g. 1,000 not 1000
 // Add scrolltop button
 // Add credits page
 // Add footer
