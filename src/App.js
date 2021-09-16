@@ -80,7 +80,7 @@ const ErrorHeading = styled.div`
 const ErrorMessage = styled.div`
   margin-top: 1rem;
   margin-bottom: 1rem;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   color: #fff;
   text-align: center;
 `
@@ -98,14 +98,14 @@ const ProgressBar = styled.span`
   background: linear-gradient(90deg,#ffb84b,#ffb84b 17%,#ffb84b 34%,#ffb84b 51%,#ffb84b 68%,#ff8a17 85%,#ffb84b);
   background-size: 300% 100%;
   width: 0;
-  animation: progress-animation 35s ease-in-out;
+  animation: progress-animation 10s ease-in-out;
 `
 
 function ErrorFallback() {
   useEffect(() => {
     setTimeout(function(){
       window.location.reload();
-    }, 9000);
+    }, 5000);
   });
 
   return (
