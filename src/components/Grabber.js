@@ -167,24 +167,19 @@ const Instruction = styled.div`
   margin-bottom: 0.5rem;
 `
 
-// Add a dismissable box with brief description. Maybe dull the background and focus the box until "Got it!" is clicked by the user?
-// Animate border-top during grab? Could either 0-100% or gradient
 // Ask Josh if he can enable rawFileUrls on my API key
+// Convert to Redux
+// Look more into useCallback
 // Add download functionality
-// Tick multiple clips to download at once
-// Optimise renders
-// Look into useCallback
+// Tick multiple clips to download at once?
 // Format view and like numbers? e.g. 1,000 not 1000
 // Add scrolltop button
-// Need logic to display "no clips found!" if searching for a game that the user doesn't play
-// Need logic to display "no more clips!" if trying to access an amount larger than available
-// Add ? next to "user ID" instruction which displays gif of where to find user ID on hover
+// Need logic to display "no clips found!" if searching for a game that the user hasn't clipped
+// Need logic to display "no more clips!" if trying to access an amount larger than available, or simply move the try/catch out of getClip to elsewhere so the rejected promise for an array too large doesn't trigger it
 // Add credits page
 // Add footer
+// In footer, add a tutorial page: displays gif of where to find user ID, etc.
 // Create readme.md
-// Add a toggle between classic and new styling?
-// Convert to Redux
-// Add tutorial button in footer
 // App doesn't work in incognito due to lack of sessionStorage/third-party cookie blocking. This originates from the Medal iFrames that use Facebook Pixel(?) which require storage.
 
 function Grabber () {
@@ -209,6 +204,7 @@ function Grabber () {
     }
   }
 
+  // Used to trigger react-error-boundary for async promise rejections.
   const useAsyncError = () => {
     const [_, setError] = useState()
     return useCallback(
@@ -222,12 +218,10 @@ function Grabber () {
   }
   const throwError = useAsyncError()
 
-  // Runs on load and re-render.
+  // Run on each render.
   useEffect(() => {
     console.log("<------------------------------------------------------------]")
     console.log("START useEffect")
-    console.log("Create session storage")
-
     setLoading(false)
     getClip()
     console.log("END useEffect")
