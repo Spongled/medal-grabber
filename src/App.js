@@ -110,21 +110,21 @@ function ErrorFallback() {
 
   return (
     <Wrapper>
-          <ErrorMainPanel>
-            <ErrorGridContainer>
-              <ErrorContent>
-                  <ErrorEmoji>💩</ErrorEmoji>
-                  <ErrorHeading>Uh oh...</ErrorHeading>
-                  <ErrorMessage>
-                    Something broke. We'll reload the page so you can try again!
-                  </ErrorMessage>
-                  <ProgressContainer>
-                    <ProgressBar></ProgressBar>
-                  </ProgressContainer>
-              </ErrorContent>
-            </ErrorGridContainer>
-          </ErrorMainPanel>
-        </Wrapper>
+      <ErrorMainPanel>
+        <ErrorGridContainer>
+          <ErrorContent>
+            <ErrorEmoji>💩</ErrorEmoji>
+            <ErrorHeading>Uh oh...</ErrorHeading>
+            <ErrorMessage>
+              Something broke. We'll reload the page so you can try again!
+            </ErrorMessage>
+            <ProgressContainer>
+              <ProgressBar></ProgressBar>
+            </ProgressContainer>
+          </ErrorContent>
+        </ErrorGridContainer>
+      </ErrorMainPanel>
+    </Wrapper>
   );
 }
 

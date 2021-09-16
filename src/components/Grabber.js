@@ -181,7 +181,7 @@ const Instruction = styled.div`
 // Convert to Redux
 // Look more into useCallback
 // Add download functionality
-// Tick multiple clips to download at once?
+// Add "download all" button to the right of "choose clips?"
 // Format view and like numbers? e.g. 1,000 not 1000
 // Add scrolltop button
 // Add credits page
@@ -189,7 +189,6 @@ const Instruction = styled.div`
 // In footer, add a tutorial page: displays gif of where to find user ID, etc.
 // Create readme.md
 // App doesn't work in incognito due to lack of sessionStorage/third-party cookie blocking. This issue originates from the Medal iFrames that use Facebook Pixel(?) which require storage.
-// Add "download all" button to the right of "choose clips?"
 // Move "choose game" to top?
 // Can't scroll on mobile
 // Title too big on mobile
