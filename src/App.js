@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import Grabber from './components/Grabber.js'
+import Footer from './components/Footer.js'
 import PerfectScrollbar from 'perfect-scrollbar';
 import { ErrorBoundary } from 'react-error-boundary'
 import background from './assets/img/default-bg.jpg'
@@ -35,13 +36,10 @@ const ErrorMainPanel = styled(MainPanel)`
 const GridContainer = styled.div`
   display: grid;
   flex-direction: column;
-  align-items: center;
   grid-template-columns: 1.5fr 1.5fr 1.5fr;
   grid-template-rows: auto auto auto;
-  // justify-items: center;
-  // justify-content: center;
-  // align-content: center;
-
+  min-height: calc(100vh - 70px);
+  
   @media screen and (max-width: 1920px){
     grid-template-columns: 1fr 1.5fr 1fr;
   }
@@ -147,6 +145,7 @@ function App() {
               <Grabber/>
             </Content>
           </GridContainer>
+          <Footer/>
         </MainPanel>
       </Wrapper>
     </ErrorBoundary>

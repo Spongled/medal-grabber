@@ -199,10 +199,8 @@ const Instruction = styled.div`
 // Add footer
 // In footer, add a tutorial page: displays gif of where to find user ID, etc.
 // Create readme.md
-// App doesn't work in incognito due to lack of sessionStorage/third-party cookie blocking. This issue originates from the Medal iFrames that use Facebook Pixel(?) which require storage.
 // Move "choose game" to top?
 // Can't scroll on mobile
-// Title too big on mobile
 
 function Grabber () {
   const [_, setClipObjects] = useState([])
