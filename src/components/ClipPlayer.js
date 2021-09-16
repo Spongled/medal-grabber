@@ -63,11 +63,6 @@ const InfoBadge = styled.span`
   align-items: center;
   background: #24262D;
 `
-const TransparentBadge = styled(InfoBadge)`
-  background: transparent;
-  padding: 5px 0;
-  margin-right: 0;
-`
 const GameBadge = styled.div`
   display: flex;
   box-sizing: border-box;

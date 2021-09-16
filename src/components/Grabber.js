@@ -190,10 +190,11 @@ const Instruction = styled.div`
 // Add footer
 // In footer, add a tutorial page: displays gif of where to find user ID, etc.
 // Create readme.md
-// App doesn't work in incognito due to lack of sessionStorage/third-party cookie blocking. This originates from the Medal iFrames that use Facebook Pixel(?) which require storage.
-// Add "download all" button to the right of "choose game"
+// App doesn't work in incognito due to lack of sessionStorage/third-party cookie blocking. This issue originates from the Medal iFrames that use Facebook Pixel(?) which require storage.
+// Add "download all" button to the right of "choose clips?"
 // Move "choose game" to top?
-// Add settings cog to the left of settings? rename settings?
+// Can't scroll on mobile
+// Title too big on mobile
 
 function Grabber () {
   const [_, setClipObjects] = useState([])
@@ -283,7 +284,7 @@ function Grabber () {
     return retrievedClipObjects
   }
   
-  // Create array of ClipPlayer components + props using incremental loop. Return this array of objects back to getClip() and assign to the clipPlayers variable using the setClipObjects setter.
+  // Create array of ClipPlayer components + props using incremental loop. Return this array of objects back to getClip() and assign to the clipPlayers variable using the setClipPlayers setter.
   const createClipPlayers = async (clipObjects) => {
     console.log("<------------------------------------------------------------]")
     console.log("START createClipPlayers")
