@@ -193,13 +193,11 @@ const Instruction = styled.div`
 // Convert to Redux
 // Look more into useCallback
 // Add download functionality
-// Add "download all" button to the right of "choose clips?"
-// Add scrolltop button
-// Add credits page
-// Add footer
-// In footer, add a tutorial page: displays gif of where to find user ID, etc.
-// Create readme.md
 // Move "choose game" to top?
+// Add "download all" button to the right of "choose clips?"
+// Add credits page
+// Add a tutorial page: displays gif of where to find user ID, etc.
+// Create readme.md
 // Can't scroll on mobile
 
 function Grabber () {
@@ -243,7 +241,7 @@ function Grabber () {
     console.log("<------------------------------------------------------------]")
     console.log("START useEffect")
     setLoading(false)
-    // After error message is display, reset the clip amount to whatever it wass before if a valid selection is made.
+    // After error message is displayed, reset the clip amount to whatever it was before if a valid selection is made.
     if (document.querySelector("#inputClipAmount").selectedIndex === 1) {
       document.querySelector("#inputClipAmount").value = clipAmount
     }

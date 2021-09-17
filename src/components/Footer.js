@@ -47,10 +47,10 @@ const Footer = () => {
       </NavContainer>
       <FlexContainer>
         <NavContainer>
-          <ExternalLink href="https://github.com/Spongled/medal-grabber" target="blank_" title="GitHub Repo"><Icon src={githubIcon}></Icon></ExternalLink>
+          <ExternalLink href="https://github.com/Spongled/medal-grabber" target="blank_" title="GitHub"><Icon src={githubIcon}></Icon></ExternalLink>
         </NavContainer>
         <NavContainer>
-          <ExternalLink href="https://medal.tv/jimmeh" target="blank_" title="Medal Profile"><Icon src={medalIcon}></Icon></ExternalLink>
+          <ExternalLink href="https://medal.tv/jimmeh" target="blank_" title="Medal"><Icon src={medalIcon}></Icon></ExternalLink>
         </NavContainer>
       </FlexContainer>
     </FooterContainer>
