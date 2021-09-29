@@ -14,7 +14,7 @@ Medal Grabber will automatically grab clips every time you change a property.
 
 * Click the `Settings` badge or `up arrow icon` to collapse the property panel.
 * Click the `download icon` to download the selected clip locally to your PC.
-* Click the title of a clip to open it in a new, fullscreen embed window.
+* Click the `title` of a clip to open it in a new, fullscreen embed window.
 
 
 ## Frameworks/Libraries Used
