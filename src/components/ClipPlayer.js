@@ -40,6 +40,7 @@ const ExternalLink = styled.a`
   text-decoration: none;
   transition: all 0.15s ease-in-out;
   padding-left: 15px;
+  cursor: pointer;
 
   :hover {
     color: rgb(255,184,75);
