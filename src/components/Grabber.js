@@ -191,10 +191,8 @@ const Instruction = styled.div`
 
 // Convert to Redux
 // Look more into useCallback
-// Add download functionality
 // Move "choose game" to top?
 // Add "download all" button to the right of "choose clips?"
-// Add credits page
 // Add a tutorial page: displays gif of where to find user ID, etc.
 // Create readme.md
 // Can't scroll on mobile
