@@ -189,7 +189,6 @@ const Instruction = styled.div`
   margin-bottom: 0.5rem;
 `
 
-// Ask Josh if he can enable rawFileUrls on my API key
 // Convert to Redux
 // Look more into useCallback
 // Add download functionality
@@ -309,6 +308,7 @@ function Grabber () {
           clipViews={clipObjects.contentObjects[i].contentViews}
           clipLikes={clipObjects.contentObjects[i].contentLikes}
           clipLink={clipObjects.contentObjects[i].directClipUrl}
+          clipDownload={clipObjects.contentObjects[i].rawFileUrl}
           clipLength={clipObjects.contentObjects[i].videoLengthSeconds}
           clipGame={gameNameAndImage[0]}
           clipImage={gameNameAndImage[1]}
@@ -384,7 +384,7 @@ function Grabber () {
       // ^ matches the beginning of the string, \w matches any word character, {1} takes only the first character, ^\w{1} matches the first letter of the word.
       // | works like the boolean OR. It matches the expression after and before the |, \s+ matches any amount of whitespace between the words (for example spaces, tabs, or line breaks).
       // Together, this formats the custom game name which has been entered by the user to have a capital letter at the beginning of each word, aligning to the naming convention of the API. E.G. "apex legends" -> "Apex Legends".
-      // This isn't foolproof though. Trickier names like "league of Legends" and "RuneScape" won't work here.
+      // This isn't foolproof though. Trickier names like "League of Legends" and "RuneScape" won't work here.
       gameMatcher(formattedCustomGameName)
     } else {
       updateCategoryByGameName(gameName)

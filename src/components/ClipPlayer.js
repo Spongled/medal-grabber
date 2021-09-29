@@ -1,4 +1,6 @@
 import styled from 'styled-components'
+import axios from 'axios'
+import fileDownload from 'js-file-download'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCloudDownloadAlt, faStopwatch } from '@fortawesome/free-solid-svg-icons'
 import medalLikes from '../assets/img/likes.svg'
@@ -98,11 +100,18 @@ const EngagementLikes = styled.img`
   margin-right: 5px;
 `
 
-const ClipPlayer = ({clipFrame, clipTitle, clipViews, clipLikes, clipLink, clipLength, clipGame, clipImage}) => {
+const ClipPlayer = ({clipFrame, clipTitle, clipViews, clipLikes, clipLink, clipDownload, clipLength, clipGame, clipImage}) => {
   const clipLengthSeconds = clipLength
   const formattedViews = new Intl.NumberFormat().format(clipViews)
   const formattedLikes = new Intl.NumberFormat().format(clipLikes)
-
+  const handleDownload = (url, filename) => {
+    axios.get(url, {
+      responseType: 'blob',
+    })
+    .then((res) => {
+      fileDownload(res.data, filename)
+    })
+  }
     return (
       <>
         <VideoWrapper>
@@ -116,7 +125,7 @@ const ClipPlayer = ({clipFrame, clipTitle, clipViews, clipLikes, clipLink, clipL
             </ExternalLinkTitle>
           </FlexContainer>
           <FlexContainer>
-            <ExternalLink href={clipLink} target="blank_" title="Download clip"><FontAwesomeIcon icon={faCloudDownloadAlt}/></ExternalLink>
+            <ExternalLink title="Download clip" onClick={() => {handleDownload({clipDownload}.clipDownload, 'medal-clip.mp4')}}><FontAwesomeIcon icon={faCloudDownloadAlt}/></ExternalLink>
           </FlexContainer>
         </NewFlexRow>
         <FlexContainer>
