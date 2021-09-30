@@ -4,18 +4,17 @@ A customisable clip grabber and downloader for popular social clipping app: http
 
 ## Usage
 
-* Select an amount of clips from `Choose clip amount` and the most recent clips from any game will be fetched from the API.
-* Specify a game by using `Choose game` (which also supports custom input).
+* Select an amount of clips from `choose clip amount` and the most recent clips from any game will be fetched from the API.
+* Specify a game by using `choose game` (which also supports custom input).
 * Add a Medal user ID to fetch from. This is typically a 5-7 digit number found in the URL of your profile. E.G. `261997`.
 
 Medal Grabber will automatically grab clips every time you change a property.
 
-## Additionally:
+## Additionally
 
-* Click the `Settings` badge or `up arrow icon` to collapse the property panel.
+* Click the `settings` badge or `up arrow icon` to collapse the panel.
 * Click the `download icon` to download the selected clip locally to your PC.
-* Click the `title` of a clip to open it in a new, fullscreen embed window.
-
+* Click the `clip title` to open it in a new, fullscreen-embed window.
 
 ## Frameworks/Libraries Used
 

@@ -194,7 +194,7 @@ const Instruction = styled.div`
 // Move "choose game" to top?
 // Add "download all" button to the right of "choose clips?"
 // Add a tutorial page: displays gif of where to find user ID, etc.
-// Create readme.md
+// Update readme.md
 // Can't scroll on mobile
 
 function Grabber () {
