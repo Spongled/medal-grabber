@@ -192,7 +192,6 @@ const Instruction = styled.div`
 // Convert to Redux
 // Look more into useCallback
 // Move "choose game" to top?
-// Add "download all" button to the right of "choose clips?"
 // Add a tutorial page: displays gif of where to find user ID, etc.
 // Update readme.md
 // Can't scroll on mobile
@@ -270,7 +269,8 @@ function Grabber () {
       }
   }
 
-  // Fetch clip data from the Medal API using given parameters. Pass the objects back to getClip() and assign them to the clipObjects variable using the setClipObjects setter.
+  // Fetch clip data from the Medal API using given parameters.
+  // Pass the objects back to getClip() and assign them to the clipObjects variable using the setClipObjects setter.
   const fetchClips = async () => {
     console.log("<------------------------------------------------------------]")
     console.log("START fetchClips")
@@ -289,7 +289,8 @@ function Grabber () {
     return retrievedClipObjects
   }
   
-  // Create array of ClipPlayer components + props using incremental loop. Return this array of objects back to getClip() and assign to the clipPlayers variable using the setClipPlayers setter.
+  // Create array of ClipPlayer components + props using incremental loop.
+  // Return this array of objects back to getClip() and assign to the clipPlayers variable using the setClipPlayers setter.
   const createClipPlayers = async (clipObjects) => {
     console.log("<------------------------------------------------------------]")
     console.log("START createClipPlayers")
@@ -323,7 +324,8 @@ function Grabber () {
     return tempClipPlayersArray
   }
 
-  // Pulls the whole entry via category ID from the JSON array and extracts the categoryName and categoryBackground value. This is then passed back to createClipPlayers() so that it can be assigned to a prop.
+  // Pulls the whole entry via category ID from the JSON array and extracts the categoryName and categoryBackground value.
+  // This is then passed back to createClipPlayers() so that it can be assigned to a prop.
   function findGameByCategoryID(categoryID) {
     console.log("<------------------------------------------------------------]")
     console.log("START findGameByCategoryID")
@@ -341,7 +343,8 @@ function Grabber () {
     return gameNameAndImage
   }
 
-  // Use constantly tracked inputID (which is the value of <InputUserID> at any given moment) from controlled component and re-trigger clip grab in useEffect by updating userID dependency using setUserID setter.
+  // Use constantly tracked inputID (which is the value of <InputUserID> at any given moment)
+  // from controlled component and re-trigger clip grab in useEffect by updating userID dependency using setUserID setter.
   function updateUserID() {
     const userID = inputID
     setUserID(userID)
@@ -349,7 +352,8 @@ function Grabber () {
     setInputPlaceholder("Grabbing from ID: " + userID)
   }
 
-  // Constantly tracks the input of the <InputUserID> component. Updates the inputID var using the setInputID setter on each keystroke (onChange). This is a controlled component.
+  // Constantly tracks the input of the <InputUserID> component.
+  // Updates the inputID var using the setInputID setter on each keystroke (onChange). This is a controlled component.
   function updateInputID(e) {
     setInputID(e)
   }
@@ -360,14 +364,16 @@ function Grabber () {
     setInputPlaceholder("e.g. 261997")
   }
 
-  // We can capture the Enter key from <InputUserID> as a shortcut instead of the user having to press BtnSet. Add validation so that a user cannot Enter while BtnSet is still disabled.
+  // We can capture the Enter key from <InputUserID> as a shortcut instead of the user having to press BtnSet.
+  // Add validation so that a user cannot Enter while BtnSet is still disabled.
   function handleKeypress(e) {
     if (e.key === 'Enter' && inputID > 9999) {
       updateUserID()
     }
   }
 
-  // Takes the input from "Choose game" whether it be custom or predefined, formats it if required, and sends through to the updateCategoryByGameName() function.
+  // Takes the input from "Choose game" whether it be custom or predefined, formats it if required,
+  // and sends through to the updateCategoryByGameName() function.
   function gameMatcher(e) {
     const gameName = e
     if (gameName === "None") {
@@ -379,9 +385,12 @@ function Grabber () {
         customGameName = "Invalid"
       }
       const formattedCustomGameName = customGameName.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
-      // ^ matches the beginning of the string, \w matches any word character, {1} takes only the first character, ^\w{1} matches the first letter of the word.
-      // | works like the boolean OR. It matches the expression after and before the |, \s+ matches any amount of whitespace between the words (for example spaces, tabs, or line breaks).
-      // Together, this formats the custom game name which has been entered by the user to have a capital letter at the beginning of each word, aligning to the naming convention of the API. E.G. "apex legends" -> "Apex Legends".
+      // ^ matches the beginning of the string, \w matches any word character, {1} takes only the first character, ^\w{1} 
+      // matches the first letter of the word.
+      // | works like the boolean OR. It matches the expression after and before the |, \s+ matches any amount of 
+      // whitespace between the words (for example spaces, tabs, or line breaks).
+      // Together, this formats the custom game name which has been entered by the user to have a capital letter at the beginning of each word,
+      // aligning to the naming convention of the API. E.G. "apex legends" -> "Apex Legends".
       // This isn't foolproof though. Trickier names like "League of Legends" and "RuneScape" won't work here.
       gameMatcher(formattedCustomGameName)
     } else {
@@ -420,7 +429,8 @@ function Grabber () {
       if (tempCategoryArray.length === 0 && gameName !== "Latest clips / all games!") {
         document.querySelector("#inputGameName").selectedIndex = 2
       } else {
-        // If all other edge-cases have been exhausted, rightfully set the categoryID that has been found from the game string which has either been selected or entered by the user.
+        // If all other edge-cases have been exhausted, rightfully set the categoryID that has been found from the game string 
+        // which has either been selected or entered by the user.
         const categoryID = tempCategoryArray[0].categoryId
         setCategoryID(categoryID)
       }
@@ -469,7 +479,8 @@ function Grabber () {
             <Instruction>Choose game:</Instruction>
             <InputSelect onChange={e => gameMatcher(e.target.value)} type="text" id="inputGameName">
               <InputOption defaultValue>Latest clips / all games!</InputOption>
-              <InputOption value="" hidden id="customOption"></InputOption> {/* Used as a dummy which can be named as any valid game that isn't initally in the list. */}
+              <InputOption value="" hidden id="customOption"></InputOption> 
+              {/*^ Used as a dummy which can be named as any valid game that isn't initally in the list. */}
               <InputOption value="" hidden>Invalid game name! Please try again.</InputOption>
               <InputOption>Valorant</InputOption>
               <InputOption>Fortnite</InputOption>
@@ -519,8 +530,20 @@ function Grabber () {
             <Instruction>Optional - add user ID:</Instruction>
             <FlexContainer>
               { userID
-                ? <InputUserID disabled borderColor={userID ? "#01d28e" : "#5F5F66"} focusBorderColor={userID ? "#01d28e" : "rgb(255,184,75)"} type="number" placeholder={inputPlaceholder} value={inputID} onChange={(e) => updateInputID(e.currentTarget.value)}/>
-                : <InputUserID onKeyPress={handleKeypress} borderColor={userID ? "#01d28e" : "#5F5F66"} focusBorderColor={userID ? "#01d28e" : "rgb(255,184,75)"} type="number" placeholder={inputPlaceholder} value={inputID} onChange={(e) => updateInputID(e.currentTarget.value)}/>
+                ? <InputUserID 
+                    disabled borderColor={userID ? "#01d28e" : "#5F5F66"}
+                    focusBorderColor={userID ? "#01d28e" : "rgb(255,184,75)"}
+                    type="number" 
+                    placeholder={inputPlaceholder} 
+                    value={inputID} onChange={(e) => updateInputID(e.currentTarget.value)}/>
+                : <InputUserID 
+                    onKeyPress={handleKeypress}
+                    borderColor={userID ? "#01d28e" : "#5F5F66"}
+                    focusBorderColor={userID ? "#01d28e" : "rgb(255,184,75)"}
+                    type="number"
+                    placeholder={inputPlaceholder}
+                    value={inputID}
+                    onChange={(e) => updateInputID(e.currentTarget.value)}/>
               }
               <FlexButtonContainer>
               { userID
