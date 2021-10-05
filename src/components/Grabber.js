@@ -191,10 +191,9 @@ const Instruction = styled.div`
 
 // Convert to Redux
 // Look more into useCallback
-// Move "choose game" to top?
 // Add a tutorial page: displays gif of where to find user ID, etc.
 // Update readme.md
-// Can't scroll on mobile
+// Fix scrolling on mobile
 
 function Grabber () {
   const [_, setClipObjects] = useState([])
