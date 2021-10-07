@@ -1,8 +1,10 @@
+
 import styled from 'styled-components'
 import githubIcon from '../assets/img/github.svg'
 import medalIcon from '../assets/img/medal-white.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faQuestion } from '@fortawesome/free-solid-svg-icons'
+import { Link } from "react-router-dom";
 
 const FooterContainer = styled.footer`
   display: flex;
@@ -38,12 +40,26 @@ const Icon = styled.img`
   width: 18px;
   padding-left: 1rem;
 `
+const HelpLink  = styled(Link)`
+  color: #5F5F66;
+  transition: all 0.15s ease-in-out;
+  text-decoration: none;
+  cursor: pointer;
+
+  :hover {
+    color: #ffb84b;
+  }
+`
 
 const Footer = () => {
   return (
     <FooterContainer>
       <NavContainer>
-        <ExternalLink><FontAwesomeIcon size="lg" icon={faQuestion} title="Help"/></ExternalLink>
+        <ExternalLink>
+          <HelpLink to="/help">
+            <FontAwesomeIcon size="lg" icon={faQuestion} title="Help"/>
+          </HelpLink>
+        </ExternalLink>
       </NavContainer>
       <FlexContainer>
         <NavContainer>

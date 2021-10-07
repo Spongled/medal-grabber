@@ -2,9 +2,16 @@ import { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import Grabber from './components/Grabber.js'
 import Footer from './components/Footer.js'
+import Help from './components/Help.js'
 import PerfectScrollbar from 'perfect-scrollbar';
 import { ErrorBoundary } from 'react-error-boundary'
 import background from './assets/img/default-bg.jpg'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom"
 
 const Wrapper = styled.div`
   position: relative;
@@ -137,18 +144,27 @@ function App() {
   })
 
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <Wrapper>
-        <MainPanel ref={mainPanelRef}>
-          <GridContainer>
-            <Content>
-              <Grabber/>
-            </Content>
-          </GridContainer>
-          <Footer/>
-        </MainPanel>
-      </Wrapper>
-    </ErrorBoundary>
+    <Router>
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <Wrapper>
+          <MainPanel ref={mainPanelRef}>
+            <GridContainer>
+              <Content>
+                <Switch>
+                  <Route path="/help">
+                    <Help/>
+                  </Route>
+                  <Route path="/" exact>
+                    <Grabber/>
+                  </Route>
+                </Switch>
+              </Content>
+            </GridContainer>
+            <Footer/>
+          </MainPanel>
+        </Wrapper>
+      </ErrorBoundary>
+    </Router>
   );
 }
 
