@@ -8,6 +8,8 @@ import medalLogo from '../assets/img/medal.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronUp, faCog } from '@fortawesome/free-solid-svg-icons'
 import { Collapse } from 'react-collapse'
+import { useSelector, useDispatch } from 'react-redux'
+import { storeClipObjectsJSON } from '../actions/index.js'
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -194,6 +196,8 @@ const Instruction = styled.div`
 // Add a tutorial page: displays gif of where to find user ID, etc.
 // Update readme.md
 // Fix scrolling on mobile
+// Add debug option in ? to throw error
+// Add clipObjects data in error boundary?
 
 function Grabber () {
   const [_, setClipObjects] = useState([])
@@ -206,6 +210,7 @@ function Grabber () {
   const [categoryID, setCategoryID] = useState(null)
   const [toggle, setToggle] = useState(true)
   const [allCategoriesObj, setAllCategoriesObj] = useState(null)
+  const dispatch = useDispatch()
   const options = {
     host: 'https://developers.medal.tv',
     port: 443,
@@ -255,7 +260,9 @@ function Grabber () {
       const clipObjects = await fetchClips()
       console.log("All clip objects:")
       console.log(clipObjects)
+      const clipObjectsJSON = JSON.stringify(clipObjects)
       setClipObjects(clipObjects)
+      dispatch(storeClipObjectsJSON(clipObjectsJSON))
       setLoading(true)
       const clipPlayers = await createClipPlayers(clipObjects)
       console.log("All clip players:")
@@ -316,6 +323,7 @@ function Grabber () {
       })
     } catch {
       document.querySelector("#inputClipAmount").selectedIndex = 1
+      // If clipObjects is null for some reason, catch the error and display the error message <InputSelect>
     }
     
     console.log("END createClipPlayers")
@@ -435,6 +443,8 @@ function Grabber () {
       }
     }
   }
+
+  const reduxTest = useSelector(state => state.clipObjectsReducer)
   
   return (
       <>
@@ -442,6 +452,7 @@ function Grabber () {
           <HeaderContainer>
               <MedalLogo src={medalLogo} alt="Medal.tv logo"/>
               <GrabberTitle>GRABBER</GrabberTitle>
+              <GrabberTitle>{reduxTest}</GrabberTitle>
             </HeaderContainer>
         </FlexContainerCentered>
         <OptionsContainer>

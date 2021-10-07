@@ -136,7 +136,7 @@ const ClipPlayer = ({clipFrame, clipTitle, clipViews, clipLikes, clipLink, clipD
               <GameTitle>{clipGame}</GameTitle>
             </GameBadge>
             { clipLengthSeconds > 0
-              ? <InfoBadge title="Clip length"><FontAwesomeIcon icon={faStopwatch}/> {clipLength}s</InfoBadge>
+              ? <InfoBadge title="Clip length"><FontAwesomeIcon icon={faStopwatch}/>{clipLength}s</InfoBadge>
               : null
             }
           </FlexContainer>
