@@ -40,6 +40,7 @@ const MainPanel = styled.div`
 const ErrorMainPanel = styled(MainPanel)`
   // box-shadow: inset 0 0 0 1000px rgb(0 0 0 / 50%);
   box-shadow: inset 0 0 0 1000px rgb(255 255 255 / 0%);
+  overflow: hidden;
 `
 const GridContainer = styled.div`
   display: grid;
