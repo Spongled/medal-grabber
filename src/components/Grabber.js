@@ -161,7 +161,6 @@ const Instruction = styled.div`
   margin-bottom: 0.5rem;
 `
 
-// Convert to Redux
 // Look more into useCallback
 // Add a tutorial page: displays gif of where to find user ID, etc.
 // Update readme.md
