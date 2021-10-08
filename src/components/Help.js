@@ -213,7 +213,7 @@ function Help() {
         <FlexLeft>
           <MarginAdjust>
             <FlexAnswer>
-              <Answer>If you need any more help, check out the
+              <Answer>If you need anything else, check out the
                 <ExternalLink href="https://github.com/Spongled/medal-grabber" target="blank_" title="GitHub"> GitHub repo</ExternalLink>
                 , or send me a message on Discord: @Jimmeh#0001. 😄</Answer>
             </FlexAnswer>
