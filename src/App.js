@@ -21,6 +21,7 @@ const Wrapper = styled.div`
 const MainPanel = styled.div`
   border-top: 2px solid #ffb84b;
   max-height: 100% !important;
+  overflow-y: scroll;
   width: 100%;
   background-image: url(${background});
   // background-image: url(https://cdn.medal.tv/games/background/background-default.png);
@@ -147,7 +148,7 @@ function App() {
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <Router>
         <Wrapper>
-          <MainPanel ref={mainPanelRef}>
+          <MainPanel ref={mainPanelRef} id="main">
             <GridContainer>
               <Content>
                 <Header/>

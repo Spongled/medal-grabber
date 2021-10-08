@@ -9,6 +9,14 @@ import medalbot from '../assets/img/medalbot-alt.png'
 const HelpContainer = styled.div`
   // background: rgba(29, 31, 40, 0.75); // Brand styling.
   margin: auto;
+  display: flex;
+  flex-direction: column;
+
+  @media screen and (max-width: 500px){
+    align-content: center;
+    align-items: center;
+  }
+  
 `
 const FlexProfileContainer = styled.div`
   padding: 5px 20px;
@@ -40,6 +48,10 @@ const MarginAdjust = styled.div`
 `
 const MarginAdjustAlt = styled.div`
   margin-top: -1rem;
+
+  @media screen and (max-width: 500px){
+    margin-top: 0;
+  }
 `
 const FlexRight = styled.div`
   display: flex;
@@ -48,9 +60,8 @@ const FlexRight = styled.div`
   align-content: center;
   align-items: center;
   color: #5F5F66;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
   margin-right: 3rem;
+
   @media screen and (max-width: 850px){
     margin-right: 0;
   }
@@ -83,6 +94,7 @@ const FlexLeft = styled.div`
   margin-top: 1rem;
   margin-bottom: 1rem;
   margin-left: 3rem;
+
   @media screen and (max-width: 850px){
     margin-left: 0;
   }
@@ -110,6 +122,10 @@ const FlexLeftGIF = styled.div`
   align-items: flex-start;
   color: #5F5F66;
   margin-bottom: 1rem;
+
+  @media screen and (max-width: 500px){
+    margin-bottom: 0;
+  }
 `
 const TutorialGIF = styled.img`
   border-bottom-left-radius 11px;
@@ -151,10 +167,9 @@ function Help() {
   }
 
   function triggerBoundary(){
-    // Purposely trigger react-error-boundary by writing an invalid function
-    const num = 1
+    // Purposely trigger react-error-boundary by throwing an error.
     console.log("in")
-    num.toUppercase()
+    throw new Error('Trigger Boundary')
   }
 
   return (
