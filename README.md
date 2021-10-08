@@ -21,6 +21,7 @@ Medal Grabber will automatically grab clips every time you change a property.
 * [Styled Components](https://www.npmjs.com/package/styled-components)
 * [React Error Boundary](https://www.npmjs.com/package/react-error-boundary)
 * [React Collapse](https://www.npmjs.com/package/react-collapse)
+* [React Router DOM](https://www.npmjs.com/package/react-router-dom)
 * [Redux](https://www.npmjs.com/package/redux)
   * [React Redux](https://www.npmjs.com/package/react-redux)
 * [Axios](https://www.npmjs.com/package/axios)
