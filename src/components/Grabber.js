@@ -162,11 +162,8 @@ const Instruction = styled.div`
 `
 
 // Look more into useCallback
-// Add a tutorial page: displays gif of where to find user ID, etc.
-// Update readme.md
 // Fix scrolling on mobile
 // Add debug option in ? to throw error
-// Add clipObjects data in error boundary?
 
 function Grabber () {
   const [_, setClipObjects] = useState([])
@@ -233,8 +230,8 @@ function Grabber () {
       console.log("All clip objects:")
       console.log(clipObjects)
       const clipObjectsJSON = JSON.stringify(clipObjects)
-      setClipObjects(clipObjects)
       dispatch(storeClipObjectsJSON(clipObjectsJSON))
+      setClipObjects(clipObjects)
       setLoading(true)
       const clipPlayers = await createClipPlayers(clipObjects)
       console.log("All clip players:")

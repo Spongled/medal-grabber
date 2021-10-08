@@ -10,14 +10,6 @@ const HelpContainer = styled.div`
   // background: rgba(29, 31, 40, 0.75); // Brand styling.
   margin: auto;
 `
-const FlexContainer = styled.div`
-  background: rgba(29, 31, 40, 0.45);
-  padding: 5px 20px;
-  border-radius: 11px;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 2rem;
-`
 const FlexProfileContainer = styled.div`
   padding: 5px 20px;
   border-radius: 11px;
@@ -28,31 +20,26 @@ const FlexProfileContainer = styled.div`
   align-items: center;
   flex-direction: column;
 `
-const FlexAnswer = styled.div`
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  justify-content: flex-start;
-  background: rgba(29, 31, 40, 0.45);
-  padding: 5px 20px;
-  border-radius: 11px;
+const Medalbot = styled.img`
+  border-radius: 50%;
+  width: 60px;
+  margin-top: 4rem;
+
+  @media screen and (max-width: 768px){
+    margin-top: 1rem;
+  }
 `
-const FlexGIFAnswer = styled(FlexAnswer)`
-  padding: 5px 20px;
-  border-radius: 0;
-  border-top-left-radius 11px;
-  border-top-right-radius 11px;
+const ProfileName = styled.div`
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: rgb(179, 177, 182);
+  margin-top: 0.5rem;
 `
-const FlexQuestion = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  align-content: center;
-  align-items: center;
-  color: #5F5F66;
-  background: #ffb84b;
-  padding: 5px 20px;
-  border-radius: 11px;
+const MarginAdjust = styled.div`
+  margin-top: 0rem;
+`
+const MarginAdjustAlt = styled.div`
+  margin-top: -1rem;
 `
 const FlexRight = styled.div`
   display: flex;
@@ -68,6 +55,24 @@ const FlexRight = styled.div`
     margin-right: 0;
   }
 `
+const FlexQuestion = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  color: #5F5F66;
+  background: #ffb84b;
+  padding: 5px 20px;
+  border-radius: 11px;
+`
+const Question = styled.div`
+  font-size: 1rem;
+  max-width: 300px;
+  color: rgb(19, 19, 29);
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+`
 const FlexLeft = styled.div`
   display: flex;
   justify-content: left;
@@ -82,6 +87,22 @@ const FlexLeft = styled.div`
     margin-left: 0;
   }
 `
+const FlexAnswer = styled.div`
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
+  background: rgba(29, 31, 40, 0.45);
+  padding: 5px 20px;
+  border-radius: 11px;
+`
+
+const FlexGIFAnswer = styled(FlexAnswer)`
+  padding: 5px 20px;
+  border-radius: 0;
+  border-top-left-radius 11px;
+  border-top-right-radius 11px;
+`
 const FlexLeftGIF = styled.div`
   display: flex;
   justify-content: left;
@@ -91,30 +112,10 @@ const FlexLeftGIF = styled.div`
   color: #5F5F66;
   margin-bottom: 1rem;
 `
-const MarginAdjust = styled.div`
-  margin-top: 0rem;
-`
-const MarginAdjustAlt = styled.div`
-  margin-top: -1rem;
-`
-const Title = styled.div`
-  font-size: 1.5rem;
-  color: rgb(179, 177, 182);
-  margin-top: 0.5rem;
-  margin-bottom: 1.5rem;
-`
-const ProfileName = styled.div`
-  font-size: 0.8rem;
-  font-weight: bold;
-  color: rgb(179, 177, 182);
-  margin-top: 0.5rem;
-`
-const Question = styled.div`
-  font-size: 1rem;
-  max-width: 300px;
-  color: rgb(19, 19, 29);
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+const TutorialGIF = styled.img`
+  border-bottom-left-radius 11px;
+  border-bottom-right-radius 11px;
+  max-width: 340px;
 `
 const Answer = styled.div`
   font-size: 1rem;
@@ -122,20 +123,6 @@ const Answer = styled.div`
   color: rgb(179, 177, 182);
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
-`
-const Medalbot = styled.img`
-  border-radius: 50%;
-  width: 60px;
-  margin-top: 4rem;
-
-  @media screen and (max-width: 768px){
-    margin-top: 1rem;
-  }
-`
-const TutorialGIF = styled.img`
-  border-bottom-left-radius 11px;
-  border-bottom-right-radius 11px;
-  max-width: 340px;
 `
 const ExternalLink = styled.a`
   color: #5F5F66;
@@ -167,7 +154,7 @@ function Help() {
     <>
       <Header/>
       <HelpContainer>
-        <FlexProfileContainer onDoubleClick={() => secretDebug()} title="Double click me for debug.">
+        <FlexProfileContainer onDoubleClick={() => secretDebug()} title="Double click me for debug">
           <Medalbot src={medalbot}></Medalbot>
           <ProfileName>
             Grabber Support
