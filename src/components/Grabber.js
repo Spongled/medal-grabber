@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback } from 'react'
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
 import styled from 'styled-components'
 import ClipPlayer from './ClipPlayer.js'
 import BtnSet from './BtnSet.js'
@@ -9,9 +8,9 @@ import medalLogo from '../assets/img/medal.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronUp, faCog } from '@fortawesome/free-solid-svg-icons'
 import { Collapse } from 'react-collapse'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { storeClipObjectsJSON } from '../actions/index.js'
-import Help from './Help.js'
+import { storePathname } from '../actions/index.js'
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -243,6 +242,8 @@ function Grabber () {
     console.log("<------------------------------------------------------------]")
     console.log("START useEffect")
     setLoading(false)
+    const pathname = window.location.pathname
+    dispatch(storePathname(pathname))
     // After error message is displayed, reset the clip amount to whatever it was before if a valid selection is made.
     if (document.querySelector("#inputClipAmount").selectedIndex === 1) {
       document.querySelector("#inputClipAmount").value = clipAmount
@@ -445,21 +446,13 @@ function Grabber () {
       }
     }
   }
-
-  const reduxTest = useSelector(state => state.clipObjectsReducer)
   
   return (
       <>
-        <Router>
-          <Route path ='/' exact render={() => {
-            <>
-            </>
-          }}/>
           <FlexContainerCentered>
             <HeaderContainer>
                 <MedalLogo src={medalLogo} alt="Medal.tv logo"/>
                 <GrabberTitle>GRABBER</GrabberTitle>
-                <GrabberTitle>{reduxTest}</GrabberTitle>
               </HeaderContainer>
           </FlexContainerCentered>
           <OptionsContainer>
@@ -572,12 +565,6 @@ function Grabber () {
             </Collapse>
         </OptionsContainer>
         {clipPlayers}
-        <Switch>
-          <Route path="/Help">
-            <Help />
-          </Route>
-        </Switch>
-      </Router>
     </>
   );
 }

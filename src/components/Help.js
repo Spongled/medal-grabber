@@ -1,12 +1,31 @@
-import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { storePathname } from '../actions/index.js'
 
-const Help = () => {
-    return (
-        <div>
-            Help screen
-            <Link to='/'>Go back</Link>
-        </div>
-    )
+
+function Help() {
+  const dispatch = useDispatch()
+  const clipObjectsJSON = useSelector(state => state.clipObjectsReducer)
+
+  useEffect(() => {
+    const pathname = window.location.pathname
+    dispatch(storePathname(pathname))
+  })
+
+  function dummyError(){
+    throw new Error
+  }
+
+  return (
+    <>
+      <div onDoubleClick={() => dummyError()}>
+        Help screen
+      </div>
+      <div>
+        {clipObjectsJSON}
+      </div>
+    </>
+  )
 }
 
 export default Help

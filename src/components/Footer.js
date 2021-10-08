@@ -3,8 +3,9 @@ import styled from 'styled-components'
 import githubIcon from '../assets/img/github.svg'
 import medalIcon from '../assets/img/medal-white.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faQuestion } from '@fortawesome/free-solid-svg-icons'
-import { Link } from "react-router-dom";
+import { faQuestion, faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux'
 
 const FooterContainer = styled.footer`
   display: flex;
@@ -40,7 +41,7 @@ const Icon = styled.img`
   width: 18px;
   padding-left: 1rem;
 `
-const HelpLink  = styled(Link)`
+const StyledLink  = styled(Link)`
   color: #5F5F66;
   transition: all 0.15s ease-in-out;
   text-decoration: none;
@@ -52,13 +53,20 @@ const HelpLink  = styled(Link)`
 `
 
 const Footer = () => {
+  const pathname = useSelector(state => state.pathnameReducer)
+
   return (
     <FooterContainer>
       <NavContainer>
         <ExternalLink>
-          <HelpLink to="/help">
-            <FontAwesomeIcon size="lg" icon={faQuestion} title="Help"/>
-          </HelpLink>
+          {pathname === '/help'
+            ? <StyledLink to="/">
+                <FontAwesomeIcon size="lg" icon={faLongArrowAltLeft} title="Home"/>
+              </StyledLink>
+            : <StyledLink to="/help">
+                <FontAwesomeIcon size="lg" icon={faQuestion} title="Help"/>
+              </StyledLink>
+          }        
         </ExternalLink>
       </NavContainer>
       <FlexContainer>

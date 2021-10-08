@@ -10,7 +10,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom"
 
 const Wrapper = styled.div`
@@ -144,8 +143,8 @@ function App() {
   })
 
   return (
-    <Router>
-      <ErrorBoundary FallbackComponent={ErrorFallback}>
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
+      <Router>
         <Wrapper>
           <MainPanel ref={mainPanelRef}>
             <GridContainer>
@@ -163,8 +162,8 @@ function App() {
             <Footer/>
           </MainPanel>
         </Wrapper>
-      </ErrorBoundary>
-    </Router>
+      </Router>
+    </ErrorBoundary>
   );
 }
 
