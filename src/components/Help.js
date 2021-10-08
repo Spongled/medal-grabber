@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import { storePathname } from '../actions/actionsIndex.js'
-import Header from './Header.js'
 import tutorialGIF from '../assets/img/user-id-tutorial.gif'
 import medalbot from '../assets/img/medalbot-alt.png'
 
@@ -166,12 +165,6 @@ function Help() {
     wnd.document.write(clipObjectsJSON);
   }
 
-  function triggerBoundary(){
-    // Purposely trigger react-error-boundary by throwing an error.
-    console.log("in")
-    throw new Error('Trigger Boundary')
-  }
-
   return (
     <>
       <HelpContainer>
@@ -231,7 +224,7 @@ function Help() {
             </FlexQuestion>
           </MarginAdjustAlt>
         </FlexRight>
-        <FlexLeft onDoubleClick={() => triggerBoundary()}>
+        <FlexLeft>
           <MarginAdjust>
             <FlexAnswer>
               <Answer>If you need anything else, check out the
