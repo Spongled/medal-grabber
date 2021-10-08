@@ -153,12 +153,12 @@ function Help() {
   function triggerBoundary(){
     // Purposely trigger react-error-boundary by writing an invalid function
     const num = 1
+    console.log("in")
     num.toUppercase()
   }
 
   return (
     <>
-      <Header/>
       <HelpContainer>
         <FlexProfileContainer onDoubleClick={() => secretDebug()} title="Double click me for debug">
           <Medalbot src={medalbot}></Medalbot>
@@ -216,7 +216,7 @@ function Help() {
             </FlexQuestion>
           </MarginAdjustAlt>
         </FlexRight>
-        <FlexLeft>
+        <FlexLeft onDoubleClick={() => triggerBoundary()}>
           <MarginAdjust>
             <FlexAnswer>
               <Answer>If you need anything else, check out the

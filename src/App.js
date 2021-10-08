@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Grabber from './components/Grabber.js'
 import Footer from './components/Footer.js'
 import Help from './components/Help.js'
+import Header from './components/Header.js'
 import PerfectScrollbar from 'perfect-scrollbar';
 import { ErrorBoundary } from 'react-error-boundary'
 import background from './assets/img/default-bg.jpg'
@@ -149,6 +150,7 @@ function App() {
           <MainPanel ref={mainPanelRef}>
             <GridContainer>
               <Content>
+                <Header/>
                 <Switch>
                   <Route path="/help">
                     <Help/>

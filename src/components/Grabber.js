@@ -415,7 +415,6 @@ function Grabber () {
   
   return (
       <>
-        <Header/>
         <OptionsContainer>
           <FlexToggleParent>
             <FlexTitleAndLoader onClick={e => setToggle(!toggle)}>
