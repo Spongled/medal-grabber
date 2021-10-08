@@ -1,9 +1,9 @@
 import {combineReducers} from 'redux'
-import clipObjectsReducer from './clipObjectsJSON'
+import clipObjectsJSONReducer from './clipObjectsJSONReducer'
 import pathnameReducer from './pathnameReducer'
 
 const allReducers = combineReducers({
-  clipObjectsReducer,
+  clipObjectsJSONReducer,
   pathnameReducer
 })
 

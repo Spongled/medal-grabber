@@ -1,6 +1,6 @@
 export const storeClipObjectsJSON = (clipObjectsJSON) => {
   return {
-    type: 'STORE OBJECTS',
+    type: 'STORE JSON',
     payload: clipObjectsJSON
   }
 }

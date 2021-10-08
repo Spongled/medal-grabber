@@ -1,13 +1,15 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { storePathname } from '../actions/index.js'
-
+import styled from 'styled-components'
+import { storePathname } from '../actions/actionsIndex.js'
+import Header from './Header.js'
 
 function Help() {
   const dispatch = useDispatch()
-  const clipObjectsJSON = useSelector(state => state.clipObjectsReducer)
+  const clipObjectsJSON = useSelector(state => state.clipObjectsJSONReducer)
 
   useEffect(() => {
+    // Update Redux store of current URL for use in dynamic footer.
     const pathname = window.location.pathname
     dispatch(storePathname(pathname))
   })
@@ -18,6 +20,7 @@ function Help() {
 
   return (
     <>
+      <Header/>
       <div onDoubleClick={() => dummyError()}>
         Help screen
       </div>
