@@ -19,14 +19,14 @@ Medal Grabber will automatically grab clips every time you change a property.
 
 ## Frameworks/Libraries Used
 
-* [React Router DOM](https://www.npmjs.com/package/react-router-dom)
-* [React Error Boundary](https://www.npmjs.com/package/react-error-boundary)
 * [React Collapse](https://www.npmjs.com/package/react-collapse)
-* [Redux](https://www.npmjs.com/package/redux)
-  * [React Redux](https://www.npmjs.com/package/react-redux)
+* [React Error Boundary](https://www.npmjs.com/package/react-error-boundary)
+* [React Router DOM](https://www.npmjs.com/package/react-router-dom)
 * [React Font Awesome](https://www.npmjs.com/package/react-fontawesome)
   * [Font Awesome SVG Core](https://www.npmjs.com/package/@fortawesome/fontawesome-svg-core)
   * [Free Solid SVG Icons](https://www.npmjs.com/package/@fortawesome/free-solid-svg-icons)
+* [Redux](https://www.npmjs.com/package/redux)
+  * [React Redux](https://www.npmjs.com/package/react-redux)
 * [Styled Components](https://www.npmjs.com/package/styled-components)
 * [Axios](https://www.npmjs.com/package/axios)
 * [JS File Download](https://www.npmjs.com/package/js-file-download)
