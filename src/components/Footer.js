@@ -35,12 +35,6 @@ const ExternalLink = styled.a`
     color: #ffb84b;
   }
 `
-const Icon = styled.img`
-  display: flex;
-  align-content: center;
-  width: 18px;
-  padding-left: 1rem;
-`
 const StyledLink  = styled(Link)`
   color: #5F5F66;
   transition: all 0.15s ease-in-out;
@@ -51,6 +45,12 @@ const StyledLink  = styled(Link)`
     color: #ffb84b;
   }
 `
+const Icon = styled.img`
+  display: flex;
+  align-content: center;
+  width: 18px;
+  padding-left: 1rem;
+`
 
 const Footer = () => {
   const pathname = useSelector(state => state.pathnameReducer)
@@ -58,7 +58,7 @@ const Footer = () => {
   return (
     <FooterContainer>
       <NavContainer>
-        <ExternalLink>
+        <FlexContainer>
           {pathname === '/help'
             ? <StyledLink to="/">
                 <FontAwesomeIcon size="lg" icon={faLongArrowAltLeft} title="Home"/>
@@ -67,7 +67,7 @@ const Footer = () => {
                 <FontAwesomeIcon size="lg" icon={faQuestion} title="Help"/>
               </StyledLink>
           }        
-        </ExternalLink>
+        </FlexContainer>
       </NavContainer>
       <FlexContainer>
         <NavContainer>

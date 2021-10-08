@@ -96,7 +96,6 @@ const FlexAnswer = styled.div`
   padding: 5px 20px;
   border-radius: 11px;
 `
-
 const FlexGIFAnswer = styled(FlexAnswer)`
   padding: 5px 20px;
   border-radius: 0;
@@ -134,6 +133,7 @@ const ExternalLink = styled.a`
     color: rgb(255,184,75);
   }
 `
+
 function Help() {
   const dispatch = useDispatch()
   const clipObjectsJSON = useSelector(state => state.clipObjectsJSONReducer)
@@ -148,6 +148,12 @@ function Help() {
     // Writes the clipObjectJSON to a new window for debug purposes.
     var wnd = window.open("about:blank", "", "_blank");
     wnd.document.write(clipObjectsJSON);
+  }
+
+  function triggerBoundary(){
+    // Purposely trigger react-error-boundary by writing an invalid function
+    const num = 1
+    num.toUppercase()
   }
 
   return (
