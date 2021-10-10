@@ -161,10 +161,6 @@ const Instruction = styled.div`
   margin-bottom: 0.5rem;
 `
 
-// Look more into useCallback
-// Fix scrolling on mobile
-// Add debug option in ? to throw error
-
 function Grabber () {
   const [_, setClipObjects] = useState([])
   const [clipPlayers, setClipPlayers] = useState ([])
