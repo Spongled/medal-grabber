@@ -94,8 +94,8 @@ const FlexToggleParent = styled.div`
   align-content: center;
   align-items: center;
   color: #5F5F66;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 `
 const FlexToggleContainer = styled.div`
   display: flex;
@@ -131,7 +131,6 @@ const Loader = styled.div`
     width: 10em;
     height: 10em;
   }
-}
 `
 const Title = styled.div`
   display: flex;
@@ -160,6 +159,10 @@ const Instruction = styled.div`
   color: rgb(179, 177, 182);
   margin-bottom: 0.5rem;
 `
+const Spacer = styled.div`
+  padding-top: 1rem;
+`
+
 
 function Grabber () {
   const [_, setClipObjects] = useState([])
@@ -425,6 +428,7 @@ function Grabber () {
             </FlexToggleContainer>
           </FlexToggleParent>
           <Collapse isOpened={toggle} >
+            <Spacer/>
             <Instruction>Choose clip amount:</Instruction>
             <InputSelect onChange={e => setClipAmount(e.target.value)} type="select" id="inputClipAmount">
               <InputOption value="" defaultValue hidden>How many clips?</InputOption>
