@@ -72,7 +72,7 @@ const InputUserID = styled.input`
 const FlexContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 `
 const FlexButtonContainer = styled(FlexContainer)`
   display: flex;
