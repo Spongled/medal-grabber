@@ -111,7 +111,7 @@ const ProgressBar = styled.span`
 function ErrorFallback() {
   useEffect(() => {
     setTimeout(function(){
-      window.location.reload(false);
+      history.go(0);
     }, 5000);
   });
 
