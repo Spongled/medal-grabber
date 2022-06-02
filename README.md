@@ -1,3 +1,9 @@
+## Outdated
+
+Due to changes to the Medal API, this tool is now outdated, lacking prior features. It has been updated to function again, but may be unreliable.
+
+
+
 # [Medal Grabber](https://medal-grabber.vercel.app)
 
 A customisable clip grabber and downloader for popular social clipping app: https://medal.tv
