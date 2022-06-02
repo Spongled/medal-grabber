@@ -1,8 +1,6 @@
 ## Outdated
 
-Due to changes to the Medal API, this tool is now outdated, lacking prior features. It has been updated to function again, but may be unreliable.
-
-
+Due to changes to the Medal API, this tool is now outdated - lacking prior features. Medal Grabber has been updated to function with the API changes, but may be unreliable.
 
 # [Medal Grabber](https://medal-grabber.vercel.app)
 
