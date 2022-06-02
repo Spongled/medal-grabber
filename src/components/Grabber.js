@@ -164,8 +164,8 @@ function Grabber () {
   const [_, setClipObjects] = useState([])
   const [clipPlayers, setClipPlayers] = useState ([])
   const [loading, setLoading] = useState(false)
-  const [clipAmount, setClipAmount] = useState(1)
-  const [userID, setUserID] = useState(0)
+  const [clipAmount, setClipAmount] = useState(null)
+  const [userID, setUserID] = useState(null)
   const [inputID, setInputID] = useState()
   const [inputPlaceholder, setInputPlaceholder] = useState("e.g. 261997")
   const [categoryID, setCategoryID] = useState(0)
@@ -206,9 +206,9 @@ function Grabber () {
     const pathname = window.location.pathname
     dispatch(storePathname(pathname))
     // After error message is displayed, reset the clip amount to whatever it was before if a valid selection is made.
-    // if (document.querySelector("#inputClipAmount").selectedIndex === 1) {
-    //   document.querySelector("#inputClipAmount").value = clipAmount
-    // }
+    if (document.querySelector("#inputClipAmount").selectedIndex === 1) {
+      document.querySelector("#inputClipAmount").value = clipAmount
+    }
     getClip()
     console.log("END useEffect")
     console.log("[------------------------------------------------------------>")
@@ -244,8 +244,8 @@ function Grabber () {
   const fetchClips = async () => {
     console.log("<------------------------------------------------------------]")
     console.log("START fetchClips")
-    // const URL = 'https://developers.medal.tv/v1/latest?userId=' + userID + '&categoryId=' + categoryID + '&limit=' + clipAmount + '&autoplay=0&muted=0&cta=0'
-    const URL = 'https://developers.medal.tv/v1/latest?userId=' + "261997" + '&categoryId=' + categoryID + '&limit=' + "10" + '&autoplay=0&muted=0&cta=0'
+    const URL = 'https://developers.medal.tv/v1/latest?userId=' + userID + '&categoryId=' + categoryID + '&limit=' + clipAmount + '&autoplay=0&muted=0&cta=0'
+    console.log(URL)
     const res = await fetch(URL, options)
     const data = await res.json()
     const retrievedClipObjects = []
@@ -349,7 +349,7 @@ function Grabber () {
   function gameMatcher(e) {
     const gameName = e
     if (gameName === "None") {
-      setCategoryID(null)
+      setCategoryID(0)
     }
     if (gameName === "Custom") {
       var customGameName = prompt("Enter the name of the game you want to grab. Please format the name properly:")
@@ -393,20 +393,8 @@ function Grabber () {
     // Use this to check for an alternative game name if nothing was found initially, replace the tempCategoryArray if found.
       tempCategoryArray = allCategoriesObj.filter(e => e.alternativeName === gameName)
     }
-    // If still nothing was found, assume the selection is "Latest clips / all games!" and reset the categoryID to null so all games can be viewed.
-    if (tempCategoryArray.length === 0 && gameName === "Latest clips / all games!") {
-      setCategoryID(null)
-    } else {
-      // If still nothing was found, display the invalidOption input message.
-      if (tempCategoryArray.length === 0 && gameName !== "Latest clips / all games!") {
-        document.querySelector("#inputGameName").selectedIndex = 2
-      } else {
-        // If all other edge-cases have been exhausted, rightfully set the categoryID that has been found from the game string 
-        // which has either been selected or entered by the user.
-        const categoryID = tempCategoryArray[0].categoryId
-        setCategoryID(categoryID)
-      }
-    }
+    const categoryID = tempCategoryArray[0].categoryId
+    setCategoryID(categoryID)
   }
   
   return (
@@ -428,7 +416,7 @@ function Grabber () {
             <Instruction>Choose clip amount:</Instruction>
             <InputSelect onChange={e => setClipAmount(e.target.value)} type="select" id="inputClipAmount">
               <InputOption value="" defaultValue hidden>How many clips?</InputOption>
-              <InputOption value="" hidden>Oops! This user either doesn't exist or own this number of clips.</InputOption>
+              <InputOption value="" hidden>Oops! This user either doesn't exist or own this number of clips. Note: must specify game for specific user.</InputOption>
               <InputOption>1</InputOption>
               <InputOption>2</InputOption>
               <InputOption>3</InputOption>
@@ -444,7 +432,7 @@ function Grabber () {
             </InputSelect>
             <Instruction>Choose game:</Instruction>
             <InputSelect onChange={e => gameMatcher(e.target.value)} type="text" id="inputGameName">
-              <InputOption defaultValue>Latest clips / all games!</InputOption>
+              <InputOption defaultValue hidden>Choose a game</InputOption>
               <InputOption value="" hidden id="customOption"></InputOption> 
               {/*^ Used as a dummy which can be named as any valid game that isn't initally in the list. */}
               <InputOption value="" hidden>Invalid game name! Please try again.</InputOption>
