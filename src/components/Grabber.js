@@ -164,11 +164,11 @@ function Grabber () {
   const [_, setClipObjects] = useState([])
   const [clipPlayers, setClipPlayers] = useState ([])
   const [loading, setLoading] = useState(false)
-  const [clipAmount, setClipAmount] = useState(0)
-  const [userID, setUserID] = useState()
+  const [clipAmount, setClipAmount] = useState(1)
+  const [userID, setUserID] = useState(0)
   const [inputID, setInputID] = useState()
   const [inputPlaceholder, setInputPlaceholder] = useState("e.g. 261997")
-  const [categoryID, setCategoryID] = useState(null)
+  const [categoryID, setCategoryID] = useState(0)
   const [toggle, setToggle] = useState(true)
   const [allCategoriesObj, setAllCategoriesObj] = useState(null)
   const dispatch = useDispatch()
@@ -206,9 +206,9 @@ function Grabber () {
     const pathname = window.location.pathname
     dispatch(storePathname(pathname))
     // After error message is displayed, reset the clip amount to whatever it was before if a valid selection is made.
-    if (document.querySelector("#inputClipAmount").selectedIndex === 1) {
-      document.querySelector("#inputClipAmount").value = clipAmount
-    }
+    // if (document.querySelector("#inputClipAmount").selectedIndex === 1) {
+    //   document.querySelector("#inputClipAmount").value = clipAmount
+    // }
     getClip()
     console.log("END useEffect")
     console.log("[------------------------------------------------------------>")
@@ -244,7 +244,8 @@ function Grabber () {
   const fetchClips = async () => {
     console.log("<------------------------------------------------------------]")
     console.log("START fetchClips")
-    const URL = 'https://developers.medal.tv/v1/latest?categoryId=' + categoryID + '&userId=' + userID + '&limit=' + clipAmount + '&autoplay=0&muted=0&cta=0'
+    // const URL = 'https://developers.medal.tv/v1/latest?userId=' + userID + '&categoryId=' + categoryID + '&limit=' + clipAmount + '&autoplay=0&muted=0&cta=0'
+    const URL = 'https://developers.medal.tv/v1/latest?userId=' + "261997" + '&categoryId=' + categoryID + '&limit=' + "10" + '&autoplay=0&muted=0&cta=0'
     const res = await fetch(URL, options)
     const data = await res.json()
     const retrievedClipObjects = []
@@ -286,7 +287,7 @@ function Grabber () {
         console.log(tempClipPlayersArray[i])
       })
     } catch {
-      document.querySelector("#inputClipAmount").selectedIndex = 1
+      // document.querySelector("#inputClipAmount").selectedIndex = 1
       // If clipObjects is null for some reason, catch the error and display the error message <InputSelect>
     }
     
