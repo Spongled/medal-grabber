@@ -1,4 +1,4 @@
-# [Medal Grabber](https://medal-grabber.web.app/)
+# [Medal Grabber](https://medal-grabber.vercel.app)
 
 A customisable clip grabber and downloader for popular social clipping app: https://medal.tv
 
