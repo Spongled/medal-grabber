@@ -1,4 +1,4 @@
-## Outdated
+## No Longer Maintained
 
 Due to changes to the Medal API, this tool is now outdated - lacking prior features. Medal Grabber has been updated to function with the API changes, but may be unreliable.
 
