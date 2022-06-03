@@ -9,7 +9,7 @@ const BtnMedal = styled.button`
   align-items: center;
   height: 30px;
   width: 30px;
-  font-family: "Gotham", sans-serif;
+  font-family: "DM Sans", sans-serif;
   font-weight: 500;
   font-size: 1.1rem;
   border-radius: 50%;
