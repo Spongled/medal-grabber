@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import ClipPlayer from './ClipPlayer.js'
 import BtnSet from './BtnSet.js'
 import BtnClear from './BtnClear.js'
-import Header from './Header.js'
+import Hero from './Hero.js'
 import API_KEY from '../API_KEY.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronUp, faCog } from '@fortawesome/free-solid-svg-icons'
@@ -21,7 +21,7 @@ const OptionsContainer = styled.div`
   margin: auto;
 `
 const InputSelect = styled.select`
-  font-family: "DM Sans", sans-serif;
+  font-family: "Gotham", sans-serif;
   font-size: 0.75rem;
   border-radius: 0.4285rem;
   border: 1px solid #5F5F66;
@@ -43,12 +43,12 @@ const InputSelect = styled.select`
   }
 `
 const InputOption = styled.option`
-  font-family: "DM Sans", sans-serif;
+  font-family: "Gotham", sans-serif;
   font-size: 0.75rem;
   color: rgba(0, 0, 0, 0.8);
 `
 const InputUserID = styled.input`
-  font-family: "DM Sans", sans-serif;
+  font-family: "Gotham", sans-serif;
   font-size: 0.75rem;
   width: 100%;
   height: 18px;
